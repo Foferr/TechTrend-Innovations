@@ -30,3 +30,5 @@ anticipando cambios y respondiendo con rapidez y eficacia.
 
 Cliente primero: Priorizaremos las necedidades de nuestros clientes
 trabajando arduamente para asegurar que nuestras soluciones les proporciones el maximo valor.
+![image](https://github.com/Foferr/TechTrend-Innovations/assets/117334241/2a5a6be5-7acd-404d-b041-695fd6ee8502)
+
