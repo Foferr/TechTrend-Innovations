@@ -33,8 +33,9 @@ trabajando arduamente para asegurar que nuestras soluciones les proporciones el 
 
 
 
+![Logotipo para peluquero profesional belleza estética cuidados del cabello con nombre y siglas minimalista elegante](https://github.com/Foferr/TechTrend-Innovations/assets/117334241/7cf5f74b-d9d3-4d96-8641-40f6b5ed5d90)
 
 
 
-![image](https://github.com/Foferr/TechTrend-Innovations/assets/117334241/2a5a6be5-7acd-404d-b041-695fd6ee8502)
+
 
