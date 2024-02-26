@@ -2,13 +2,13 @@
 Una oficina enfocada en el desarrollo de software y soluciones
 tecnológicas e innovadoras.
 
-Misión
+Misión:
 Ser líderes en el desarrollo tecnológico proporcionando soluciones de software
 innovadoras que sean capaces de resolver desafíos complejos de los clientes
 Buscando transformar y optimizar la interacción con la tecnología por medio de productos
 eficaces y accesibles.
 
-Visión
+Visión:
 Tech Trends busca un reconocimiento como lideres
 en innovación tecnológica estableciendo nuevos estándares para las soluciones digitales.
 Buscamos ser la elección de confianza de cualquier empresa, generando una nuevo éxito en esta era digital.
