@@ -1,4 +1,4 @@
-# TechTrend-Innovations
+# Tech Trends
 Una oficina enfocada en el desarrollo de software y soluciones
 tecnologicas e innovadoras.
 
@@ -34,6 +34,8 @@ trabajando arduamente para asegurar que nuestras soluciones les proporciones el 
 
 
 ![Logotipo para peluquero profesional belleza estética cuidados del cabello con nombre y siglas minimalista elegante](https://github.com/Foferr/TechTrend-Innovations/assets/117334241/7cf5f74b-d9d3-4d96-8641-40f6b5ed5d90)
+![TechTrendLogoJPG](https://github.com/Foferr/TechTrend-Innovations/assets/88672243/651ab1cf-5ba5-4c04-b998-8694cb04c266)
+
 
 
 
