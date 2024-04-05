@@ -1,9 +1,12 @@
 import Link from "next/link";
 export default function Home() {
   return (
-      <div className="relative flex flex-col p-32 items-end justify-center min-h-screen overflow-hidden">
-        <div className="w-full p-6 bg-neoris-grey-100 rounded-md shadow-md lg:max-w-xl">
-          <h1 className="text-3xl font-bold text-center ttext-neoris-white-100">Inicio de sesión</h1>
+      <div className="relative flex flex-row space-x-52 bg-gradient-to-t from-neoris-grey-100 to-neoris-white-100 pr-5 items-end justify-end min-h-screen overflow-hidden">
+        <img className="absolute -top-10 right-36 w-full" src="https://svgshare.com/i/1542.svg" alt=""/>
+        <div className="w-full p-6 z-0 mb-auto mt-auto bg-neoris-grey-100 rounded-md shadow-md lg:max-w-xl">
+          <img className="w-72 min-w-px-70 ml-auto mr-auto" src="https://svgshare.com/i/1541.svg"
+               alt=""/>
+          <h1 className="text-3xl mt-6 text-center text-neoris-white-100">Inicio de sesión</h1>
           <form className="mt-6">
             <div className="mb-4">
               <label
@@ -31,7 +34,7 @@ export default function Home() {
             </div>
             <div className="mt-2">
               <button className="w-full px-4 py-2 tracking-wide bg-neoris-white-100 text-neoris-grey-100 rounded-md hover:bg-neoris-white-50 active:bg-neoris-grey-50 active:text-neoris-white-100">
-                Iniciar sesión
+                <div>Iniciar sesión</div>
               </button>
             </div>
           </form>
@@ -75,7 +78,6 @@ export default function Home() {
               </a>
             </div>
           </div>
-
         </div>
       </div>
   );

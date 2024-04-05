@@ -19,6 +19,8 @@ const config: Config = {
           100: 'rgb(217,217,214)'
         },
       },
+      backgroundImage: {
+      },
     },
   },
   plugins: [],
