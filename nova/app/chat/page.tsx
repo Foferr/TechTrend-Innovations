@@ -13,8 +13,15 @@ export default function Chat() {
                     width={100}
                     height={100}
                 />           
-                <h1>Noticias</h1>
-                <img src="/images/threelines.jpg" alt="" className="w-10"/>
+                <h1 style={{fontSize: '4em'}}>NOTICIAS</h1>
+                <button>
+                <Image 
+                    src="/images/threelines.jpg"
+                    alt=""
+                    width={100}
+                    height={100}
+                />
+                </button>
             </div>
         </body>
     );
