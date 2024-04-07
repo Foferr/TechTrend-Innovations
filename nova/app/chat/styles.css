@@ -1,6 +1,67 @@
+:root{
+    --upperDivImgSize: 5vw;
+}
+
 .upperDiv{
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
+    
+}
+
+.upperDiv img{
+    height: var(--upperDivImgSize);
+}
+
+.upperDiv h1{
+    font-size: var(--upperDivImgSize)
+}
+
+.upperDivOverlay{
+    padding: 10px;
+    display: flex;
+}
+
+.upperDivOverlay img{
+    height: var(--upperDivImgSize);
+}
+
+.upperDivOverlay h1{
+    font-size: var(--upperDivImgSize)
+}
+
+.overlay {
+    position: fixed;
+    width: 33%;
+    height: 100%;
+    background-color: gray;
+    top: 0;
+    right: 0;
+}
+
+.overlay.open {
+    animation: slideInFromRight 0.3s ease-in-out forwards;
+}
+
+.overlay.close {
+    animation: slideOutToRight 0.3s ease-in-out forwards;
+}
+
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutToRight {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100%);
+    }
 }
