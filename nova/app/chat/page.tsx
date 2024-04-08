@@ -1,10 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import "./styles.css";
 import "../globals.css";
-import {Button} from "@nextui-org/button";
 import React, { useState } from 'react';
 import { convertToSpeech } from './txt2sp';
 
