@@ -83,13 +83,24 @@ export default function Chat() {
                     )}
 
                     <div className="overlayContent">
-                        <p id="novaText">Hola, soy Nova en que lo puedo ayudar?</p>
-                        <button onClick={() => convertToSpeech(document.getElementById("novaText"))}>
-                            <img
-                                src="/images/speaker.png"
-                                alt=""
-                            />
-                        </button>
+                        <div className="overlayContent Nova">
+                            <p id="novaText">Hola, soy Nova en que lo puedo ayudar?</p>
+                            <button onClick={() => convertToSpeech(document.getElementById("novaText"))}>
+                                <img
+                                    src="/images/speaker.png"
+                                    alt=""
+                                />
+                            </button>
+                        </div>
+                        <div className="overlayContent User">
+                            <p id="userText">Hola, quisiera saber las noticias del día</p>
+                            <button onClick={() => convertToSpeech(document.getElementById("userText"))}>
+                                <img
+                                    src="/images/speaker.png"
+                                    alt=""
+                                />
+                            </button>
+                        </div>
                     </div>
 
                     <div className="overlayFooter">
