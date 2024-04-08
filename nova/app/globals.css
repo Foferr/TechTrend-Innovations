@@ -27,7 +27,7 @@
       rgb(var(--background-start-rgb));
     background-size: cover;
     background-repeat: no-repeat;
-    height: 100vh; /* Ensure the body covers the entire viewport height */
+    background-attachment: fixed;
     margin: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
   }
@@ -99,6 +99,6 @@
 
 }
 
-div, h1, h2, h3, h4, h5, h6, p, span {
+div h1 h2 h3 h4 h5 h6 p span {
   font-family: museo_sans500, sans-serif;
 }
