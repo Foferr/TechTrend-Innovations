@@ -1,0 +1,85 @@
+.upperDiv{
+    display: flex;
+    padding:10px;
+}
+
+.upperDiv img{
+    margin: auto;
+    height:5vw;
+}
+
+.profileDiv {
+    position: relative;
+}
+
+.accountIcon {
+    position: relative;
+    z-index: 1;
+    margin: auto;
+    width: 12%;
+}
+
+.cameraIcon {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    z-index: 2; 
+    height: 40%;
+}
+
+.forminnerDiv{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 80%;
+}
+
+.forminnerDiv input, .forminnerDiv select{
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+}
+
+
+.forminnerDiv select{
+    margin-bottom: 5%;
+}
+
+.forminnerDiv h1{
+    margin-left: 3%;
+    margin-top: 1%;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.buttonsDiv{
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    width: 30%;
+}
+
+.buttonClass{
+    margin: auto;
+    padding: 5%;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 10%;
+    width:40%;
+    box-shadow: 0px 8px 8px 0px rgba(0,0,0,0.2);
+}
+
+.buttonClass.Conf{
+    background-color: #c0c0c0;
+    color: black;
+}
+
+.buttonClass.Del{
+    background-color: #ef5f5f;
+}
