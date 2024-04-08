@@ -9,9 +9,25 @@ import React, { useState } from 'react';
 
 export default function Perfil() {
     
+    const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+    const [isClosing, setIsClosing] = useState(false);
+    
+    const handleOpenOverlay = () => {
+        setIsOverlayOpen(true);
+        setIsClosing(false);
+    };
+
+    const handleCloseOverlay = () => {
+        setIsClosing(true);
+        setTimeout(() => {
+            setIsOverlayOpen(false);
+            setIsClosing(false);
+        }, 300);
+    };
 
     return (
         <body>
+            <div className="allDiv" onClick={isOverlayOpen ? handleCloseOverlay : handleOpenOverlay}>
             <div className="upperDiv">
                 <Link href="/chat">
                     <img 
@@ -53,15 +69,39 @@ export default function Perfil() {
                     </select>
                 </div>
 
+
                 <div className="buttonsDiv">
-                    <Button className="buttonClass Conf">
-                        Confirmar
-                    </Button>
-                    <Button className="buttonClass Del">
+                    <Link href="/chat" className="buttonClass Conf">
+                        <Button>
+                            Confirmar
+                        </Button>
+                    </Link>
+
+                    
+                    <Button className="buttonClass Del" onClick={isOverlayOpen ? handleCloseOverlay : handleOpenOverlay}>
                         Borrar
                     </Button>
-                    </div>
+                </div>
             </div>
+            </div>
+                {isOverlayOpen && (
+                    <div className={`deleteMessage ${isOverlayOpen && !isClosing ? 'open' : 'close'}`}>
+                        <h1>¿Estás seguro que quieres eliminar tu cuenta?</h1>
+
+                        <div className="buttonsDiv2">
+                            <Link href="/chat" className="buttonClass Del">
+                                <Button>
+                                    Confirmar
+                                </Button>
+                            </Link>
+
+                            
+                            <Button className="buttonClass Conf" onClick={isOverlayOpen ? handleCloseOverlay : handleOpenOverlay}>
+                                Cancelar
+                            </Button>
+                        </div>
+                    </div>
+                )}
 
         </body>
     );
