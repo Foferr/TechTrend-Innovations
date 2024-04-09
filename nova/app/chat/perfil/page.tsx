@@ -89,7 +89,7 @@ export default function Perfil() {
                         <h1>¿Estás seguro que quieres eliminar tu cuenta?</h1>
 
                         <div className="buttonsDiv2">
-                            <Link href="/chat" className="buttonClass Del">
+                            <Link href="/" className="buttonClass Del">
                                 <Button>
                                     Confirmar
                                 </Button>
