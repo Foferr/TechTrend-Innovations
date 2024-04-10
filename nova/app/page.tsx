@@ -2,9 +2,9 @@ import Link from "next/link";
 export default function Home() {
   return (
       <div className="relative flex flex-row space-x-52 bg-gradient-to-t from-neoris-grey-100 to-neoris-white-100 pr-5 items-end justify-end min-h-screen overflow-hidden">
-        <img className="absolute -top-10 right-36 w-full" src="https://svgshare.com/i/1542.svg" alt=""/>
+        <img className="absolute -top-80 right-60 w-full" src="/images/Pattern%20full%20light.svg" alt=""/>
         <div className="w-full p-6 z-0 mb-auto mt-auto bg-neoris-grey-100 rounded-md shadow-md lg:max-w-xl">
-          <img className="w-72 min-w-px-70 ml-auto mr-auto" src="https://svgshare.com/i/1541.svg"
+          <img className="w-72 min-w-px-70 ml-auto mr-auto" src="/images/NEORIS%20logo%20light%20(vector).svg"
                alt=""/>
           <h1 className="text-3xl mt-6 text-center text-neoris-white-100">Inicio de sesión</h1>
           <form className="mt-6">
@@ -44,7 +44,7 @@ export default function Home() {
           <p className="mt-4 text-sm text-center text-neoris-white-100">
             ¿No tienes cuenta?{" "}
             <Link
-                href="/signup"
+                href="/registro"
                 className="font-medium text-blue-600 hover:underline"
             >
               Registrate
