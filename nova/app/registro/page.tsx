@@ -9,18 +9,6 @@ export default function Register() {
                 <h1 className="text-3xl mt-6 text-center text-neoris-white-100">Registro</h1>
                     <form className="mt-6">
                         <div className="flex space-x-3">
-                                <div className="mb-4">
-                                    <label
-                                        htmlFor="user"
-                                        className="block text-sm font-semibold text-neoris-white-100"
-                                    >
-                                        Usuario
-                                    </label>
-                                    <input
-                                        type="text"
-                                        className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                                    />
-                                </div>
                                 <div className="mb-2">
                                     <label
                                         htmlFor="email"
@@ -33,6 +21,18 @@ export default function Register() {
                                         className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                                     />
                                 </div>
+                            <div className="mb-4">
+                                <label
+                                    htmlFor="birthD"
+                                    className="block text-sm font-semibold text-neoris-white-100"
+                                >
+                                    Fecha de nacimiento
+                                </label>
+                                <input
+                                    type="date"
+                                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                                />
+                            </div>
                         </div>
                         <div className="flex space-x-3">
                                 <div className="mb-2">
