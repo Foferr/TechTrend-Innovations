@@ -7,76 +7,80 @@ export default function Register() {
                 <img className="w-72 min-w-px-70 ml-auto mr-auto" src="/images/NEORIS%20logo%20light%20(vector).svg"
                      alt=""/>
                 <h1 className="text-3xl mt-6 text-center text-neoris-white-100">Registro</h1>
-                <form className="mt-6">
-                    <div className="mb-4">
-                        <label
-                            htmlFor="user"
-                            className="block text-sm font-semibold text-neoris-white-100"
-                        >
-                            Usuario
-                        </label>
-                        <input
-                            type="text"
-                            className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                        />
-                    </div>
-                    <div className="mb-2">
-                        <label
-                            htmlFor="email"
-                            className="block text-sm font-semibold text-neoris-white-100"
-                        >
-                            Correo electrónico
-                        </label>
-                        <input
-                            type="email"
-                            className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                        />
-                    </div>
-                    <div className="mb-2">
-                        <label
-                            htmlFor="password"
-                            className="block text-sm font-semibold text-neoris-white-100"
-                        >
-                            Contraseña
-                        </label>
-                        <input
-                            type="password"
-                            className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                        />
-                    </div>
-                    <div className="mb-2">
-                        <label
-                            htmlFor="password"
-                            className="block text-sm font-semibold text-neoris-white-100"
-                        >
-                            Confirmar contraseña
-                        </label>
-                        <input
-                            type="password"
-                            className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                        />
-                    </div>
-                    <div className="mb-2">
-                        <label
-                            htmlFor="lenguage"
-                            className="block text-sm font-semibold text-neoris-white-100"
-                        >
-                            Lenguaje
-                        </label>
-                        <select id="language" name="languages"
-                            className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40">
-                            <option className="block text-sm font-semibold text-neoris-grey-100" value="spanish">Español</option>
-                            <option className="block text-sm font-semibold text-neoris-grey-100" value="english">Inglés</option>
-                        </select>
-                    </div>
-                    <div className="mt-2">
-                        <Link href="/">
-                            <button className="w-full px-4 py-2 tracking-wide bg-neoris-white-100 text-neoris-grey-100 rounded-md hover:bg-neoris-white-50 active:bg-neoris-grey-50 active:text-neoris-white-100">
-                                <div>Registrar</div>
-                            </button>
-                        </Link>
-                    </div>
-                </form>
+                    <form className="mt-6">
+                        <div className="flex space-x-3">
+                                <div className="mb-2">
+                                    <label
+                                        htmlFor="email"
+                                        className="block text-sm font-semibold text-neoris-white-100"
+                                    >
+                                        Correo electrónico
+                                    </label>
+                                    <input
+                                        type="email"
+                                        className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                                    />
+                                </div>
+                            <div className="mb-4">
+                                <label
+                                    htmlFor="birthD"
+                                    className="block text-sm font-semibold text-neoris-white-100"
+                                >
+                                    Fecha de nacimiento
+                                </label>
+                                <input
+                                    type="date"
+                                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                                />
+                            </div>
+                        </div>
+                        <div className="flex space-x-3">
+                                <div className="mb-2">
+                                    <label
+                                        htmlFor="password"
+                                        className="block text-sm font-semibold text-neoris-white-100"
+                                    >
+                                        Contraseña
+                                    </label>
+                                    <input
+                                        type="password"
+                                        className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                                    />
+                                </div>
+                                <div className="mb-2">
+                                    <label
+                                        htmlFor="password"
+                                        className="block text-sm font-semibold text-neoris-white-100"
+                                    >
+                                        Confirmar contraseña
+                                    </label>
+                                    <input
+                                        type="password"
+                                        className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                                    />
+                                </div>
+                        </div>
+                        <div className="mb-2">
+                            <label
+                                htmlFor="lenguage"
+                                className="block text-sm font-semibold text-neoris-white-100"
+                            >
+                                Lenguaje
+                            </label>
+                            <select id="language" name="languages"
+                                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40">
+                                <option className="block text-sm font-semibold text-neoris-grey-100" value="spanish">Español</option>
+                                <option className="block text-sm font-semibold text-neoris-grey-100" value="english">Inglés</option>
+                            </select>
+                        </div>
+                        <div className="mt-2">
+                            <Link href="/">
+                                <button className="w-full px-4 py-2 tracking-wide bg-neoris-white-100 text-neoris-grey-100 rounded-md hover:bg-neoris-white-50 active:bg-neoris-grey-50 active:text-neoris-white-100">
+                                    <div>Registrar</div>
+                                </button>
+                            </Link>
+                        </div>
+                    </form>
 
                 <p className="mt-4 text-sm text-center text-neoris-white-100">
                     ¿Tienes cuenta?{" "}
