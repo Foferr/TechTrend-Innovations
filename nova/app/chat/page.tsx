@@ -52,7 +52,7 @@ export default function Chat() {
                     />
                 </button>
             </div>
-            <div  onClick={handleCloseOverlay} style = {{height: '100%'}}>
+            <div onClick={() => {handleCloseOverlay(); handleCloseOptions();}} style={{height: '100vh'}}>
                 <h1>Chat</h1>
             </div>
             {isOverlayOpen && (
@@ -113,6 +113,7 @@ export default function Chat() {
                         />
                         </div>
                 </div>
+                
                 )}
         </body>
     );
