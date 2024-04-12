@@ -35,6 +35,41 @@ export default function Chat() {
         setIsOptionsOpen(false);
     };
 
+    async function postData<T>(url: string, data: T): Promise<Response> {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', // Adjust content type if necessary
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (!response.ok) {
+            throw new Error(`API request failed with status ${response.status}`);
+        }
+
+        return response;
+    }
+
+
+    const user = {
+        inputs : "<s>[INST] What is Neoris? [/INST]</s>",
+    };
+
+    const apiUrl = 'https://fs73t61itorn1e6w.us-east-1.aws.endpoints.huggingface.cloud';
+
+    postData(apiUrl, user)
+        .then(async (response) => {
+            const data = await response.json();
+
+            console.log('API response:', data);
+            // @ts-ignore
+            document.getElementById("novaText").textContent = JSON.stringify(data)
+        })
+        .catch((error) => {
+            console.error('API request error:', error);
+        });
+
     return (
         <body>
             <div className="upperDiv">
@@ -82,7 +117,7 @@ export default function Chat() {
 
                     <div className="overlayContent">
                         <div className="overlayContent Nova">
-                            <p id="novaText">Hola, soy Nova en que lo puedo ayudar?</p>
+                            <div id="novaText"></div>
                             <button onClick={() => convertToSpeech(document.getElementById("novaText"))}>
                                 <img
                                     src="/images/speaker.png"
