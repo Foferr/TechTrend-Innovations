@@ -29,7 +29,7 @@ Cliente primero: Priorizaremos las necesidades de nuestros clientes trabajando a
 ![TechTrendLogoJPG](https://github.com/Foferr/TechTrend-Innovations/assets/88672243/651ab1cf-5ba5-4c04-b998-8694cb04c266)
 
 
-
+alex
 
 
 
