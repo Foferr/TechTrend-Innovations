@@ -26,6 +26,7 @@ public class UserController {
     @Path("/registerUser")
     public Response registerUser(User user) {
         try {
+            // Assuming userService.createUser fetches the user from the database first
             userService.createUser(user);
 
             return Response.status(Response.Status.CREATED)
@@ -36,8 +37,8 @@ public class UserController {
                     .entity("{\"error\": \"" + e.getMessage() + "\"}")
                     .build();
         }
-
     }
+
 
 //    @DELETE
 //    @Path("/{id}")
