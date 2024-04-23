@@ -26,16 +26,10 @@ public class MessagesController {
     @Path("/postMessage")
     public Response postMessage(Messages message) {
         try {
-            Messages newMessage = new Messages();
-            newMessage.chatHistoryId = message.chatHistoryId;
-            newMessage.SenderType = message.SenderType;
-            newMessage.MessageContent = message.MessageContent;
-            newMessage.CreatedAt = message.CreatedAt;
-
-            messagesService.postMessage(newMessage);
+            messagesService.postMessage(message);
 
             return Response.status(Response.Status.CREATED)
-                    .entity("{\"message\": \"Message posted successfully\"}")
+                    .entity("{\"message\": \"Message posted\"}")
                     .build();
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)

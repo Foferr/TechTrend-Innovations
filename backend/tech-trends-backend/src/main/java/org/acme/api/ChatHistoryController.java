@@ -22,4 +22,20 @@ public class ChatHistoryController {
         return chathistoryService.getAllChatHistory();
     }
 
+    @POST
+    @Path("/postChatHistory")
+    public Response postChatHistory(ChatHistory chatHistory) {
+        try {
+            chathistoryService.postChatHistory(chatHistory);
+
+            return Response.status(Response.Status.CREATED)
+                    .entity("{\"message\": \"Chat created\"}")
+                    .build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("{\"error\": \"" + e.getMessage() + "\"}")
+                    .build();
+        }
+    }
+
 }

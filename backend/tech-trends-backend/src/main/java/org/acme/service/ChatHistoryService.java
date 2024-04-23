@@ -17,4 +17,9 @@ public class ChatHistoryService {
     public List<ChatHistory> getAllChatHistory() {
         return chathistoryRepository.listAll();
     }
+
+    @Transactional
+    public void postChatHistory(ChatHistory chathistory) {
+        chathistoryRepository.persist(chathistory);
+    }
 }

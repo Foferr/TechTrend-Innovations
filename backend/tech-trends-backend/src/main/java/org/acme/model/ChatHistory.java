@@ -17,10 +17,10 @@ public class ChatHistory extends PanacheEntity {
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
-    public LocalDateTime CreatedAt;
+    public LocalDateTime createdAt;
 
     @CreationTimestamp
     @Column(name = "updated_at", nullable = false)
-    public LocalDateTime UpdatedAt;
+    public LocalDateTime updatedAt;
 
 }
