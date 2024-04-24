@@ -24,6 +24,18 @@ public class MessagesService {
     }
 
     public List<Messages> getMessagesByUserId(String userId) {
-        return messagesRepository.find("userId", userId).list();
+        return messagesRepository.find("chatHistory.user.id", userId).list();
+    }
+
+    public List<Messages> getMessagesByUserIdChatId(String userId, String chatId) {
+        return messagesRepository.find("chatHistory.user.id = ?1 and chatHistory.id = ?2", userId, chatId).list();
+    }
+
+    public List<Messages> getMessagesByChatId(String chatId) {
+        return messagesRepository.find("chatHistory.id", chatId).list();
+    }
+
+    public List<Messages> getMessagesBySenderType(String SenderType) {
+        return messagesRepository.find("SenderType", SenderType).list();
     }
 }

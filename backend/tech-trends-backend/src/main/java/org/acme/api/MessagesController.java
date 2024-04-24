@@ -38,4 +38,29 @@ public class MessagesController {
         }
     }
 
+    @GET
+    @Path("/getAllChatsById/{userId}")
+    public List<Messages> getMessagesByUserId(@PathParam("userId") String userId) {
+        return messagesService.getMessagesByUserId(userId);
+    }
+
+    @GET
+    @Path("/getChatByUserIdChatId/{userId}/{chatId}")
+    public List<Messages> getMessagesByUserIdChatId(@PathParam("userId") String userId, @PathParam("chatId") String chatId) {
+        return messagesService.getMessagesByUserIdChatId(userId, chatId);
+    }
+
+    @GET
+    @Path("/getChatByChatId/{chatId}")
+    public List<Messages> getMessagesByChatId(@PathParam("chatId") String chatId) {
+        return messagesService.getMessagesByChatId(chatId);
+    }
+
+    @GET
+    @Path("/getChatBySenderType/{SenderType}")
+    public List<Messages> getMessagesBySenderType(@PathParam("SenderType") String SenderType) {
+        return messagesService.getMessagesBySenderType(SenderType);
+    }
+
+
 }
