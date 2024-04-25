@@ -8,12 +8,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "CompanyNews")
+@Table(name = "companynews")
 public class CompanyNews extends PanacheEntity {
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "companynews_id", referencedColumnName = "id", nullable = false)
-    public Long newsId;
+
+
+    @Column(name = "id", nullable = false , insertable=false, updatable=false)
+    public Long companynews_id;
+
 
     @Column(name = "title", nullable = false)
     public String title;
@@ -21,7 +23,8 @@ public class CompanyNews extends PanacheEntity {
     @Column(name = "news_content", nullable = false)
     public String news_content;
 
-    @Column(name = "created_by_admin_id", nullable = false)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "created_by_admin_id", referencedColumnName = "id", nullable = false)
     public User user;
 
     @Column(name = "status", nullable = false)
