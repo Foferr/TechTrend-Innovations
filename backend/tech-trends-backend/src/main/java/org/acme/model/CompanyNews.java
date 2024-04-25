@@ -34,5 +34,10 @@ public class CompanyNews extends PanacheEntity {
     @Column(name = "created_at", nullable = false, updatable = false)
     public LocalDateTime createdAt = LocalDateTime.now();
 
-
+    public void setUser(User user) {
+        this.user = user;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }
