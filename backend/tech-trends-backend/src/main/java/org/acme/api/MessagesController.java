@@ -1,5 +1,7 @@
 package org.acme.api;
 
+
+
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -24,9 +26,9 @@ public class MessagesController {
 
     @POST
     @Path("/postMessage")
-    public Response postMessage(Messages message) {
+    public Response postMessage(Messages messages) {
         try {
-            messagesService.postMessage(message);
+            messagesService.postMessage(messages);
 
             return Response.status(Response.Status.CREATED)
                     .entity("{\"message\": \"Message posted\"}")
@@ -61,6 +63,4 @@ public class MessagesController {
     public List<Messages> getMessagesBySenderType(@PathParam("SenderType") String SenderType) {
         return messagesService.getMessagesBySenderType(SenderType);
     }
-
-
 }
