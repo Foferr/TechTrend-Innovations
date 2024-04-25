@@ -6,6 +6,16 @@ import "./styles.css";
 import "../../globals.css";
 import {Button} from "@nextui-org/button";
 import React, { useState } from 'react';
+import axios from 'axios';
+
+axios.get('http://localhost:8080/user/2')
+  .then(response => {
+    console.log(response.data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+
 
 export default function Perfil() {
     
