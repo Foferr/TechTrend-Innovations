@@ -1,5 +1,6 @@
 package org.acme.api;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -96,6 +97,7 @@ public class CompanyNewsController {
     */
     @POST
     @Path("/companyNews5/{adminId}")
+    @RolesAllowed("admin")
     public Response postInsertCompanyNews(@PathParam("adminId") Long adminId, CompanyNews createNews) {
         try {
             companyNewsService.postInsertCompanyNews(adminId, createNews);
