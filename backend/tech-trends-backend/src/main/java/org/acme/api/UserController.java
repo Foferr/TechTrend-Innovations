@@ -1,5 +1,8 @@
 package org.acme.api;
 
+import io.quarkus.security.Authenticated;
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -17,13 +20,24 @@ public class UserController {
     @Inject
     UserService userService;
 
+    // @GET
+    // @RolesAllowed({"admin", "base_user"})
+    // public List<User> getAllUsers(@HeaderParam("X-Dev-Key") String apiKey) {
+    //     return userService.getAllUsers();
+
+    // }
+
     @GET
+    @PermitAll
     public List<User> getAllUsers() {
         return userService.getAllUsers();
+
     }
+    
 
     @POST
     @Path("/registerUser")
+    @PermitAll
     public Response registerUser(User user) {
         try {
             // Assuming userService.createUser fetches the user from the database first
@@ -35,6 +49,7 @@ public class UserController {
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("{\"error\": \"" + e.getMessage() + "\"}")
+
                     .build();
         }
     }
@@ -47,6 +62,7 @@ public class UserController {
 
     @PUT
     @Path("/editUser/{id}")
+    @RolesAllowed({"admin", "base_user"})
     public Response updateUser(@PathParam("id") Long id, User user) {
         try {
             User existingUser = userService.getUserById(id);

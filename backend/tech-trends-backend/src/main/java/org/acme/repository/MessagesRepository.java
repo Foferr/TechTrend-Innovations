@@ -6,6 +6,4 @@ import org.acme.model.Messages;
 
 @ApplicationScoped
 public class MessagesRepository implements PanacheRepository<Messages> {
-    //Panache repository implements the basic functionality
-    // Custom database queries go here
 }

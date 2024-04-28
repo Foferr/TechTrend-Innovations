@@ -1,3 +1,5 @@
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -99,8 +101,24 @@
 
 }
 
-div h1 h2 h3 h4 h5 h6 p span option{
+span{
   font-family: museo_sans500, sans-serif;
+}
+
+div{
+  font-family: museo_sans500, sans-serif;
+}
+
+p{
+  font-family: museo_sans500, sans-serif;
+}
+
+h1{
+  font-family: museo_sans500, sans-serif;
+}
+
+h2{
+  font-family: "Museo Sans 700", sans-serif;
 }
 
 option{
