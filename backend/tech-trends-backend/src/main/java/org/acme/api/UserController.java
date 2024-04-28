@@ -20,12 +20,20 @@ public class UserController {
     @Inject
     UserService userService;
 
+    // @GET
+    // @RolesAllowed({"admin", "base_user"})
+    // public List<User> getAllUsers(@HeaderParam("X-Dev-Key") String apiKey) {
+    //     return userService.getAllUsers();
+
+    // }
+
     @GET
-    @RolesAllowed({"admin", "base_user"})
-    public List<User> getAllUsers(@HeaderParam("X-Dev-Key") String apiKey) {
+    @PermitAll
+    public List<User> getAllUsers() {
         return userService.getAllUsers();
 
     }
+    
 
     @POST
     @Path("/registerUser")
@@ -41,6 +49,7 @@ public class UserController {
         } catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("{\"error\": \"" + e.getMessage() + "\"}")
+
                     .build();
         }
     }
