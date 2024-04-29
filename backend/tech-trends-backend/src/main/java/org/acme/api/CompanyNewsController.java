@@ -28,7 +28,7 @@ public class CompanyNewsController {
     }
      
     @GET
-    @Path("/companyNews1/{companyNewsId}")
+    @Path("/GetCompanyNewsbyNewsID/{companyNewsId}")
     public Response getCompanyNewsByNewsId(@PathParam("companyNewsId") Long newsId) {
         try {
             List<CompanyNews> companyNews = companyNewsService.getCompanyNewsById(newsId);
@@ -47,7 +47,7 @@ public class CompanyNewsController {
     }
       
     @GET
-    @Path("/companyNews2/{adminId}")
+    @Path("/GetCompanyNewsByAdminID/{adminId}")
     public Response getCompanyNewsByAdminId(@PathParam("adminId") Long userId) {
         try {
             List<CompanyNews> companyNews = companyNewsService.getCompanyNewsByUserId(userId);
@@ -66,7 +66,7 @@ public class CompanyNewsController {
     }
     
     @GET
-    @Path("/companyNews3/{status}")
+    @Path("/GetCompanyNewsByStatus/{status}")
     public Response getCompanyNewsByStatus(@PathParam("status") String status) {
         try {
             List<CompanyNews> companyNews = companyNewsService.getCompanyNewsByStatus(status);
@@ -96,7 +96,7 @@ public class CompanyNewsController {
     }
     */
     @POST
-    @Path("/companyNews5/{adminId}")
+    @Path("/PostCompanyNewsByAdminID/{adminId}")
     @RolesAllowed("admin")
     public Response postInsertCompanyNews(@PathParam("adminId") Long adminId, CompanyNews createNews) {
         try {
@@ -115,7 +115,7 @@ public class CompanyNewsController {
 
     //Implementar endpoint /companyNews/delete/{companyNewsId}
     @DELETE
-    @Path("/companyNews6/{companyNewsId}")
+    @Path("/DeleteCompanyNewsByNewsID/{companyNewsId}")
     public Response postDeleteCompanyNews(@PathParam("companyNewsId") Long companyNewsId) {
         try {
             boolean deleted = companyNewsService.postDeleteCompanyNews(companyNewsId);
@@ -134,7 +134,7 @@ public class CompanyNewsController {
      //Implementar endpoint /companyNews/{adminId}/{companyNewsId} (PUT)
 
     @PUT
-    @Path("/companyNews7/{adminId}/{companyNewsId}")
+    @Path("/ChangeCompanyNewsByAdminID&CompanyNewsID/{adminId}/{companyNewsId}")
     public Response updateCompanyNews(@PathParam("adminId") Long adminId,@PathParam("companyNewsId") Long companyNewsId, @QueryParam("status") String status) {
         try {
             Optional<CompanyNews> updateCompanyNews = companyNewsService.updateCompanyNews(adminId,companyNewsId, status);
