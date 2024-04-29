@@ -73,7 +73,21 @@ export default function Chat() {
                     const data = await response.json();
     
                     // console.log('API response:', data);
-                    setMessages([...messages, { user: false, text: JSON.stringify(data) }]);
+                    const processedData = JSON.stringify(data)
+                        .replace(/<s>\[INST\](.*?)\[\/INST\]<\/s>/g, '')
+                        .trim()
+                        .replace(/\\n/g, '')
+                        // .replace(/{/g, '')
+                        // .replace(/}/g, '')
+                        // .replace(/\[/g, '')
+                        // .replace(/\]/g, '')
+                        // .replace("generated_text", '')
+
+                    console.log(processedData);
+
+                    setMessages([...messages, { user: false, text: processedData }]);
+                        
+
                 })
                 .catch((error) => {
                     console.error('API request error:', error);
