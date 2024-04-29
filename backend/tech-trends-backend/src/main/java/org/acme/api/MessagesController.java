@@ -59,8 +59,8 @@ public class MessagesController {
     }
 
     @GET
-    @Path("/getChatBySenderType/{SenderType}")
-    public List<Messages> getMessagesBySenderType(@PathParam("SenderType") String SenderType) {
-        return messagesService.getMessagesBySenderType(SenderType);
+    @Path("/getChatBySenderType/{senderType}")
+    public List<Messages> getMessagesBySenderType(@PathParam("senderType") String senderType) {
+        return messagesService.getMessagesBySenderType(senderType);
     }
 }

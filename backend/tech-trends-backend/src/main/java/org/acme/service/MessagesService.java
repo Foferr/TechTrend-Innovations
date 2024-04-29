@@ -38,7 +38,7 @@ public class MessagesService {
         return messagesRepository.find("chatHistory.id", chatId).list();
     }
 
-    public List<Messages> getMessagesBySenderType(String SenderType) {
-        return messagesRepository.find("SenderType", SenderType).list();
+    public List<Messages> getMessagesBySenderType(String senderType) {
+        return messagesRepository.find("senderType", senderType).list();
     }
 }
