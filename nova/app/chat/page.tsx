@@ -5,6 +5,7 @@ import "./styles.css";
 import "../globals.css";
 import React, { useState } from 'react';
 import { convertToSpeech } from './txt2sp';
+import Noticias from './noticias';
 
 export default function Chat() {
 
@@ -51,24 +52,50 @@ export default function Chat() {
         return response;
     }
 
+    const [messages, setMessages] = useState<{ user: boolean; text: string }[]>([]);
 
-    const user = {
-        inputs : "<s>[INST] What is Neoris? [/INST]</s>",
+    const handleCreateUserOverlay = () => {
+        const inputUser = (document.getElementById("inputUser") as HTMLInputElement).value;
+        if (inputUser?.trim() !== "") {
+    
+            var input = (document.getElementById("inputUser") as HTMLInputElement).value;
+            const user = {
+                inputs: "<s>[INST]" + input + "[/INST]</s>",
+            };
+    
+            setMessages([...messages, { user: true, text: inputUser }]);
+            messages.push({ user: true, text: inputUser });
+            (document.getElementById("inputUser") as HTMLInputElement).value = "";
+            const apiUrl = 'https://fs73t61itorn1e6w.us-east-1.aws.endpoints.huggingface.cloud';
+    
+            postData(apiUrl, user)
+                .then(async (response) => {
+                    const data = await response.json();
+    
+                    // console.log('API response:', data);
+                    const processedData = JSON.stringify(data)
+                        .replace(/<s>\[INST\](.*?)\[\/INST\]<\/s>/g, '')
+                        .trim()
+                        .replace(/\\n/g, '')
+                        // .replace(/{/g, '')
+                        // .replace(/}/g, '')
+                        // .replace(/\[/g, '')
+                        // .replace(/\]/g, '')
+                        // .replace("generated_text", '')
+
+                    console.log(processedData);
+
+                    setMessages([...messages, { user: false, text: processedData }]);
+                        
+
+                })
+                .catch((error) => {
+                    console.error('API request error:', error);
+                });
+    
+        }
     };
-
-    const apiUrl = 'https://fs73t61itorn1e6w.us-east-1.aws.endpoints.huggingface.cloud';
-
-    postData(apiUrl, user)
-        .then(async (response) => {
-            const data = await response.json();
-
-            console.log('API response:', data);
-            // @ts-ignore
-            document.getElementById("novaText").textContent = JSON.stringify(data)
-        })
-        .catch((error) => {
-            console.error('API request error:', error);
-        });
+    
 
     return (
         <body>
@@ -88,35 +115,7 @@ export default function Chat() {
                 </button>
             </div>
             <div onClick={() => {handleCloseOverlay(); handleCloseOptions();}} style={{height: '575px', margin: 50, backgroundColor: 'black', borderRadius: 20}}>
-                <br></br>
-                <h1 style = {{fontSize: '20px', color: 'white', marginLeft: '30px'}}> +                      -</h1>
-                <div style = {{margin: 30, backgroundColor: 'black', height: '100px', display: 'flex'}}>
-                    <img src="/images/Neoris1.png" alt="Neoris" style={{height: '100%', width: 'auto'}} />
-                    <div style = {{marginLeft: '15px'}}>
-                        <h1 style = {{color: 'white'}}> Neoris saca nuevo producto</h1>
-                        <p style = {{color: 'white'}}> Hola </p>
-                    </div>
-                </div>
-                <h1 style = {{color: 'white', textAlign: 'center'}}>
-                    __________________________________________________________________________________________________________________________________________
-                </h1>
-                <div style = {{margin: 30, backgroundColor: 'black', height: '100px', display: 'flex'}}>
-                    <img src="/images/Neoris4.png" alt="Neoris" style={{height: '100%', width: 'auto'}} />
-                    <div style = {{marginLeft: '15px'}}>
-                        <h1 style = {{color: 'white'}}> Entrevista con Neoris</h1>
-                        <p style = {{color: 'white'}}> Hola </p>
-                    </div>
-                </div>
-                <h1 style = {{color: 'white', textAlign: 'center'}}>
-                    __________________________________________________________________________________________________________________________________________
-                </h1>
-                <div style = {{margin: 30, backgroundColor: 'black', height: '100px', display: 'flex'}}>
-                    <img src="/images/Neoris3.png" alt="Neoris" style={{height: '100%', width: 'auto'}} />
-                    <div style = {{marginLeft: '15px'}}>
-                        <h1 style = {{color: 'white'}}> Visita a Neoris</h1>
-                        <p style = {{color: 'white'}}> Hola </p>
-                    </div>
-                </div>
+                <Noticias/>
             </div>
             {isOverlayOpen && (
                 <div className={`overlay ${isOverlayOpen && !isClosing ? 'open' : 'close'}`}>
@@ -144,23 +143,17 @@ export default function Chat() {
                     )}
 
                     <div className="overlayContent">
-                        <div className="overlayContent Nova">
-                            <div id="novaText"></div>
-                            <button onClick={() => convertToSpeech(document.getElementById("novaText"))}>
-                                <img
-                                    src="/images/speaker.png"
-                                    alt=""
-                                />
-                            </button>
-                        </div>
-                        <div className="overlayContent User">
-                            <p id="userText">Hola, quisiera saber las noticias del día</p>
-                            <button onClick={() => convertToSpeech(document.getElementById("userText"))}>
-                                <img
-                                    src="/images/speaker.png"
-                                    alt=""
-                                />
-                            </button>
+                        <div className="chatContent">
+                            {messages.map((message, index) => (
+                                <React.Fragment key={index}>
+                                    <div className={`overlayContent ${message.user ? "User" : "Nova"}`}>
+                                        <p>{message.text}</p>
+                                        <button onClick={() => convertToSpeech(message.text)}>
+                                            <img src="/images/speaker.png" alt="" />
+                                        </button>
+                                    </div>
+                                </React.Fragment>
+                            ))}
                         </div>
                     </div>
 
@@ -169,11 +162,13 @@ export default function Chat() {
                             src="/images/mic.png"
                             alt=""
                         />
-                        <input type="text" placeholder="Habla con Nova, nuestro acompañante de IA"/>
+                        <input type="text" placeholder="Habla con Nova, nuestro acompañante de IA" id = "inputUser"/>
+                        <button onClick={handleCreateUserOverlay}>
                         <img
                             src="/images/send.png"
                             alt=""
                         />
+                        </button>
                         </div>
                 </div>
                 

@@ -1,6 +1,6 @@
 export function convertToSpeech(userTextElement) {
-    const userText = userTextElement.innerText;
-    const utterance = new SpeechSynthesisUtterance(userText);
+    // const userText = userTextElement.innerText;
+    const utterance = new SpeechSynthesisUtterance(userTextElement);
 
     if (window.speechSynthesis.speaking) {
       window.speechSynthesis.cancel();
@@ -16,6 +16,6 @@ export function convertToSpeech(userTextElement) {
     window.speechSynthesis.speak(utterance);
   
     // Log available voices
-    speechSynthesis.getVoices().forEach((voice) => console.log(voice.name));
+    // speechSynthesis.getVoices().forEach((voice) => console.log(voice.name));
   }
   
