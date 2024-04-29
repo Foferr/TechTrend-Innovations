@@ -26,16 +26,16 @@ public class EventController {
     }
 
     @GET
-    @Path("/{userId}")
+    @Path("getEventsByUserId/{userId}")
     public List<Event> getEventsByUserId(@PathParam("userId") Long userId) { return eventService.getEventsByUserId(userId); }
 
     @GET
-    @Path("/{eventTarget}")
+    @Path("getEventsByEventTarget/{eventTarget}")
     public List<Event> getEventsByEventTarget(@PathParam("eventTarget") String eventTarget) { return eventService.getEventsByEventTarget(eventTarget); }
 
 
     @GET
-    @Path("/{eventDate}")
+    @Path("getEventsByDate/{eventDate}")
     public List<Event> getEventsByDate(@PathParam("eventDate") LocalDate eventDate) { return eventService.getEventsByEventDate(eventDate); }
 
     @POST
@@ -100,7 +100,7 @@ public class EventController {
     }
 
     @DELETE
-    @Path("/{eventLogId}")
+    @Path("deleteEvent/{eventLogId}")
     public Response deleteEventById(@PathParam("eventLogId") Long id) {
         try {
             eventService.deleteEventById(id);
