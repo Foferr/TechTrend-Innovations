@@ -68,6 +68,7 @@ export default function Chat() {
             (document.getElementById("inputUser") as HTMLInputElement).value = "";
             const apiUrl = 'https://fs73t61itorn1e6w.us-east-1.aws.endpoints.huggingface.cloud';
     
+            setMessages([...messages, { user: false, text: 'Generando respuesta...' }]);
             postData(apiUrl, user)
                 .then(async (response) => {
                     const data = await response.json();
