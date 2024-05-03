@@ -35,8 +35,17 @@ public class ChatHistory extends PanacheEntity {
         this.user = user;
     }
 
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }
+
 
 }

@@ -4,8 +4,13 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.acme.DTO.ChatHistoryDTOs.ChatHistoryPostRequestDTO;
+import org.acme.DTO.FaqDTOs.FaqUpdateRequestDTO;
 import org.acme.model.ChatHistory;
 import org.acme.service.ChatHistoryService;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +49,10 @@ public class ChatHistoryController {
 
     @POST
     @Path("/user/{userId}")
+    @RequestBody( content = @Content(
+            mediaType = "application/json",
+            schema = @Schema(implementation = ChatHistoryPostRequestDTO.class)
+    ))
     public Response postChatHistory(@PathParam("userId") Long userId, ChatHistory chatHistory) {
         try {
             chathistoryService.postChatHistory(chatHistory, userId);
