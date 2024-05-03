@@ -37,7 +37,7 @@ export default function Perfil() {
 
     return (
         <body>
-            <div className="allDiv" onClick={isOverlayOpen ? handleCloseOverlay : handleOpenOverlay}>
+            <div className="allDiv" onClick={handleCloseOverlay}>
             <div className="upperDiv">
                 <Link href="/chat">
                     <img 
