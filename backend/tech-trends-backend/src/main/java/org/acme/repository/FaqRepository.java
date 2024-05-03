@@ -9,9 +9,6 @@ import java.util.List;
 @ApplicationScoped
 public class FaqRepository implements PanacheRepository<Faq> {
 
-    public List<Faq> findbyFaqId(Long faqId) {
-        return list("id", faqId);
-    }
 
     public List<Faq> findbyAdminId(Long adminId) {
         return list("admin.id", adminId);

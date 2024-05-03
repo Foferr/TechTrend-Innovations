@@ -1,15 +1,23 @@
 package org.acme.api;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.acme.DTO.EventLogDTOs.EventLogPostDTO;
+import org.acme.DTO.EventLogDTOs.EventLogPutDTO;
+import org.acme.DTO.FaqDTOs.FaqUpdateRequestDTO;
 import org.acme.model.Event;
 import org.acme.model.User;
 import org.acme.service.EventService;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Path("/eventLog")
 @Produces(MediaType.APPLICATION_JSON)
@@ -20,25 +28,82 @@ public class EventController {
     EventService eventService;
 
     @GET
-    @Path("/getAll")
-    public List<Event> getAllEvents() {
-        return eventService.getAllEvents();
+    @PermitAll
+    public Response getAllEvents() {
+        try {
+            List<Event> events = eventService.getAllEvents();
+            if (events.isEmpty()) {
+                return Response.status(Response.Status.NOT_FOUND)
+                        .entity("{\"message\": \"No events found\"}")
+                        .build();
+            }
+            return Response.ok(events).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("{\"error\": \"" + e.getMessage() + "\"}")
+                    .build();
+        }
     }
 
     @GET
-    @Path("getEventsByUserId/{userId}")
-    public List<Event> getEventsByUserId(@PathParam("userId") Long userId) { return eventService.getEventsByUserId(userId); }
+    @Path("byUserId/{userId}")
+    public Response getEventsByUserId(@PathParam("userId") Long userId) {
+        try {
+            List<Event> events = eventService.getEventsByUserId(userId);
+            if (events.isEmpty()) {
+                return Response.status(Response.Status.NOT_FOUND)
+                        .entity("{\"message\": \"No events found with provided user id\"}")
+                        .build();
+            }
+            return Response.ok(events).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(String.format("{\"error\": \"Failed to get events: %s\"}", e.getMessage()))
+                    .build();
+        }
+    }
 
     @GET
-    @Path("getEventsByEventTarget/{eventTarget}")
-    public List<Event> getEventsByEventTarget(@PathParam("eventTarget") String eventTarget) { return eventService.getEventsByEventTarget(eventTarget); }
-
+    @Path("byTarget/{eventTarget}")
+    public Response getEventsByEventTarget(@PathParam("eventTarget") String eventTarget) {
+        try {
+            List<Event> events = eventService.getEventsByEventTarget(eventTarget);
+            if (events.isEmpty()) {
+                return Response.status(Response.Status.NOT_FOUND)
+                        .entity("{\"message\": \"No events found with provided target\"}")
+                        .build();
+            }
+            return Response.ok(events).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(String.format("{\"error\": \"Failed to get events: %s\"}", e.getMessage()))
+                    .build();
+        }
+    }
 
     @GET
-    @Path("getEventsByDate/{eventDate}")
-    public List<Event> getEventsByDate(@PathParam("eventDate") LocalDate eventDate) { return eventService.getEventsByEventDate(eventDate); }
+    @Path("byDate/{eventDate}")
+    public Response getEventsByDate(@PathParam("eventDate") LocalDate eventDate) {
+        try {
+            List<Event> events = eventService.getEventsByEventDate(eventDate);
+            if (events.isEmpty()) {
+                return Response.status(Response.Status.NOT_FOUND)
+                        .entity("{\"message\": \"No events found with provided date\"}")
+                        .build();
+            }
+            return Response.ok(events).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(String.format("{\"error\": \"Failed to get events by date: %s\"}", e.getMessage()))
+                    .build();
+        }
+    }
 
     @POST
+    @RequestBody( content = @Content(
+            mediaType = "application/json",
+            schema = @Schema(implementation = EventLogPostDTO.class)
+    ))
     public Response createEvent(Event event) {
         try {
             // Assuming userService.createUser fetches the user from the database first
@@ -71,9 +136,13 @@ public class EventController {
 
     @PUT
     @Path("/{eventLogId}")
-    public Response updateUser(@PathParam("eventLogId") Long id, Event event) {
+    @RequestBody( content = @Content(
+            mediaType = "application/json",
+            schema = @Schema(implementation = EventLogPutDTO.class)
+    ))
+    public Response updateUser(@PathParam("eventLogId") Long eventLogId, Event event) {
         try {
-            Event existingEvent = eventService.getEventById(id);
+            Event existingEvent = eventService.getEventById(eventLogId);
             if (existingEvent == null) {
                 return Response.status(Response.Status.NOT_FOUND)
                         .entity("{\"error\": \"Event not found\"}")
@@ -100,7 +169,7 @@ public class EventController {
     }
 
     @DELETE
-    @Path("deleteEvent/{eventLogId}")
+    @Path("/{eventLogId}")
     public Response deleteEventById(@PathParam("eventLogId") Long id) {
         try {
             eventService.deleteEventById(id);

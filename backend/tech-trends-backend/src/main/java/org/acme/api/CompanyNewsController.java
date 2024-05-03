@@ -6,10 +6,15 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
+import org.acme.DTO.CompanyNewsDTOs.CompanyNewsPostDTO;
+import org.acme.DTO.FaqDTOs.FaqUpdateRequestDTO;
 import org.acme.model.ChatHistory;
 import org.acme.model.CompanyNews;
 import org.acme.service.ChatHistoryService;
 import org.acme.service.CompanyNewsService;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,13 +33,13 @@ public class CompanyNewsController {
     }
      
     @GET
-    @Path("/GetCompanyNewsbyNewsID/{companyNewsId}")
-    public Response getCompanyNewsByNewsId(@PathParam("companyNewsId") Long newsId) {
+    @Path("/byId/{companyNewsId}")
+    public Response getCompanyNewsByNewsId(@PathParam("companyNewsId") Long companyNewsId) {
         try {
-            List<CompanyNews> companyNews = companyNewsService.getCompanyNewsById(newsId);
-            if(companyNews.isEmpty()) {
+            CompanyNews companyNews = companyNewsService.getCompanyNewsById(companyNewsId);
+            if(companyNews == null) {
                 return Response.status(Response.Status.NOT_FOUND)
-                        .entity("{\"message\":\"No Company News found for News ID " + newsId + "\"}")
+                        .entity("{\"message\":\"No Company News found for News ID " + companyNewsId + "\"}")
                         .build();
             }
             return Response.ok(companyNews).build();
@@ -47,7 +52,7 @@ public class CompanyNewsController {
     }
       
     @GET
-    @Path("/GetCompanyNewsByAdminID/{adminId}")
+    @Path("/byAdminId/{adminId}")
     public Response getCompanyNewsByAdminId(@PathParam("adminId") Long userId) {
         try {
             List<CompanyNews> companyNews = companyNewsService.getCompanyNewsByUserId(userId);
@@ -66,7 +71,7 @@ public class CompanyNewsController {
     }
     
     @GET
-    @Path("/GetCompanyNewsByStatus/{status}")
+    @Path("/byStatus/{status}")
     public Response getCompanyNewsByStatus(@PathParam("status") String status) {
         try {
             List<CompanyNews> companyNews = companyNewsService.getCompanyNewsByStatus(status);
@@ -96,8 +101,11 @@ public class CompanyNewsController {
     }
     */
     @POST
-    @Path("/PostCompanyNewsByAdminID/{adminId}")
-    @RolesAllowed("admin")
+    @Path("/{adminId}")
+    @RequestBody( content = @Content(
+            mediaType = "application/json",
+            schema = @Schema(implementation = CompanyNewsPostDTO.class)
+    ))
     public Response postInsertCompanyNews(@PathParam("adminId") Long adminId, CompanyNews createNews) {
         try {
             companyNewsService.postInsertCompanyNews(adminId, createNews);
@@ -115,7 +123,7 @@ public class CompanyNewsController {
 
     //Implementar endpoint /companyNews/delete/{companyNewsId}
     @DELETE
-    @Path("/DeleteCompanyNewsByNewsID/{companyNewsId}")
+    @Path("/{companyNewsId}")
     public Response postDeleteCompanyNews(@PathParam("companyNewsId") Long companyNewsId) {
         try {
             boolean deleted = companyNewsService.postDeleteCompanyNews(companyNewsId);
@@ -134,7 +142,7 @@ public class CompanyNewsController {
      //Implementar endpoint /companyNews/{adminId}/{companyNewsId} (PUT)
 
     @PUT
-    @Path("/ChangeCompanyNewsByAdminID&CompanyNewsID/{adminId}/{companyNewsId}")
+    @Path("/{adminId}/{companyNewsId}")
     public Response updateCompanyNews(@PathParam("adminId") Long adminId,@PathParam("companyNewsId") Long companyNewsId, @QueryParam("status") String status) {
         try {
             Optional<CompanyNews> updateCompanyNews = companyNewsService.updateCompanyNews(adminId,companyNewsId, status);

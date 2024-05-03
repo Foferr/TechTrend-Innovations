@@ -1,17 +1,22 @@
 package org.acme.service;
 
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.acme.model.Event;
 import org.acme.model.User;
 import org.acme.repository.EventRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @ApplicationScoped
 public class EventService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(EventService.class);
 
     @Inject
     EventRepository eventRepository;
@@ -21,8 +26,10 @@ public class EventService {
         eventRepository.persist(event);
     }
 
+    @Transactional
     public void deleteAllEvents() { eventRepository.deleteAll(); }
 
+    @Transactional
     public void deleteEventById(Long id) { eventRepository.deleteById(id); }
 
     public Event getEventById(Long eventId) {
@@ -35,7 +42,9 @@ public class EventService {
 
     public List<Event> getEventsByEventTarget(String eventTarget) { return eventRepository.getEventsByEventTarget(eventTarget); }
 
-    public List<Event> getEventsByEventDate(LocalDate eventDate) { return eventRepository.getEventsByEventDate(eventDate); }
+    public List<Event> getEventsByEventDate(LocalDate eventDate) {
+        return eventRepository.getEventsByEventDate(eventDate);
+    }
 
     @Transactional
     public void updateEvent(Event event) {

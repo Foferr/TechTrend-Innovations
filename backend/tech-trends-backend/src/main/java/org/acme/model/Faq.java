@@ -18,19 +18,15 @@ public class Faq extends PanacheEntity {
     public String answer;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "admin_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "created_by_admin_id", referencedColumnName = "id", nullable = false)
     public User admin;
+
+    @Column(name = "status", nullable = false)
+    public String status;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     public LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
-    public LocalDateTime updatedAt;
-
-    @Column(name = "status", nullable = false)
-    public String status;
 
     public void setQuestion(String question) {
         this.question = question;
@@ -40,11 +36,35 @@ public class Faq extends PanacheEntity {
         this.answer = answer;
     }
 
+    public void setAdmin(User admin) {
+        this.admin = admin;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }
 
-    public void setAdmin(User admin) {
-        this.admin = admin;
+    public String getQuestion() {
+        return question;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public User getAdmin() {
+        return admin;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 }

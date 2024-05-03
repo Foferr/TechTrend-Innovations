@@ -6,6 +6,10 @@ import "../globals.css";
 import React, { useState } from 'react';
 import { convertToSpeech } from './txt2sp';
 import Noticias from './noticias';
+import { generatePrompts } from './chat';
+
+
+
 
 export default function Chat() {
 
@@ -25,76 +29,88 @@ export default function Chat() {
         }, 300);
     };
 
-
+    
     const [isOptionsOpen, setIsOptionsOpen] = useState(false);
-
+    
     const handleOpenOptions = () => {
         setIsOptionsOpen(true);
     };
-
+    
     const handleCloseOptions = () => {
         setIsOptionsOpen(false);
     };
-
-    async function postData<T>(url: string, data: T): Promise<Response> {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json', // Adjust content type if necessary
-            },
-            body: JSON.stringify(data),
-        });
-
-        if (!response.ok) {
-            throw new Error(`API request failed with status ${response.status}`);
-        }
-
-        return response;
-    }
-
+    
     const [messages, setMessages] = useState<{ user: boolean; text: string }[]>([]);
 
-    const handleCreateUserOverlay = () => {
+    const handlePrompts = async () => {
         const inputUser = (document.getElementById("inputUser") as HTMLInputElement).value;
-        if (inputUser?.trim() !== "") {
-    
-            var input = (document.getElementById("inputUser") as HTMLInputElement).value;
-            const user = {
-                inputs: "<s>[INST]" + input + "[/INST]</s>",
-            };
-    
-            setMessages([...messages, { user: true, text: inputUser }]);
-            messages.push({ user: true, text: inputUser });
-            (document.getElementById("inputUser") as HTMLInputElement).value = "";
-            const apiUrl = 'https://fs73t61itorn1e6w.us-east-1.aws.endpoints.huggingface.cloud';
-    
-            postData(apiUrl, user)
-                .then(async (response) => {
-                    const data = await response.json();
-    
-                    // console.log('API response:', data);
-                    const processedData = JSON.stringify(data)
-                        .replace(/<s>\[INST\](.*?)\[\/INST\]<\/s>/g, '')
-                        .trim()
-                        .replace(/\\n/g, '')
-                        // .replace(/{/g, '')
-                        // .replace(/}/g, '')
-                        // .replace(/\[/g, '')
-                        // .replace(/\]/g, '')
-                        // .replace("generated_text", '')
+        (document.getElementById("inputUser") as HTMLInputElement).value = "";
+        setMessages([...messages, { user: true, text: inputUser }]);
+        messages.push({ user: true, text: inputUser });
+        const prompts = await generatePrompts(inputUser);
+        setMessages([...messages, { user: false, text: prompts }]);
+        console.log(prompts);
+    };
 
-                    console.log(processedData);
+    // async function postData<T>(url: string, data: T): Promise<Response> {
+    //     const response = await fetch(url, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json', // Adjust content type if necessary
+    //         },
+    //         body: JSON.stringify(data),
+    //     });
 
-                    setMessages([...messages, { user: false, text: processedData }]);
+    //     if (!response.ok) {
+    //         throw new Error(`API request failed with status ${response.status}`);
+    //     }
+
+    //     return response;
+    // }
+
+
+    // const handleCreateUserOverlay = () => {
+    //     const inputUser = (document.getElementById("inputUser") as HTMLInputElement).value;
+    //     if (inputUser?.trim() !== "") {
+    
+    //         var input = (document.getElementById("inputUser") as HTMLInputElement).value;
+    //         const user = {
+    //             inputs: "<s>[INST]" + input + "[/INST]</s>",
+    //         };
+    
+    //         setMessages([...messages, { user: true, text: inputUser }]);
+    //         messages.push({ user: true, text: inputUser });
+    //         (document.getElementById("inputUser") as HTMLInputElement).value = "";
+    //         const apiUrl = 'https://fs73t61itorn1e6w.us-east-1.aws.endpoints.huggingface.cloud';
+    
+    //         setMessages([...messages, { user: false, text: 'Generando respuesta...' }]);
+    //         postData(apiUrl, user)
+    //             .then(async (response) => {
+    //                 const data = await response.json();
+    
+    //                 // console.log('API response:', data);
+    //                 const processedData = JSON.stringify(data)
+    //                     .replace(/<s>\[INST\](.*?)\[\/INST\]<\/s>/g, '')
+    //                     .trim()
+    //                     .replace(/\\n/g, '')
+    //                     // .replace(/{/g, '')
+    //                     // .replace(/}/g, '')
+    //                     // .replace(/\[/g, '')
+    //                     // .replace(/\]/g, '')
+    //                     // .replace("generated_text", '')
+
+    //                 console.log(processedData);
+
+    //                 setMessages([...messages, { user: false, text: processedData }]);
                         
 
-                })
-                .catch((error) => {
-                    console.error('API request error:', error);
-                });
+    //             })
+    //             .catch((error) => {
+    //                 console.error('API request error:', error);
+    //             });
     
-        }
-    };
+    //     }
+    // };
     
 
     return (
@@ -105,8 +121,10 @@ export default function Chat() {
                     src="/Brand/Icon/Icon dark.png"
                     alt=""
                 />   
-                </Link>        
+                </Link>
+                <button>     
                 <h1>NOTICIAS</h1>
+                </button>
                 <button onClick={isOverlayOpen ? handleCloseOverlay : handleOpenOverlay}>
                     <img 
                         src="/images/threelines.png"
@@ -142,7 +160,7 @@ export default function Chat() {
                         </div>
                     )}
 
-                    <div className="overlayContent">
+                    <div className="overlayContent" id = "overlayContent">
                         <div className="chatContent">
                             {messages.map((message, index) => (
                                 <React.Fragment key={index}>
@@ -163,7 +181,7 @@ export default function Chat() {
                             alt=""
                         />
                         <input type="text" placeholder="Habla con Nova, nuestro acompañante de IA" id = "inputUser"/>
-                        <button onClick={handleCreateUserOverlay}>
+                        <button onClick={handlePrompts}>
                         <img
                             src="/images/send.png"
                             alt=""
