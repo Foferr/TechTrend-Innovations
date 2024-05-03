@@ -6,8 +6,13 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.acme.DTO.FaqDTOs.FaqUpdateRequestDTO;
+import org.acme.DTO.MessageDTOs.MessagePostDTO;
 import org.acme.model.Messages;
 import org.acme.service.MessagesService;
+import org.eclipse.microprofile.openapi.annotations.media.Content;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 
 import java.util.List;
 
@@ -26,6 +31,10 @@ public class MessagesController {
 
     @POST
     @Path("/postMessage")
+    @RequestBody( content = @Content(
+            mediaType = "application/json",
+            schema = @Schema(implementation = MessagePostDTO.class)
+    ))
     public Response postMessage(Messages messages) {
         try {
             messagesService.postMessage(messages);
@@ -41,25 +50,25 @@ public class MessagesController {
     }
 
     @GET
-    @Path("/getAllChatsById/{userId}")
+    @Path("/byUserId/{userId}")
     public List<Messages> getMessagesByUserId(@PathParam("userId") String userId) {
         return messagesService.getMessagesByUserId(userId);
     }
 
     @GET
-    @Path("/getChatByUserIdChatId/{userId}/{chatId}")
+    @Path("/byChatHistoryIdAndUserId/{userId}/{chatId}")
     public List<Messages> getMessagesByUserIdChatId(@PathParam("userId") String userId, @PathParam("chatId") String chatId) {
         return messagesService.getMessagesByUserIdChatId(userId, chatId);
     }
 
     @GET
-    @Path("/getChatByChatId/{chatId}")
+    @Path("/byChatId/{chatId}")
     public List<Messages> getMessagesByChatId(@PathParam("chatId") String chatId) {
         return messagesService.getMessagesByChatId(chatId);
     }
 
     @GET
-    @Path("/getChatBySenderType/{senderType}")
+    @Path("/bySenderType/{senderType}")
     public List<Messages> getMessagesBySenderType(@PathParam("senderType") String senderType) {
         return messagesService.getMessagesBySenderType(senderType);
     }

@@ -32,8 +32,8 @@ public class CompanyNewsService {
     }
      
     // Implementar endpoint /companyNews/{companyNewsId} (GET)
-    public List<CompanyNews> getCompanyNewsById(Long newsId) {
-        return companyNewsRepository.findbyNewsId(newsId);
+    public CompanyNews getCompanyNewsById(Long newsId) {
+        return companyNewsRepository.findById(newsId);
     }
     
     //Implementar endpoint /companyNews/{adminId} (GET)
