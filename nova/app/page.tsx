@@ -1,6 +1,8 @@
 import Link from "next/link";
 export default function Home() {
   return (
+      //TODO-CHBOT-235 - Agregar transiciones a elementos
+      //Agregar transiciones a los elementos de la pagina para que sean mas dinamicos y agradables a la vista
       <div className="relative flex flex-row space-x-52 bg-gradient-to-t from-neoris-grey-100 to-neoris-white-100 pr-5 items-end justify-end min-h-screen overflow-hidden">
         <img className="absolute -top-80 right-60 w-full" src="/images/Pattern%20full%20light.svg" alt=""/>
         <div className="w-full p-6 z-0 mb-auto mt-auto bg-neoris-grey-100 rounded-md shadow-md lg:max-w-xl">
