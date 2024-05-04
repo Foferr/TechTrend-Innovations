@@ -2,7 +2,7 @@ import Link from "next/link";
 import localFont from "next/dist/compiled/@next/font/dist/local";
 export default function Home() {
     return (
-        // CHBOT-231 - Rebranding landing page
+        // TODO-CHBOT-231 - Rebranding landing page
         // Rediseñar la landing page para ser mas dinamica y visualmente interesante
         <div
             className="relative flex flex-row bg-neoris-grey-100 items-center justify-start min-h-screen overflow-hidden">
