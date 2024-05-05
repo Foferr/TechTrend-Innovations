@@ -125,6 +125,40 @@ option{
   font-family: museo_sans500, sans-serif;
 }
 
+.logInBox{
+  animation: fadeInAnimation ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.logInBoxGraphic{
+  animation: fadeInAnimationGraphic ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInAnimationGraphic {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
 .animatedText{
   font-family: "Museo Sans 500", sans-serif;
   --bg-size: 300%;
@@ -152,3 +186,6 @@ option{
     }
   }
 }
+
+
+
