@@ -30,6 +30,6 @@ Cliente primero: Priorizaremos las necesidades de nuestros clientes trabajando a
 
 
 
+npm run dev : WEB
 
-
-
+quarkus dev : API
