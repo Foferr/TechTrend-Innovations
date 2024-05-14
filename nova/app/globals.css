@@ -101,10 +101,6 @@
 
 }
 
-html{
-  font-size: calc(15px + 0.390625vw);
-}
-
 span{
   font-family: museo_sans500, sans-serif;
 }
