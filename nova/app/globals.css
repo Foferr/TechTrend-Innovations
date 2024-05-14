@@ -101,6 +101,10 @@
 
 }
 
+html{
+  font-size: calc(15px + 0.390625vw);
+}
+
 span{
   font-family: museo_sans500, sans-serif;
 }
@@ -123,6 +127,18 @@ h2{
 
 option{
   font-family: museo_sans500, sans-serif;
+}
+
+.navbar{
+  animation: fadeInAnimationNav ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+.landingTitle{
+  animation: fadeInAnimationLandingTitle ease 1s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
 }
 
 .logInBox{
@@ -148,6 +164,28 @@ option{
   }
 }
 
+@keyframes fadeInAnimationLandingTitle {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInAnimationNav {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
 @keyframes fadeInAnimationGraphic {
   0% {
     transform: translateX(100%);
@@ -164,7 +202,6 @@ option{
   --bg-size: 300%;
   --color-one: hsl(193 65% 72%);
   --color-two: hsl(47 91% 60%);
-  font-size: clamp(3rem, 25vmin, 8rem);
   background: linear-gradient(
           90deg,
           var(--color-one),
