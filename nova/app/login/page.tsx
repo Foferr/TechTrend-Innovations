@@ -40,7 +40,7 @@ export default function Home() {
         <div>
             <div className="flex items-center h-screen bg-nova-yellow-500">
                 <div className="flex items-center pl-10">
-                    <img src="/images/VectorNovaLogoBlue.svg" className="top-0 left-0 absolute h-16 m-5" alt="Nova Logo" />
+                    <img src="/images/VectorNovaLogoBlue.svg" className="top-0 left-8 absolute h-16 m-5" alt="Nova Logo" />
                     <div className="flex-col">
                         <div className="text-9xl text-nova-blue-500 font-bold">Nova</div>
                         <div id="typewriter"
