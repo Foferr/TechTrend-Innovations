@@ -38,15 +38,54 @@ export default function Home() {
 
     return (
         <div>
-            <div className="grid grid-cols-5 h-screen">
-                <div className="flex items-center pl-10 bg-nova-yellow-500 col-span-3">
+            <div className="flex items-center h-screen bg-nova-yellow-500">
+                <div className="flex items-center pl-10">
                     <img src="/images/VectorNovaLogoBlue.svg" className="top-0 left-0 absolute h-16 m-5" alt="Nova Logo" />
                     <div className="flex-col">
                         <div className="text-9xl text-nova-blue-500 font-bold">Nova</div>
-                        <div id="typewriter" className="text-nova-blue-500 text-3xl min-h-9 border-r-[5px] border-nova-blue-500 pl-2 w-fit pr-2"></div>
+                        <div id="typewriter"
+                             className="text-nova-blue-500 text-3xl min-h-9 border-r-[5px] border-nova-blue-500 pl-2 pr-2 w-fit "></div>
+                        <button
+                            className="mt-6 shadow-[inset_0_0_0_2px_#0045AF] px-10 py-3 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#0045AF] hover:text-nova-yellow-500 dark:text-nova-blue-500 transition duration-200">
+                            Chatea
+                        </button>
                     </div>
                 </div>
-                <div className="bg-nova-blue-500 col-span-2"></div>
+                {/*<div className="flex items-center bg-nova-blue-500 col-span-2">*/}
+
+                {/*    <div className=" relative flex w-full grow flex-col items-center justify-center ">*/}
+                {/*        <div className="  ">Inicia sesión</div>*/}
+                {/*        <div className="grid gap-x-3 gap-y-2 sm:grid-cols-2 sm:gap-y-0">*/}
+                {/*            <button*/}
+                {/*                className="relative flex h-12 items-center justify-center rounded-md text-center text-base font-medium bg-[#3C46FF] text-[#fff] hover:bg-[#0000FF]"*/}
+                {/*                data-testid="login-button">*/}
+                {/*                <div className="relative -top-[1px]">Log in</div>*/}
+                {/*            </button>*/}
+                {/*            <button*/}
+                {/*                className="relative flex h-12 items-center justify-center rounded-md text-center text-base font-medium bg-[#3C46FF] text-[#fff] hover:bg-[#0000FF]">*/}
+                {/*                <div className="relative -top-[1px]">Sign up</div>*/}
+                {/*            </button>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+
+                {/*    <div className="relative flex w-full grow flex-col items-center justify-center"><h2*/}
+                {/*        className="text-center text-[20px] leading-[1.2] md:text-[32px] md:leading-8">Get started</h2>*/}
+                {/*        <div className="mt-5 w-full max-w-[440px]">*/}
+                {/*            <div className="grid gap-x-3 gap-y-2 sm:grid-cols-2 sm:gap-y-0">*/}
+                {/*                <button*/}
+                {/*                    className="relative flex h-12 items-center justify-center rounded-md text-center text-base font-medium bg-[#3C46FF] text-[#fff] hover:bg-[#0000FF]"*/}
+                {/*                    data-testid="login-button">*/}
+                {/*                    <div className="relative -top-[1px]">Log in</div>*/}
+                {/*                </button>*/}
+                {/*                <button*/}
+                {/*                    className="relative flex h-12 items-center justify-center rounded-md text-center text-base font-medium bg-[#3C46FF] text-[#fff] hover:bg-[#0000FF]">*/}
+                {/*                    <div className="relative -top-[1px]">Sign up</div>*/}
+                {/*                </button>*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+
+                {/*</div>*/}
             </div>
         </div>
 
