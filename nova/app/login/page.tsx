@@ -38,19 +38,22 @@ export default function Home() {
 
     return (
         <div>
-            <div className="flex items-center h-screen bg-nova-yellow-500">
+            <div className="flex items-center h-screen bg-nova-yellow-500 justify-between">
                 <div className="flex items-center pl-10">
-                    <img src="/images/VectorNovaLogoBlue.svg" className="top-0 left-8 absolute h-16 m-5" alt="Nova Logo" />
+                    <img src="/images/VectorNovaLogoBlue.svg" className="logInBoxGraphic top-0 left-8 absolute h-16 m-5"
+                         alt="Nova Logo"/>
                     <div className="flex-col">
-                        <div className="text-9xl text-nova-blue-500 font-bold">Nova</div>
+                        <div className="landingTitle text-9xl text-nova-blue-500 font-bold">Nova</div>
                         <div id="typewriter"
-                             className="text-nova-blue-500 text-3xl min-h-9 border-r-[5px] border-nova-blue-500 pl-2 pr-2 w-fit "></div>
+                             className="landingTitle text-nova-blue-500 text-3xl min-h-9 border-r-[5px] border-nova-blue-500 pl-2 pr-2 w-fit "></div>
                         <button
-                            className="mt-6 shadow-[inset_0_0_0_2px_#0045AF] px-10 py-3 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#0045AF] hover:text-nova-yellow-500 dark:text-nova-blue-500 transition duration-200">
+                            className="landingTitle mt-6 shadow-[inset_0_0_0_2px_#0045AF] px-10 py-3 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#0045AF] hover:text-nova-yellow-500 dark:text-nova-blue-500 transition duration-200">
                             Chatea
                         </button>
                     </div>
                 </div>
+                <img src="/images/VectorNovaLogoBlueNT.svg" className="h-[50em] rotate mt-80 mr-[30em]"
+                     alt="Nova Logo"/>
                 {/*<div className="flex items-center bg-nova-blue-500 col-span-2">*/}
 
                 {/*    <div className=" relative flex w-full grow flex-col items-center justify-center ">*/}

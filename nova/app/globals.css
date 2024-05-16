@@ -149,6 +149,13 @@ option{
   animation-fill-mode: forwards;
 }
 
+.rotate{
+  animation: orbit linear 10s;
+  transform-origin: 54.01776% 29.5816320492%;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+}
+
 @keyframes fadeInAnimation {
   0% {
     transform: translateX(100%);
@@ -184,7 +191,7 @@ option{
 
 @keyframes fadeInAnimationGraphic {
   0% {
-    transform: translateX(100%);
+    transform: translateX(-100%);
     opacity: 0;
   }
   100% {
@@ -193,32 +200,16 @@ option{
   }
 }
 
-.animatedText{
-  font-family: "Museo Sans 500", sans-serif;
-  --bg-size: 300%;
-  --color-one: hsl(193 65% 72%);
-  --color-two: hsl(47 91% 60%);
-  background: linear-gradient(
-          90deg,
-          var(--color-one),
-          var(--color-two),
-          var(--color-one)
-  )
-  0 0 / var(--bg-size) 100%;
-  color: transparent;
-  background-clip: text;
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .animatedText {
-    animation: move-bg 8s linear infinite;
-  }
-  @keyframes move-bg {
-    to {
-      background-position: var(--bg-size) 0;
-    }
-  }
-}
+
 
 
 
