@@ -1,128 +1,86 @@
-"use client"
 import Link from "next/link";
-import localFont from "next/dist/compiled/@next/font/dist/local";
-import React, { useState } from 'react';
 export default function Home() {
-    const words:string[] = ['Tu asistente de confianza', 'Conoce los productos de Neoris', '' +
-    'Información a un mensaje de distancia', 'Potenciado por AI']
-    let i = 0;
-    let j = 0;
-    let currentWord = '';
-    let isDeleting = false;
-
-    function typing() {
-        currentWord = words[i];
-
-        if (isDeleting) {
-            document.getElementById('typewriter').textContent = currentWord.substring(0, j-1);
-            j--;
-            if (j == 0){
-                isDeleting = false;
-                i++;
-                if (i == words.length) {
-                    i = 0;
-                }
-            }
-
-        } else if(document.getElementById('typewriter') != null) {
-            document.getElementById('typewriter').textContent = currentWord.substring(0, j+1);
-            j++
-            if (j == currentWord.length) {
-                isDeleting = true;
-            }
-        }
-        setTimeout(typing, 100);
-    }
-    typing();
-
-
     return (
-        <div>
-            <div className="flex items-center h-screen bg-white justify-between">
-                <div className="flex items-center pl-10">
-                    <img src="/images/VectorNovaLogoBlue.svg" className="logInBoxGraphic top-0 left-8 absolute h-16 m-5"
-                         alt="Nova Logo"/>
-                    <div className="flex-col">
-                        <div className="landingTitle text-9xl text-nova-blue-500 font-bold">Nova</div>
-                        <div id="typewriter"
-                             className="landingTitle text-nova-blue-500 text-3xl min-h-9 border-r-[5px] bg-nova-yellow-500 border-nova-blue-500 pl-2 pr-2 w-fit "></div>
-                        <button
-                            className="landingTitle mt-6 shadow-[inset_0_0_0_2px_#0045AF] px-10 py-3 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#0045AF] hover:text-nova-yellow-500 dark:text-nova-blue-500 transition duration-200">
-                            Chatea
-                        </button>
+        //TODO-CHBOT-235 - Agregar transiciones a elementos
+        //Agregar transiciones a los elementos de la pagina para que sean mas dinamicos y agradables a la vista
+        <div className="relative flex flex-row bg-white justify-center min-h-screen overflow-hidden">
+            <div className="landingTitle border w-full p-6 mb-auto mt-auto bg-white rounded-md shadow-2xl sm:max-w-xl">
+                <img className="w-20 min-w-px-70 ml-auto mr-auto" src="/images/VectorNovaLogoBlue.svg"
+                     alt=""/>
+                <form className="mt-6">
+                    <div className="mb-4">
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            className="block  w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                        />
+                    </div>
+                    <div className="mb-2">
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                        />
+                    </div>
+                    <div className="mt-2">
+                        <Link href="/chat">
+                            <button className="w-full px-4 py-2 tracking-wide bg-nova-blue-500 text-white rounded-md hover:bg-nova-blue-100 active:bg-nova-blue-500">
+                                <div>Iniciar sesión</div>
+                            </button>
+                        </Link>
+                    </div>
+                </form>
+
+                <p className="mt-4 text-sm text-center text-nova-blue-500">
+                    ¿No tienes cuenta?{" "}
+                    <Link
+                        href="/registro"
+                        className="font-medium text-blue-600 hover:underline"
+                    >
+                        Registrate
+                    </Link>
+                </p>
+
+                <div className="relative flex pt-10 pb-5 items-center">
+                    <div className="flex-grow border-t border-nova-blue-500"></div>
+                    <span className="flex-shrink mx-4 text-neoris-grey-100">O continua con</span>
+                    <div className="flex-grow border-t border-nova-blue-500"></div>
+                </div>
+
+                <div className="mt-1 grid grid-cols-3 gap-3">
+                    <div>
+                        <a href="#"
+                           className="w-full flex items-center justify-center px-8 py-3 rounded-md shadow-sm text-sm font-medium bg-nova-blue-500 hover:bg-nova-blue-100 active:bg-nova-blue-500">
+                            <img className="h-5 w-5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/512px-2021_Facebook_icon.svg.png?20220821121039"
+                                 alt=""/>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="#"
+                           className="w-full flex items-center justify-center px-8 py-3 rounded-md shadow-sm text-sm font-medium bg-nova-blue-500 hover:bg-nova-blue-100 active:bg-nova-blue-500">
+                            <img className="h-5 w-5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/120px-Google_%22G%22_logo.svg.png?20230822192911"
+                                 alt=""/>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="#"
+                           className="w-full flex items-center justify-center px-8 py-3 rounded-md shadow-sm text-sm font-medium bg-nova-blue-500 hover:bg-nova-blue-100 active:bg-nova-blue-500">
+                            <img className="h-5 w-5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/X_logo_2023.svg/300px-X_logo_2023.svg.png?20230819000805"
+                                 alt=""/>
+                        </a>
                     </div>
                 </div>
-                <img src="/images/VectorNovaLogoBlueNT.svg" className="h-[65vh] rotate mt-[30vh] mr-[30vh]"
-                     alt="Nova Logo"/>
-                {/*<div className="flex items-center bg-nova-blue-500 col-span-2">*/}
-
-                {/*    <div className=" relative flex w-full grow flex-col items-center justify-center ">*/}
-                {/*        <div className="  ">Inicia sesión</div>*/}
-                {/*        <div className="grid gap-x-3 gap-y-2 sm:grid-cols-2 sm:gap-y-0">*/}
-                {/*            <button*/}
-                {/*                className="relative flex h-12 items-center justify-center rounded-md text-center text-base font-medium bg-[#3C46FF] text-[#fff] hover:bg-[#0000FF]"*/}
-                {/*                data-testid="login-button">*/}
-                {/*                <div className="relative -top-[1px]">Log in</div>*/}
-                {/*            </button>*/}
-                {/*            <button*/}
-                {/*                className="relative flex h-12 items-center justify-center rounded-md text-center text-base font-medium bg-[#3C46FF] text-[#fff] hover:bg-[#0000FF]">*/}
-                {/*                <div className="relative -top-[1px]">Sign up</div>*/}
-                {/*            </button>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*    <div className="relative flex w-full grow flex-col items-center justify-center"><h2*/}
-                {/*        className="text-center text-[20px] leading-[1.2] md:text-[32px] md:leading-8">Get started</h2>*/}
-                {/*        <div className="mt-5 w-full max-w-[440px]">*/}
-                {/*            <div className="grid gap-x-3 gap-y-2 sm:grid-cols-2 sm:gap-y-0">*/}
-                {/*                <button*/}
-                {/*                    className="relative flex h-12 items-center justify-center rounded-md text-center text-base font-medium bg-[#3C46FF] text-[#fff] hover:bg-[#0000FF]"*/}
-                {/*                    data-testid="login-button">*/}
-                {/*                    <div className="relative -top-[1px]">Log in</div>*/}
-                {/*                </button>*/}
-                {/*                <button*/}
-                {/*                    className="relative flex h-12 items-center justify-center rounded-md text-center text-base font-medium bg-[#3C46FF] text-[#fff] hover:bg-[#0000FF]">*/}
-                {/*                    <div className="relative -top-[1px]">Sign up</div>*/}
-                {/*                </button>*/}
-                {/*            </div>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-
-                {/*</div>*/}
             </div>
         </div>
-
-
-
-
-
-        // TODO-CHBOT-231 - Rebranding landing page
-        // Rediseñar la landing page para ser mas dinamica y visualmente interesante
-        // <div className="h-screen w-screen bg-neoris-grey-100">
-        //     <div className="navbar bg-neoris-grey-50 z-0">
-        //         <nav>
-        //             <div className="flex w-full justify-between align-middle">
-        //                 <div className="flex flex-wrap items-center p-3">
-        //                     <a className="flex items-center space-x-3 rtl:space-x-reverse">
-        //                         <img src="/images/VectorNovaLogo.svg" className="h-16" alt="Nova Logo" />
-        //                         <span className="self-center text-2xl whitespace-nowrap dark:text-white">Nova</span>
-        //                     </a>
-        //                 </div>
-        //                 <div className="flex items-center p-2">
-        //                     <button className="bg-[#0066F9] hover:bg-blue-700 text-base text-white py-1 px-2 rounded">
-        //                         Iniciar sesión
-        //                     </button>
-        //                 </div>
-        //             </div>
-        //         </nav>
-        //     </div>
-        //
-        //     <div className="landingTitle flex flex-col items-center justify-center pt-10 w-screen" >
-        //         <div className="flex flex-col items-center justify-center space-y-2">
-        //             <div className="animatedText text-9xl">Nova</div>
-        //             <h2 className="text-neoris-white-100 text-lg w-full">Conoce los productos que Neoris tiene que ofrecer</h2>
-        //         </div>
-        //     </div>
-        // </div>
     );
 }
+
+// TODO-CHBOT-231 - Rebranding landing page
+// Rediseñar la landing page para ser mas dinamica y visualmente interesante
+// <div className="relative flex flex-row bg-neoris-grey-100 items-center justify-start min-h-screen overflow-hidden">
+//     <video autoPlay loop muted className="absolute -z-0 w-auto min-w-full min-h-full max-w-none" src="/images/121799-724719792.mp4"></video>
+//     <div className="relative flex flex-col pl-24 space-y-8">
+//         <div className="animatedText -mb-16">Nova</div>
+//         <h2 className="text-neoris-white-100 text-2xl w-full">Conoce los productos que Neoris tiene que ofrecer</h2>
+//     </div>
+// </div>

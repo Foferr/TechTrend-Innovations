@@ -32,6 +32,7 @@ const config: Config = {
         },
 
         'nova-blue': {
+          100: '#2279FF',
           500: '#0045AF'
         },
       },
