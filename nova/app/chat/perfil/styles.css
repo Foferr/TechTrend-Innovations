@@ -16,7 +16,7 @@
     position: relative;
     z-index: 1;
     margin: auto;
-    width: 12%;
+    width: 5%;
 }
 
 .cameraIcon {
@@ -31,15 +31,15 @@
     display: flex;
     flex-direction: column;
     margin: auto;
-    width: 80%;
+    width: 50%;
 }
 
 .forminnerDiv input, .forminnerDiv select{
     margin: 10px;
     padding: 10px;
-    border: none;
+    border: black 1px solid;
     border-radius: 10px;
-    outline: none;
+    outline: black;
 }
 
 
@@ -77,8 +77,8 @@
 
 
 .buttonClass.Conf{
-    background-color: #c0c0c0;
-    color: black;
+    background-color: #0045AF;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -86,7 +86,10 @@
 
 
 .buttonClass.Del{
-    background-color: #ef5f5f;
+    background-color: #F83535;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .deleteMessage{
