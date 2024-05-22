@@ -28,6 +28,7 @@ public class CompanyNewsController {
     CompanyNewsService companyNewsService;
     
     @GET
+    @Path("/getAll")
     public List<CompanyNews> getAllCompanyNews() {
         return companyNewsService.getAllCompanyNews();
     }

@@ -157,6 +157,8 @@ export default function Chat() {
                             <Link href="/chat/perfil" className="overlayLinksContent" style={{marginTop: '15%'}}>Perfil</Link>
                             <Link href="/chat/historial" className="overlayLinksContent" >Historial</Link>
                             <Link href="/" className="overlayLinksContent" >Sign Out</Link>
+                            <Link href="/chat/editarnoticias" className="overlayLinksContent"> Editar Noticias </Link>
+                            <Link href="/chat/faq" className="overlayLinksContent"> FAQ </Link>
                         </div>
                     )}
 
