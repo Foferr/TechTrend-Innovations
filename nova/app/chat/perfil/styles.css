@@ -1,3 +1,7 @@
+.allDiv{
+    animation: fadeInAnimationLandingTitle .75s;
+}
+
 .upperDiv{
     display: flex;
     padding:10px;
