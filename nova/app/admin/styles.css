@@ -1,6 +1,5 @@
 .outerDiv {
-    background: linear-gradient(to top, #353434, #9c9c9c);
-    width: 90%;
+    width: 80%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -10,37 +9,85 @@
     align-items: center;
     justify-content: center;
     border-radius: 10px;;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
 
 .logo{
-    width: 40%
+    width: 10%;
+    padding: 20px 0px;
+}
+
+.link{
+    font-size: 17px;
+    display: flex;
+    padding: 5px 10px;
+    border-radius: 5px;
+    justify-content: center;
+    text-align: center;
+    animation: backgroundchangeback 0.5s;
+}
+
+.link img{
+    width: 20px;
+    margin-right: 8px;
+}
+
+.link:hover{
+    cursor: pointer;
+    animation: backgroundchange 0.2s;
+    background-color: #f1f1f1;
+}
+
+@keyframes backgroundchange {
+    0% {
+        background-color: #ffffff;
+    }
+    100% {
+        background-color: #f1f1f1;
+    }
+}
+
+@keyframes backgroundchangeback {
+    0% {
+        background-color: #f1f1f1;
+    }
+    100% {
+        background-color: #ffffff;
+    }
 }
 
 .innerButton{
-    background-color: #d9d9d9;
-    color: black;
-    border: none;
+    background-color: #0045AF;
+    color: white;
     border-radius: 15px;
-    padding: 10px 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    height: 250px;
-    width: 250px;
+    border: none;
+    box-shadow: 0 5px 15px #0045AF;
+    height: 200px;
+    width: 200px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
     margin: 0 auto;
+    position: relative;
+}
+
+.innerButton:hover{
+    background-color: #f1f1f1;
+    cursor: pointer;
 }
 
 .innerButton p{
     font-size: 20px;
     font-weight: bold;
+    position: absolute;
+    bottom: 10px;
 }
 
-.innerButton img{
-    width: 250px;
-    height: 250px;
+.icon{
+    width: 50%;
+}
 
+.NovaLogo{
+    width: 35%;
 }
 
 .innerDiv{

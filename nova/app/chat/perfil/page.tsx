@@ -48,7 +48,7 @@ export default function Perfil() {
             </div>
             <div className="profileDiv">
                 <img
-                    src="/images/accountIcon.png"
+                    src="/images/account.svg"
                     alt=""
                     className="accountIcon"
                     />
