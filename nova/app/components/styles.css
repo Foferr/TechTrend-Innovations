@@ -13,8 +13,11 @@
 }
 
 .logo{
-    width: 10%;
-    padding: 20px 0px;
+    width: 100%;
+}
+
+.link1{
+    width: 80px;
 }
 
 .link{
@@ -27,7 +30,7 @@
     animation: backgroundchangeback 0.5s;
 }
 
-.link img{
+.logo2{
     width: 20px;
     margin-right: 8px;
 }
