@@ -31,7 +31,11 @@ export default function Home() {
         isDeleting = true;
       }
     }
-    setTimeout(typing, 100);
+    if(isDeleting && j==currentWord.length){
+      setTimeout(typing, 1000);
+    } else {
+      setTimeout(typing, 100);
+    }
   }
   typing();
 
