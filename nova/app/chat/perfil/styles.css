@@ -1,3 +1,7 @@
+.allDiv{
+    animation: fadeInAnimationLandingTitle .75s;
+}
+
 .upperDiv{
     display: flex;
     padding:10px;
@@ -8,38 +12,24 @@
     height:5vw;
 }
 
-.profileDiv {
-    position: relative;
-}
-
 .accountIcon {
-    position: relative;
-    z-index: 1;
-    margin: auto;
-    width: 12%;
-}
-
-.cameraIcon {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    z-index: 2; 
-    height: 40%;
+    margin: 0 auto;
+    width: 5vw;
 }
 
 .forminnerDiv{
     display: flex;
     flex-direction: column;
     margin: auto;
-    width: 80%;
+    width: 50%;
 }
 
 .forminnerDiv input, .forminnerDiv select{
     margin: 10px;
     padding: 10px;
-    border: none;
+    border: black 1px solid;
     border-radius: 10px;
-    outline: none;
+    outline: black;
 }
 
 
@@ -77,8 +67,8 @@
 
 
 .buttonClass.Conf{
-    background-color: #c0c0c0;
-    color: black;
+    background-color: #0045AF;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -86,7 +76,10 @@
 
 
 .buttonClass.Del{
-    background-color: #ef5f5f;
+    background-color: #F83535;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .deleteMessage{

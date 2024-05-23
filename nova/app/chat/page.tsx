@@ -147,7 +147,7 @@ export default function Chat() {
                         <h1 style= {{marginLeft: 'auto', marginRight: 'auto'}}>NOVA</h1>
                         <button onClick = {isOptionsOpen ? handleCloseOptions : handleOpenOptions}>
                             <img 
-                                src="/images/accountIcon.png"
+                                src="/images/account.svg"
                                 alt=""
                             />
                         </button>
