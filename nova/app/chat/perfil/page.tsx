@@ -48,14 +48,9 @@ export default function Perfil() {
             </div>
             <div className="profileDiv">
                 <img
-                    src="/images/account.svg"
+                    src="/images/accountEdit.svg"
                     alt=""
                     className="accountIcon"
-                    />
-                <img
-                    src="/images/camara.png"
-                    alt=""
-                    className="cameraIcon"
                     />
             </div>
             <div className="formDiv">

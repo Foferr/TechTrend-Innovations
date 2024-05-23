@@ -12,23 +12,9 @@
     height:5vw;
 }
 
-.profileDiv {
-    position: relative;
-}
-
 .accountIcon {
-    position: relative;
-    z-index: 1;
-    margin: auto;
-    width: 5%;
-}
-
-.cameraIcon {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    z-index: 2; 
-    height: 40%;
+    margin: 0 auto;
+    width: 5vw;
 }
 
 .forminnerDiv{
