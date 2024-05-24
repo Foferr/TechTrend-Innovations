@@ -39,29 +39,29 @@ const TablaDinamica = () => {
 
   const adminId = 1;
 
+  const fetchOrgsData = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/companyNews/getAll');
+      setOrgsData(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
   useEffect(() => {
-    const fetchOrgsData = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/companyNews/getAll');
-        setOrgsData(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
+ 
     fetchOrgsData();
   }, []);
 
   const handleEdit = async (companyNews: CompanyNews) => {
     const newStatus = companyNews.status === 'published' ? 'drafted' : 'published';
     try {
-      const response = await axios.put(`http://localhost:8080/companyNews/${adminId}/${companyNews.id}`, {
-        ...companyNews,
-        status: newStatus,
-      });
+
+ 
+      const response = await axios.put(`http://localhost:8080/companyNews/2/${companyNews.id}?status=${newStatus}`);
+
       if (response.status === 200) {
-        setOrgsData((prevOrgsData) =>
+          setOrgsData((prevOrgsData) =>
           prevOrgsData.map((news) =>
             news.id === companyNews.id ? { ...news, status: newStatus } : news
           )
@@ -75,12 +75,15 @@ const TablaDinamica = () => {
   const handleDelete = async (companyNewsId: number) => {
     try {
       const response = await axios.delete(`http://localhost:8080/companyNews/${companyNewsId}`);
+      setLoading(true);
+      fetchOrgsData();  
       if (response.status === 200) {
-        setOrgsData((prevOrgsData) => prevOrgsData.filter((news) => news.id !== companyNewsId));
+      //  setOrgsData((prevOrgsData) => prevOrgsData.filter((news) => news.id !== companyNewsId));
       }
     } catch (error) {
       console.error('Error deleting news:', error);
     }
+    
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -100,9 +103,12 @@ const TablaDinamica = () => {
     };
     try {
       const response = await axios.post(`http://localhost:8080/companyNews/${adminId}`, newNewsItem);
+      setIsModalOpen(false);
+      setLoading(true);
+      fetchOrgsData();  
       if (response.status === 200) {
         setOrgsData((prevOrgsData) => [...prevOrgsData, response.data]);
-        setIsModalOpen(false);
+        
         setNewCompanyNews({
           title: '',
           newsContent: '',
