@@ -1,37 +1,41 @@
-"use client";
+'use client';
 
-import React from 'react'
-import Link from "next/link";
-import axios from 'axios';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const FAQComponent = () => {
-  const [faqs, setFaqs] = useState([]);
+export default function Page() {
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/FAQ/getAll')
-      .then(response => {
-        setFaqs(response.data);
-      })
-      .catch(error => console.error('Hubo un error al obtener los datos:', error));
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      if (scrollTop > 100) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="flex flex-wrap -mx-2 overflow-auto">
-        {faqs.map((faq, index) => (
-          <div key={index} className="w-full md:w-1/2 lg:w-1/3 px-2 py-4">
-            <div className="bg-white p-4 shadow rounded">
-              <h2 className="text-lg font-semibold mb-2">{faq.pregunta}</h2>
-              <p className="text-gray-700">{faq.respuesta}</p>
-            </div>
-          </div>
-        ))}
+    <div className={`relative h-screen w-screen overflow-y-auto ${isScrolled ? 'bg-yellow-900' : 'bg-yellow-500'}`}>
+      <div
+        className="absolute inset-0 bg-cover bg-center h-screen"
+        style={{ backgroundImage: "url('/images/faq2.png')" }}
+      />
+      <br />
+      <br />
+      <br />
+      <br />
+      <div className='inset '>
+        <h1 className='text-lg text-black'>Hola</h1>
       </div>
     </div>
+
   );
-};
-
-export default FAQComponent;
-
+}
