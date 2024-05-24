@@ -43,7 +43,7 @@ export default function Home() {
 
                 <div className="relative flex pt-10 pb-5 items-center">
                     <div className="flex-grow border-t border-nova-blue-500"></div>
-                    <span className="flex-shrink mx-4 text-neoris-grey-100">O continua con</span>
+                    <span className="flex-shrink mx-4 text-neoris-grey-100">O inicia sesión con</span>
                     <div className="flex-grow border-t border-nova-blue-500"></div>
                 </div>
 

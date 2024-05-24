@@ -8,40 +8,39 @@ export default function Home() {
                 <img className="w-20 min-w-px-70 ml-auto mr-auto" src="/images/VectorNovaLogoBlue.svg"
                      alt=""/>
                 <form className="mt-6">
-                    <div className="mb-4 flex space-x-10">
+                    <div className="mb-2 flex space-x-10">
                         <input
                             type="text"
-                            placeholder="Nombre"
+                            placeholder="Nombres"
                             className="block  w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                         <input
                             type="text"
-                            placeholder="Apellido"
+                            placeholder="Apellidos"
                             className="block  w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
-                    <div className="mb-4">
+                    <div className="mb-2">
                         <input
                             type="email"
                             placeholder="Email"
                             className="block  w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
-                    <div className="mb-2">
+                    <div className="mb-4">
                         <input
                             type="password"
                             placeholder="Contraseña"
                             className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
-                    <div className="mb-2">
+                    <div className="mb-4">
                         <input
-                            type="password"
-                            placeholder="Confirmar contraseña"
+                            placeholder="País"
                             className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
-                    <div className="mb-2">
+                    <div className="mb-4">
                         <select
                                 className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40">
                             <option className="block text-sm font-semibold text-neoris-grey-100" value="spanish">Español</option>
@@ -58,25 +57,25 @@ export default function Home() {
                     <div className="mt-2">
                         <Link href="/chat">
                             <button className="w-full px-4 py-2 tracking-wide bg-nova-blue-500 text-white rounded-md hover:bg-nova-blue-100 active:bg-nova-blue-500">
-                                <div>Iniciar sesión</div>
+                                <div>Registrar</div>
                             </button>
                         </Link>
                     </div>
                 </form>
 
                 <p className="mt-4 text-sm text-center text-nova-blue-500">
-                    ¿No tienes cuenta?{" "}
+                    ¿Ya tienes cuenta?{" "}
                     <Link
-                        href="/registro"
+                        href="/login"
                         className="font-medium text-blue-600 hover:underline"
                     >
-                        Registrate
+                        Inicia sesión
                     </Link>
                 </p>
 
                 <div className="relative flex pt-10 pb-5 items-center">
                     <div className="flex-grow border-t border-nova-blue-500"></div>
-                    <span className="flex-shrink mx-4 text-neoris-grey-100">O continua con</span>
+                    <span className="flex-shrink mx-4 text-neoris-grey-100">O registrate con</span>
                     <div className="flex-grow border-t border-nova-blue-500"></div>
                 </div>
 
