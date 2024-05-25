@@ -4,11 +4,11 @@ import React, { useState } from 'react';
 import NavbarComponent from "../components/NavBar";
 
 
-export default function adminHome(){
+export default function qa(){
     return (
         <div>
             <NavbarComponent />
-            <h1>Hola</h1>
+            <h1>QA</h1>
         </div>
     );
 }

@@ -12,7 +12,6 @@ export default function Home() {
 
   function typing() {
     currentWord = words[i];
-    console.log(i,j,document.getElementById('typewriter')?.textContent)
     if(document.getElementById('typewriter') != null){
       if (isDeleting) {
         document.getElementById('typewriter').textContent = currentWord.substring(0, j-1);
