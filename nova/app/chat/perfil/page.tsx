@@ -41,39 +41,34 @@ export default function Perfil() {
             <div className="upperDiv">
                 <Link href="/chat">
                     <img 
-                        src="/Brand/Icon/Icon dark.png"
+                        src="/images/VectorNovaLogoBlue.svg"
                         alt=""
                         />
                 </Link>
             </div>
             <div className="profileDiv">
                 <img
-                    src="/images/accountIcon.png"
+                    src="/images/accountEdit.svg"
                     alt=""
                     className="accountIcon"
-                    />
-                <img
-                    src="/images/camara.png"
-                    alt=""
-                    className="cameraIcon"
                     />
             </div>
             <div className="formDiv">
                 <div className="forminnerDiv">
-                    <h1>User</h1>
-                    <input type="text" id="user" name="user" />
+                    <h1 className="text-nova-blue-500">User</h1>
+                    <input type="text" id="user" name="user" className="text-nova-blue-500" />
                 </div>
                 <div className="forminnerDiv">
-                    <h1>Contraseña</h1>
-                    <input type="password" id="password" name="password" />
+                    <h1 className="text-nova-blue-500">Contraseña</h1>
+                    <input type="password" id="password" name="password" className="text-nova-blue-500" />
                 </div>
                 <div className="forminnerDiv">
-                    <h1>Correo</h1>
-                    <input type="text" id="email" name="email" />
+                    <h1 className="text-nova-blue-500">Correo</h1>
+                    <input type="text" id="email" name="email" className="text-nova-blue-500" />
                 </div>
                 <div className="forminnerDiv">
-                    <h1>Lenguaje Preferido</h1>
-                    <select name="language" id="language">
+                    <h1 className="text-nova-blue-500">Lenguaje Preferido</h1>
+                    <select name="language" id="language" className="text-nova-blue-500">
                         <option value="es">Español</option>
                         <option value="en">Inglés</option>
                     </select>
@@ -96,7 +91,7 @@ export default function Perfil() {
             </div>
                 {isOverlayOpen && (
                     <div className={`deleteMessage ${isOverlayOpen && !isClosing ? 'open' : 'close'}`}>
-                        <h1>¿Estás seguro que quieres eliminar tu cuenta?</h1>
+                        <h1 className="text-nova-blue-500">¿Estás seguro que quieres eliminar tu cuenta?</h1>
 
                         <div className="buttonsDiv2">
                             <Link href="/" className="buttonClass Del">
