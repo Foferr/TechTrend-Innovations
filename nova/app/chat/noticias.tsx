@@ -1,5 +1,7 @@
 
 export default function Noticias() {
+    
+
 return (
     <section>
 <br></br>
