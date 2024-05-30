@@ -36,7 +36,7 @@ export default function Perfil() {
             });
     }, []);
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInputChange = (e) => {
         const { name, value } = e.target;
         setUser({
             ...user,
@@ -106,7 +106,7 @@ export default function Perfil() {
                 </div>
                 <div className="forminnerDiv">
                     <h1 className="text-nova-blue-500">Lenguaje Preferido</h1>
-                    <select name="language" id="language" className="text-nova-blue-500" value={user.language}>
+                    <select name="language" id="language" className="text-nova-blue-500" value={user.language} onChange={handleInputChange}>
                         <option value="es">Español</option>
                         <option value="en">Inglés</option>
                     </select>
