@@ -1,69 +1,70 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-export default function Page() {
-  const [showArrow, setShowArrow] = useState(true);
+interface User {
+  firstName: string;
+  lastName: string;
+  language: string;
+  birthday: string;
+  email: string;
+  userPassword: string;
+  phone: string;
+  userType: string;
+  createdAt: string;
+  id: number;
+}
+
+interface FAQ {
+  question: string;
+  answer: string;
+  admin: User;
+  status: string;
+  createdAt: string;
+}
+
+const FAQ: React.FC = () => {
+  const [faqs, setFaqs] = useState<FAQ[]>([]);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY === 0) {
-        setShowArrow(true);
-      } else {
-        setShowArrow(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    axios.get('http://localhost:8080/FAQ/getAll')
+      .then(response => {
+        setFaqs(response.data);
+      })
+      .catch(error => {
+        console.error("There was an error fetching the FAQs!", error);
+      });
   }, []);
 
+  const toggleAnswer = (index: number) => {
+    setActiveIndex(index === activeIndex ? null : index);
+  };
+
   return (
-    <div style={{ overflow: 'hidden' }}>
-      <section style={{
-        height: '100vh',
-        padding: '20px',
-        position: 'relative',
-        color: 'white',
-        fontSize: '2em',
-        fontWeight: 'bold',
-        background: 'linear-gradient(to bottom, #1e4373, #16335a, #10244b, #0a1638)'
-      }}>
-        <a href="/chat" style={{
-          position: 'absolute',
-          top: '20px',
-          left: '20px'
-        }}>
-          <img src="/images/n1.png" alt="Logo" style={{ height: '110px', width: '110px' }} />
-        </a>
-        <img src="/images/faq6.png" alt="FAQ" style={{ height: '750px', width: '750px', margin: 'auto' }} />
-        {showArrow && (
-          <div style={{
-            position: 'absolute',
-            bottom: '20px',
-            right: '20px',
-            cursor: 'pointer'
-          }} onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}>
-            <img src="/images/down.png" alt="Scroll Down" style={{ height: '50px', width: '50px' }} />
+    <div className="bg-white p-8 rounded-lg w-3/4 mx-auto shadow-lg">
+      <h1 className="text-center text-orange-500 text-2xl mb-6">FAQ</h1>
+      {faqs.map((faq, index) => (
+        <div key={index} className="border-b border-gray-300 py-4">
+          <div
+            className="text-blue-500 font-bold cursor-pointer flex justify-between items-center"
+            onClick={() => toggleAnswer(index)}
+          >
+            {faq.question}
+            <span className="text-lg transition-transform duration-300">
+              {activeIndex === index ? '▲' : '▼'}
+            </span>
           </div>
-        )}
-      </section>
-      <section style={{
-        height: '100vh',
-        padding: '20px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'white',
-        fontSize: '2em',
-        fontWeight: 'bold',
-        background: 'linear-gradient(to bottom, #0a1638, #08122f, #050d24, #030816)'
-      }}>
-        Second Section
-      </section>
+          {activeIndex === index && (
+            <div className="text-black mt-2 pl-4">
+              {faq.answer}
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 }
+
+export default FAQ;
