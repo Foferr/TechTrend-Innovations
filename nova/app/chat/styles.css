@@ -1,45 +1,69 @@
-:root{
+:root {
     --upperDivImgSize: 5vw;
+    --backgroundColor: #faef79; /* Un amarillo desvanecido */
 }
 
-.upperDiv{
+body {
+    background-color: var(--backgroundColor);
+}
+
+.mainContent {
+    display: flex;
+    height: 100vh;
+}
+
+.chatSection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--backgroundColor);
+}
+
+.upperDiv {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    
 }
 
-.upperDiv img{
+.upperDiv img {
     height: var(--upperDivImgSize);
 }
 
-.upperDiv h1{
-    font-size: var(--upperDivImgSize)
+.upperDiv h1 {
+    font-size: var(--upperDivImgSize);
 }
 
-.upperDivOverlay{
+.upperDivOverlay {
     padding: 10px;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.upperDivOverlay img{
+.upperDivOverlay img {
     height: var(--upperDivImgSize);
 }
 
-.upperDivOverlay h1{
-    font-size: var(--upperDivImgSize)
+.upperDivOverlay h1 {
+    font-size: var(--upperDivImgSize);
+    flex-grow: 1;
+    text-align: center;
 }
 
 .overlay {
     position: fixed;
-    width: 33%;
+    width: 25%;
     height: 100vh;
-    background-color: gray;
+    background-color: rgb(172, 215, 249);
     top: 0;
     right: 0;
     align-items: center;
-    
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    overflow-y: auto;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.5);
 }
 
 .overlay.open {
@@ -68,31 +92,51 @@
     }
 }
 
-.overlayLinks{
+.overlayContent {
+    width: 100%;
+    padding: 2%;
+    border-radius: 15px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    padding-right: 2.5%;
+    position: relative;
+    z-index: 10;
+    overflow-y: auto;
+    max-height: 85vh;
+}
+
+.overlayLinks {
     position: absolute;
-    top: 1;
-    right: 0;
+    top: 60px;
+    right: 20px;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     background-color: white;
     border-radius: 15px;
-    align-items: flex-end;
-    padding-left: 15%;
-    padding-right: 3%;
-    margin-right: 2%;
+    align-items: flex-start;
+    padding: 15px;
     z-index: 100;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
 }
 
-
-.overlayLinksContent{
+.overlayLinksContent {
     font-weight: bold;
     border-bottom: 1px solid black;
-    margin-bottom: 15%;
-
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    width: 100%;
 }
 
-.overlayContent{
+.profileIcon {
+    margin-top: 10px;
+    position: absolute;
+    top: 20px; /* Ajusta este valor según sea necesario */
+    right: 20px; /* Ajusta este valor según sea necesario */
+    text-align: center;
+    width: 100%;
+}
+
+.chatContent {
     width: 100%;
     padding: 2%;
     border-radius: 15px;
@@ -103,46 +147,43 @@
     z-index: 10;
     overflow-y: auto;
     max-height: 72vh;
+    background-color: var(--backgroundColor);
 }
 
-.overlayContent.Nova{
-    background-color : white;
+.message.nova {
+    background-color: rgb(82, 49, 49);
     margin-bottom: 2%;
-    width:80%;
+    width: 80%;
     display: flex;
     max-height: fit-content;
 }
 
-.overlayContent.User{
-    background-color : rgb(214, 214, 214);
+.message.user {
+    background-color: rgb(75, 44, 232);
     margin-bottom: 2%;
     width: 80%;
-    margin-left: 20%; 
+    margin-left: 20%;
     display: flex;
 }
 
-.overlayContent img{
-    height: 3vh
+.message img {
+    height: 3vh;
 }
 
-.Nova, .User{
-    position : relative;
+.message button {
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
-.Nova img, .User img{
-    position: absolute;
-    margin-right: 1.5%;
-    margin-bottom: 1%;
-    bottom : 0;
-    right: 0;
-    
+.message button img {
+    height: 3vh;
+    margin-left: 10px;
 }
 
-.overlayFooter{
-    position: absolute;
-    bottom: 0;
+.chatFooter {
     display: flex;
-    flex-direction: row; 
+    flex-direction: row;
     background-color: white;
     border-radius: 10px;
     width: 98%;
@@ -154,10 +195,9 @@
     height: fit-content;
     align-items: center;
     min-height: 7vh;
-
 }
 
-.overlayFooter input{
+.chatFooter input {
     border: none;
     width: 100%;
     height: 98%;
@@ -167,6 +207,6 @@
     overflow-wrap: break-word;
 }
 
-.overlayFooter img{
+.chatFooter img {
     height: 5vh;
 }
