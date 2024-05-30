@@ -63,28 +63,30 @@ export default function Chat() {
                         />
                     </button>
                 </div>
-                <div className="chatContent" style={{ height: 'calc(100vh - 100px)', overflowY: 'auto' }}>
-                    {messages.map((message, index) => (
-                        <div key={index} className={`message ${message.user ? 'user' : 'nova'}`}>
-                            <p>{message.text}</p>
-                            <button onClick={() => convertToSpeech(message.text)}>
-                                <img src="/images/speaker.png" alt="" />
-                            </button>
-                        </div>
-                    ))}
-                </div>
-                <div className="chatFooter">
-                    <img
-                        src="/images/mic.png"
-                        alt=""
-                    />
-                    <input type="text" placeholder="Habla con Nova, nuestro acompañante de IA" id="inputUser" />
-                    <button onClick={handlePrompts}>
+                <div className="chatSection2">
+                    <div className="chatContent">
+                        {messages.map((message, index) => (
+                            <div key={index} className={`message ${message.user ? 'user' : 'nova'}`}>
+                                <p>{message.text}</p>
+                                <button onClick={() => convertToSpeech(message.text)}>
+                                    <img src="/images/speaker.png" alt="" />
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="chatFooter">
                         <img
-                            src="/images/send.png"
+                            src="/images/mic.png"
                             alt=""
                         />
-                    </button>
+                        <input type="text" placeholder="Habla con Nova, nuestro acompañante de IA" id="inputUser" />
+                        <button onClick={handlePrompts}>
+                            <img
+                                src="/images/send.png"
+                                alt=""
+                            />
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -97,26 +99,25 @@ export default function Chat() {
                                 alt=""
                             />
                         </button>
-                        <h1 style={{ marginLeft: 'auto', marginRight: 'auto' }}>NOTICIAS</h1>
+                        <div className="profileIcon">
+                            <button onClick={handleToggleProfile}>
+                                <img
+                                    src="/images/account.svg"
+                                    alt="Profile"
+                                />
+                            </button>
+                            {isProfileOpen && (
+                            <div className="overlayLinks">
+                                <Link href="/chat/perfil" className="overlayLinksContent" style={{marginTop: '15%'}}>Perfil</Link>
+                                <Link href="/chat/historial" className="overlayLinksContent" >Historial</Link>
+                                <Link href="/chat/faq" className="overlayLinksContent"> FAQ </Link>
+                                <Link href="/" className="overlayLinksContent" >Sign Out</Link>
+                            </div>
+                            )}
+                        </div>
                     </div>
                     <div className="overlayContent" id="overlayContent">
                         <Noticias />
-                    </div>
-                    <div className="profileIcon">
-                        <button onClick={handleToggleProfile}>
-                            <img
-                                src="/images/account.svg"
-                                alt="Profile"
-                            />
-                        </button>
-                        {isProfileOpen && (
-                        <div className="overlayLinks">
-                            <Link href="/chat/perfil" className="overlayLinksContent" style={{marginTop: '15%'}}>Perfil</Link>
-                            <Link href="/chat/historial" className="overlayLinksContent" >Historial</Link>
-                            <Link href="/chat/faq" className="overlayLinksContent"> FAQ </Link>
-                            <Link href="/" className="overlayLinksContent" >Sign Out</Link>
-                        </div>
-                        )}
                     </div>
                 </div>
             )}
