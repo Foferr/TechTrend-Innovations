@@ -6,7 +6,7 @@ import {Navbar} from "@material-tailwind/react";
 
 export default function NavbarComponent(){
     return (
-            <Navbar color="blue" placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
+            <Navbar placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
                 <div className = "flex justify-between items-center text-nova-blue-500 pl-[10%] pr-[10%] pt-[15px] pb-[15px] ">
                     <a href="/" className="link1 link"><img src="/images/VectorNovaLogoJT.svg" alt="" className="logo" /> </a>
                     <a href="/admin" className="link"><img src = "/images/VectorNovaLogoBlueNT.svg" className="logo2" />Nova</a>
