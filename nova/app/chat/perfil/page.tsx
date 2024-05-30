@@ -25,6 +25,8 @@ export default function Perfil() {
         userType:'',
         birthday:''
     });
+    const [statusMessage, setStatusMessage] = useState('');
+
 
     useEffect(() => {
         axios.get('http://localhost:8080/user/2')
@@ -36,7 +38,7 @@ export default function Perfil() {
             });
     }, []);
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: any) => {
         const { name, value } = e.target;
         setUser({
             ...user,
@@ -61,7 +63,21 @@ export default function Perfil() {
     const handleConfirmClick = () => {
         axios.put('http://localhost:8080/user/editUser/2', user)
             .then(response => {
-                console.log(response.data);
+                setStatusMessage('Usuario editado correctamente!');
+                setTimeout(() => {
+                    setStatusMessage('');
+                }, 2000); // 2 seconds delay
+            })
+            .catch(error => {
+                console.error(error);
+                setStatusMessage('Error updating user');
+            });
+    };
+
+    const handleConfirmDelete = () => {
+        axios.delete('http://localhost:8080/user/deleteUser/101')
+            .then(response => {
+                window.location.href = '/';
             })
             .catch(error => {
                 console.error(error);
@@ -122,6 +138,11 @@ export default function Perfil() {
                         Borrar
                     </Button>
                 </div>
+                {statusMessage && (
+                        <div className="deleteMessage open">
+                            {statusMessage}
+                        </div>
+                    )}
             </div>
             </div>
                 {isOverlayOpen && (
@@ -129,12 +150,9 @@ export default function Perfil() {
                         <h1 className="text-nova-blue-500">¿Estás seguro que quieres eliminar tu cuenta?</h1>
 
                         <div className="buttonsDiv2">
-                            <Link href="/" className="buttonClass Del">
-                                <Button>
+                                <Button onClick={handleConfirmDelete} className="buttonClass Del">
                                     Confirmar
                                 </Button>
-                            </Link>
-
                             
                             <Button className="buttonClass Conf" onClick={isOverlayOpen ? handleCloseOverlay : handleOpenOverlay}>
                                 Cancelar
