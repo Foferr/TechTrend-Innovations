@@ -1,15 +1,18 @@
 package org.acme.service;
 
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import org.acme.model.Messages;
 import org.acme.repository.MessagesRepository;
+import org.jboss.logging.Logger;
 
 import java.util.List;
 
 @ApplicationScoped
 public class MessagesService {
+
 
     @Inject
     MessagesRepository messagesRepository;
@@ -19,8 +22,8 @@ public class MessagesService {
     }
 
     @Transactional
-    public void postMessage(Messages message) {
-        messagesRepository.persist(message);
+    public void postMessage(Messages messages) {
+        messagesRepository.persist(messages);
     }
 
     public List<Messages> getMessagesByUserId(String userId) {
@@ -35,7 +38,7 @@ public class MessagesService {
         return messagesRepository.find("chatHistory.id", chatId).list();
     }
 
-    public List<Messages> getMessagesBySenderType(String SenderType) {
-        return messagesRepository.find("SenderType", SenderType).list();
+    public List<Messages> getMessagesBySenderType(String senderType) {
+        return messagesRepository.find("senderType", senderType).list();
     }
 }

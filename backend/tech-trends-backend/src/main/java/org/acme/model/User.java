@@ -70,9 +70,7 @@ public class User extends PanacheEntity {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
+    public void setBirthday(LocalDate birthday) {this.birthday = birthday;}
 
     public String getEmail() {
         return email;
@@ -112,5 +110,9 @@ public class User extends PanacheEntity {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
