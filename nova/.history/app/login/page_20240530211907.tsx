@@ -11,9 +11,7 @@ export default function Home() {
         e.preventDefault();
 
         try {
-            console.log('just before login request');
-            console.log('email: ' + email);
-            console.log('password: ' + password);
+            console.log('entering')
             const response = await fetch('http://localhost:8090/auth/login', {
                 method: 'POST',
                 headers: {
@@ -24,10 +22,6 @@ export default function Home() {
 
             if(response.ok) {
                 const data = await response.json();
-                console.log('access token is: ');
-                console.log(data.accessToken);
-                console.log('refresh token is: ');
-                console.log(data.refreshToken);
                 localStorage.setItem('accessToken', data.accessToken);
                 localStorage.setItem('refreshToken', data.refreshToken);
                 window.location.href = '/chat';
@@ -66,9 +60,11 @@ export default function Home() {
                         />
                     </div>
                     <div className="mt-2">
-                            <button type="submit" className="w-full px-4 py-2 tracking-wide bg-nova-blue-500 text-white rounded-md hover:bg-nova-blue-100 active:bg-nova-blue-500">
+                        <Link href="/chat">
+                            <button className="w-full px-4 py-2 tracking-wide bg-nova-blue-500 text-white rounded-md hover:bg-nova-blue-100 active:bg-nova-blue-500">
                                 <div>Iniciar sesión</div>
                             </button>
+                        </Link>
                     </div>
                 </form>
 

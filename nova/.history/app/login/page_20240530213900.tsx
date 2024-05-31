@@ -13,7 +13,7 @@ export default function Home() {
         try {
             console.log('just before login request');
             console.log('email: ' + email);
-            console.log('password: ' + password);
+            console.log('email: ' + email);
             const response = await fetch('http://localhost:8090/auth/login', {
                 method: 'POST',
                 headers: {
