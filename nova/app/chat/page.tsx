@@ -3,7 +3,7 @@
 import Link from "next/link";
 import "./styles.css";
 import "../globals.css";
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { convertToSpeech } from './txt2sp';
 import Noticias from './noticias';
 import { generatePrompts } from './chat';
@@ -13,6 +13,7 @@ export default function Chat() {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
+    const chatContentRef = useRef<HTMLDivElement>(null);
 
     const handleOpenOverlay = () => {
         setIsOverlayOpen(true);
@@ -50,6 +51,12 @@ export default function Chat() {
         console.log(prompts);
     };
 
+    useEffect(() => {
+        if (chatContentRef.current) {
+            chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
+        }
+    }, [messages]);
+
     return (
         <div className="mainContent">
             <div className="chatSection">
@@ -71,7 +78,7 @@ export default function Chat() {
                     </button>
                 </div>
                 <div className="chatSection2">
-                    <div className="chatContent">
+                    <div className="chatContent" ref={chatContentRef}>
                         {messages.map((message, index) => (
                             <div key={index} className={`message ${message.user ? 'user' : 'nova'}`}>
                                 <p>{message.text}</p>
