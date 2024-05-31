@@ -12,8 +12,6 @@ export default function Home() {
 
         try {
             console.log('just before login request');
-            console.log('email: ' + email);
-            console.log('password: ' + password);
             const response = await fetch('http://localhost:8090/auth/login', {
                 method: 'POST',
                 headers: {
@@ -23,11 +21,9 @@ export default function Home() {
             });
 
             if(response.ok) {
-                const data = await response.json();
                 console.log('access token is: ');
-                console.log(data.accessToken);
-                console.log('refresh token is: ');
-                console.log(data.refreshToken);
+                console.log(data.acces);
+                const data = await response.json();
                 localStorage.setItem('accessToken', data.accessToken);
                 localStorage.setItem('refreshToken', data.refreshToken);
                 window.location.href = '/chat';

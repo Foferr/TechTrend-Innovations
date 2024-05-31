@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import Link from "next/link";
 import localFont from "next/dist/compiled/@next/font/dist/local";

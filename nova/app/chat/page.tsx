@@ -7,8 +7,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { convertToSpeech } from './txt2sp';
 import Noticias from './noticias';
 import { generatePrompts } from './chat';
+import withAuth from '../components/HOC/withAuth';
 
-export default function Chat() {
+const Chat: React.FC = () => {
 
     const [isOverlayOpen, setIsOverlayOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
@@ -138,3 +139,5 @@ export default function Chat() {
         </div>
     );
 }
+
+export default withAuth(Chat);
