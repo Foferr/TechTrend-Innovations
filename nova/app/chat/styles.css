@@ -46,21 +46,16 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
     width: 100%;
+    height: 100px;
 }
 
 .upperDivOverlay img {
     margin-right: auto;
     margin-left: 0;
-    height: var(--upperDivImgSize);
+    height: 50px;
     width: 80px;
-}
-
-.upperDivOverlay h1 {
-    font-size: var(--upperDivImgSize);
-    flex-grow: 1;
-    text-align: center;
 }
 
 .overlay {
@@ -108,14 +103,13 @@ body {
 .overlayContent {
     width: 100%;
     padding: 2%;
-    border-radius: 15px;
     word-wrap: break-word;
     overflow-wrap: break-word;
     padding-right: 2.5%;
     position: relative;
     z-index: 10;
     overflow-y: auto;
-    max-height: 85vh;
+    max-height: 100vh;
 }
 
 .overlayLinks {
@@ -229,4 +223,27 @@ body {
 
 .chatFooter img {
     height: 5vh;
+}
+
+.newsDiv {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    scrollbar-width: none;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    background-color: rgb(202, 232, 255);
+    border-radius: 10px;
+    padding: 10px;
+    padding-top: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.5);
+}
+
+.newsTitle {
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
 }
