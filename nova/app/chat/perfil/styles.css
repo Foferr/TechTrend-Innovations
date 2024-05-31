@@ -17,6 +17,13 @@
     width: 5vw;
 }
 
+.formflexDiv{
+    display: flex;
+    width: 50%;
+    margin: 0 auto;
+    min-width: 350px;
+}
+
 .forminnerDiv{
     display: flex;
     flex-direction: column;
