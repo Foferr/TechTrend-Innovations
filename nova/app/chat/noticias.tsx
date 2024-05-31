@@ -1,41 +1,34 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function Noticias() {
-    
+    const [news, setNews] = useState([
+        {
+            id: 0,
+            title: '',
+            newsContent: ''
+        }
+    ]);
 
-return (
-    <section>
-<br></br>
-                <h1 style = {{fontSize: '20px', color: 'white', marginLeft: '30px'}}> +                      -</h1>
-                <div style = {{margin: 30, backgroundColor: 'black', height: '100px', display: 'flex'}}>
-                    <img src="/images/Neoris1.png" alt="Neoris" style={{height: '100%', width: 'auto'}} />
-                    <div style = {{marginLeft: '15px'}}>
-                        <h1 style = {{color: 'white'}}> Neoris saca nuevo producto</h1>
-                        <p style = {{color: 'white'}}> Hola </p>
-                    </div>
-                </div>
-                <h1 style = {{color: 'white', textAlign: 'center'}}>
-                    ___________________________________________________________________________________________________________
-                </h1>
-                <div style = {{margin: 30, backgroundColor: 'black', height: '100px', display: 'flex'}}>
-                    <img src="/images/Neoris4.png" alt="Neoris" style={{height: '100%', width: 'auto'}} />
-                    <div style = {{marginLeft: '15px'}}>
-                        <h1 style = {{color: 'white'}}> Entrevista con Neoris</h1>
-                        <p style = {{color: 'white'}}> Hola </p>
-                    </div>
-                </div>
-                <h1 style = {{color: 'white', textAlign: 'center'}}>
-                    __________________________________________________________________________________________________________
-                </h1>
-                <div style = {{margin: 30, backgroundColor: 'black', height: '100px', display: 'flex'}}>
-                    <img src="/images/Neoris3.png" alt="Neoris" style={{height: '100%', width: 'auto'}} />
-                    <div style = {{marginLeft: '15px'}}>
-                        <h1 style = {{color: 'white'}}> Visita a Neoris</h1>
-                        <p style = {{color: 'white'}}> Hola </p>
-                    </div>
-                </div>
+    useEffect(() => {
+        axios.get('http://localhost:8080/companyNews/getAll')
+            .then(response => {
+                console.log(response.data);
+                setNews(response.data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }, []);
 
-            </section>
-
+    return (
+        <section>
+            {news.map((newsItem) => (
+                <div key={newsItem.id} className='newsDiv'>
+                    <h2 className='newsTitle'>{newsItem.title}</h2>
+                    <p className='newsParagraph'>{newsItem.newsContent}</p>
+                </div>
+            ))}
+        </section>
     );
-
 }

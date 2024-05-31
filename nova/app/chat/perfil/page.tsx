@@ -5,22 +5,46 @@ import Image from "next/image";
 import "./styles.css";
 import "../../globals.css";
 import {Button} from "@nextui-org/button";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-axios.get('http://localhost:8080/user/2')
-  .then(response => {
-    console.log(response.data);
-  })
-  .catch(error => {
-    console.error(error);
-  });
 
 
 export default function Perfil() {
+
     
     const [isOverlayOpen, setIsOverlayOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
+    const [user, setUser] = useState({
+        firstName:'',
+        lastName:'',
+        email:'',
+        language:'',
+        phone:'',
+        userPassword:'',
+        userType:'',
+        birthday:''
+    });
+    const [statusMessage, setStatusMessage] = useState('');
+
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/user/2')
+            .then(response => {
+                setUser(response.data);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }, []);
+
+    const handleInputChange = (e: any) => {
+        const { name, value } = e.target;
+        setUser({
+            ...user,
+            [name]: value
+        });
+    };
     
     const handleOpenOverlay = () => {
         setIsOverlayOpen(true);
@@ -34,6 +58,32 @@ export default function Perfil() {
             setIsClosing(false);
         }, 300);
     };
+
+
+    const handleConfirmClick = () => {
+        axios.put('http://localhost:8080/user/editUser/2', user)
+            .then(response => {
+                setStatusMessage('Usuario editado correctamente!');
+                setTimeout(() => {
+                    setStatusMessage('');
+                }, 2000); // 2 seconds delay
+            })
+            .catch(error => {
+                console.error(error);
+                setStatusMessage('Error updating user');
+            });
+    };
+
+    const handleConfirmDelete = () => {
+        axios.delete('http://localhost:8080/user/deleteUser/101')
+            .then(response => {
+                window.location.href = '/';
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
+
 
     return (
         <body>
@@ -55,20 +105,24 @@ export default function Perfil() {
             </div>
             <div className="formDiv">
                 <div className="forminnerDiv">
-                    <h1 className="text-nova-blue-500">User</h1>
-                    <input type="text" id="user" name="user" className="text-nova-blue-500" />
+                    <h1 className="text-nova-blue-500">First Name</h1>
+                    <input type="text" id="firstName" name="firstName" value={user.firstName} className="text-nova-blue-500" onChange={handleInputChange}/>
+                </div>
+                <div className="forminnerDiv">
+                    <h1 className="text-nova-blue-500">Last Name</h1>
+                    <input type="text" id="lastName" name="lastName" value={user.lastName} className="text-nova-blue-500" onChange={handleInputChange}/>
                 </div>
                 <div className="forminnerDiv">
                     <h1 className="text-nova-blue-500">Contraseña</h1>
-                    <input type="password" id="password" name="password" className="text-nova-blue-500" />
+                    <input type="password" id="userPassword" name="userPassword" value={user.userPassword} className="text-nova-blue-500" onChange={handleInputChange}/>
                 </div>
                 <div className="forminnerDiv">
                     <h1 className="text-nova-blue-500">Correo</h1>
-                    <input type="text" id="email" name="email" className="text-nova-blue-500" />
+                    <input type="text" id="email" name="email" className="text-nova-blue-500" value={user.email} onChange={handleInputChange}/>
                 </div>
                 <div className="forminnerDiv">
                     <h1 className="text-nova-blue-500">Lenguaje Preferido</h1>
-                    <select name="language" id="language" className="text-nova-blue-500">
+                    <select name="language" id="language" className="text-nova-blue-500" value={user.language} onChange={handleInputChange}>
                         <option value="es">Español</option>
                         <option value="en">Inglés</option>
                     </select>
@@ -76,17 +130,19 @@ export default function Perfil() {
 
 
                 <div className="buttonsDiv">
-                    <Link href="/chat" className="buttonClass Conf">
-                        <Button>
+                        <Button onClick={handleConfirmClick} className="buttonClass Conf">
                             Confirmar
                         </Button>
-                    </Link>
-
                     
                     <Button className="buttonClass Del" onClick={isOverlayOpen ? handleCloseOverlay : handleOpenOverlay}>
                         Borrar
                     </Button>
                 </div>
+                {statusMessage && (
+                        <div className="deleteMessage open">
+                            {statusMessage}
+                        </div>
+                    )}
             </div>
             </div>
                 {isOverlayOpen && (
@@ -94,12 +150,9 @@ export default function Perfil() {
                         <h1 className="text-nova-blue-500">¿Estás seguro que quieres eliminar tu cuenta?</h1>
 
                         <div className="buttonsDiv2">
-                            <Link href="/" className="buttonClass Del">
-                                <Button>
+                                <Button onClick={handleConfirmDelete} className="buttonClass Del">
                                     Confirmar
                                 </Button>
-                            </Link>
-
                             
                             <Button className="buttonClass Conf" onClick={isOverlayOpen ? handleCloseOverlay : handleOpenOverlay}>
                                 Cancelar

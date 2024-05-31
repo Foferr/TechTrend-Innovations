@@ -15,6 +15,8 @@ import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.ExampleObject;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class FaqController {
 
 
     @GET
+    @PermitAll
     @Path("/getAll")
     public Response getAllFaqs() {
         try {
