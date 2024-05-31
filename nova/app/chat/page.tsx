@@ -19,6 +19,13 @@ export default function Chat() {
         setIsClosing(false);
     };
 
+    const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            await handlePrompts();
+        }
+    }
+
     const handleCloseOverlay = () => {
         setIsClosing(true);
         setTimeout(() => {
@@ -79,7 +86,7 @@ export default function Chat() {
                             src="/images/mic.png"
                             alt=""
                         />
-                        <input type="text" placeholder="Habla con Nova, nuestro acompañante de IA" id="inputUser" />
+                        <input type="text" placeholder="Habla con Nova, nuestro acompañante de IA" id="inputUser" onKeyDown={handleKeyDown} />
                         <button onClick={handlePrompts}>
                             <img
                                 src="/images/send.png"
