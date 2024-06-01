@@ -50,28 +50,15 @@ const TablaDinamica = () => {
     }
   };
   useEffect(() => {
- 
     fetchOrgsData();
   }, []);
-
-
-
-
-
-
-  
 
   const handleEdit = async (FAQ: Faq) => {
     const newStatus = FAQ.status === 'published' ? 'drafted' : 'published';
     try {
-   
-        //const response = await axios.put('http://localhost:8080/FAQ/2/${FAQ.id}?status=${newStatus}');
-        const response = await axios.put(`http://localhost:8080/FAQ/2/${FAQ.id}`,
-        FAQ
-        ,{ headers: {'Content-Type': 'application/json'} });
-
+      const response = await axios.put(`http://localhost:8080/FAQ/2/${FAQ.id}`, FAQ, { headers: { 'Content-Type': 'application/json' } });
       if (response.status === 200) {
-          setOrgsData((prevOrgsData) =>
+        setOrgsData((prevOrgsData) =>
           prevOrgsData.map((Faq) =>
             Faq.id === FAQ.id ? { ...Faq, status: newStatus } : Faq
           )
@@ -82,25 +69,17 @@ const TablaDinamica = () => {
     }
   };
 
-
-
-
-
-
-
-
   const handleDelete = async (FAQid: number) => {
     try {
       const response = await axios.delete(`http://localhost:8080/FAQ/2/${FAQid}`);
       setLoading(true);
-      fetchOrgsData();  
+      fetchOrgsData();
       if (response.status === 200) {
-      //  setOrgsData((prevOrgsData) => prevOrgsData.filter((news) => news.id !== companyNewsId));
+        //  setOrgsData((prevOrgsData) => prevOrgsData.filter((news) => news.id !== companyNewsId));
       }
     } catch (error) {
       console.error('Error deleting news:', error);
     }
-    
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -122,10 +101,9 @@ const TablaDinamica = () => {
       const response = await axios.post(`http://localhost:8080/FAQ/2`, newFaqItem);
       setIsModalOpen(false);
       setLoading(true);
-      fetchOrgsData();  
+      fetchOrgsData();
       if (response.status === 200) {
         setOrgsData((prevOrgsData) => [...prevOrgsData, response.data]);
-        
         setNewFaq({
           question: '',
           answer: '',
@@ -172,11 +150,11 @@ const TablaDinamica = () => {
                 orgsData.map((FAQ) => (
                   <tr key={FAQ.id}>
                     <td className="border-b py-4">{FAQ.id}</td>
-                    <td className="border-b py-4">{FAQ.question}</td>
-                    <td className="border-b py-4">{FAQ.answer}</td>
-                    <td className="border-b py-4">{FAQ.admin.firstName}</td>
-                    <td className="border-b py-4">{FAQ.status}</td>
-                    <td className="border-b py-4">{new Date(FAQ.createdAt).toLocaleDateString()}</td>
+                    <td className="border-b py-4 overflow-hidden overflow-ellipsis whitespace-nowrap">{FAQ.question}</td>
+                    <td className="border-b py-4 overflow-hidden overflow-ellipsis whitespace-nowrap">{FAQ.answer}</td>
+                    <td className="border-b py-4 overflow-hidden overflow-ellipsis whitespace-nowrap">{FAQ.admin.firstName}</td>
+                    <td className="border-b py-4 overflow-hidden overflow-ellipsis whitespace-nowrap">{FAQ.status}</td>
+                    <td className="border-b py-4 overflow-hidden overflow-ellipsis whitespace-nowrap">{new Date(FAQ.createdAt).toLocaleDateString()}</td>
                     <td className="border-b py-4 flex justify-center space-x-2">
                       <button onClick={() => handleEdit(FAQ)} className="text-blue-500 hover:text-blue-700">
                         <FaEdit />
