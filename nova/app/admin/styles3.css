@@ -1,0 +1,81 @@
+html,
+body {
+  margin: 0;
+  padding: 10;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+}
+
+.edit-user {
+  background-color: linear-gradient(
+    rgb(218, 218, 150),
+    #e4e4d9
+  );;
+  padding: 80px;
+  width: 200%;
+  max-width: 900px; 
+  border-radius: 8px;
+  color: white;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.edit-user h1 {
+  color: #0a0a0a;
+  text-align: center;
+}
+
+.edit-user form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+sidebar-image {
+  position: absolute; 
+  top: 400px; 
+  left: 50px; 
+  width: 30%; 
+  height: auto; 
+}
+
+.edit-user label {
+  margin-bottom: 10px;
+}
+
+.edit-user input,
+.edit-user select {
+  padding: 10px;
+  margin-top: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.edit-user button {
+  padding: 10px;
+  margin-top: 20px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-user button:hover {
+  background-color: #0056b3;
+}
+.logo {
+  background-image: url("public/images/logo.png");
+  background-size: contain; 
+  background-repeat: no-repeat; 
+  background-position: center; 
+  width: 200px; 
+  height: 200px; 
+}
