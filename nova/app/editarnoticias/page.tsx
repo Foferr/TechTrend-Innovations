@@ -119,7 +119,7 @@ const TablaDinamica = () => {
       <div className="relative min-h-screen flex flex-col items-center bg-gray-100 py-8">
         <div className={`relative w-11/12 bg-white p-8 rounded-lg shadow-md border-solid border border-gray-300 ${isModalOpen ? 'opacity-50' : ''}`}>
           <h1 className="text-2xl font-semibold mb-6 text-center">Editar Noticias</h1>
-          <table className="w-full text-center border-collapse">
+          <table className="w-full table-auto text-center border-collapse">
             <thead>
               <tr>
                 <th className="border-b py-4">Id</th>
@@ -146,13 +146,13 @@ const TablaDinamica = () => {
               ) : (
                 orgsData.map((companyNews) => (
                   <tr key={companyNews.id}>
-                    <td className="border-b py-4">{companyNews.id}</td>
-                    <td className="border-b py-4">{companyNews.title}</td>
-                    <td className="border-b py-4">{companyNews.newsContent}</td>
-                    <td className="border-b py-4">{companyNews.user.firstName}</td>
-                    <td className="border-b py-4">{companyNews.status}</td>
-                    <td className="border-b py-4">{new Date(companyNews.createdAt).toLocaleDateString()}</td>
-                    <td className="border-b py-4 flex justify-center space-x-2">
+                    <td className="border-b py-4 max-w-xs overflow-hidden">{companyNews.id}</td>
+                    <td className="border-b py-4 max-w-xs overflow-hidden">{companyNews.title}</td>
+                    <td className="border-b py-4 max-w-xs overflow-hidden">{companyNews.newsContent}</td>
+                    <td className="border-b py-4 max-w-xs overflow-hidden">{companyNews.user.firstName}</td>
+                    <td className="border-b py-4 max-w-xs overflow-hidden">{companyNews.status}</td>
+                    <td className="border-b py-4 max-w-xs overflow-hidden">{new Date(companyNews.createdAt).toLocaleDateString()}</td>
+                    <td className="border-b py-4 flex justify-center space-x-2 max-w-xs overflow-hidden">
                       <button onClick={() => handleEdit(companyNews)} className="text-blue-500 hover:text-blue-700">
                         <FaEdit />
                       </button>
