@@ -63,7 +63,7 @@ public class TokenService {
     }
 
     public boolean isAccessTokenInvalid(String accessToken) {
-        return invalidatedAccessTokens.contains(accessToken);
+        return !invalidatedAccessTokens.contains(accessToken);
     }
 
     public boolean isRefreshTokenInvalid(String refreshToken) {

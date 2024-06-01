@@ -7,6 +7,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.acme.techtrends.auth.model.LoginRequest;
 import org.acme.techtrends.auth.model.Tokens;
+import org.acme.techtrends.auth.model.ValidationRequest;
 import org.acme.techtrends.auth.services.AuthService;
 import org.acme.techtrends.auth.services.TokenService;
 
@@ -19,6 +20,21 @@ public class AuthResource {
 
     @Inject
     TokenService tokenService;
+
+    @POST
+    @Path("/validate-token")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response validateToken(ValidationRequest validationRequest) {
+        // Here you would validate the token
+        boolean isValid = tokenService.isAccessTokenInvalid(validationRequest.getToken());
+
+        if (isValid) {
+            return Response.ok().build();
+        } else {
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
