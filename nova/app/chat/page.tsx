@@ -8,6 +8,7 @@ import { convertToSpeech } from './txt2sp';
 import Noticias from './noticias';
 import { generatePrompts } from './chat';
 import withAuth from '../components/HOC/withAuth';
+import axios from "axios";
 
 const Chat: React.FC = () => {
 
@@ -15,6 +16,7 @@ const Chat: React.FC = () => {
     const [isClosing, setIsClosing] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
     const chatContentRef = useRef<HTMLDivElement>(null);
+    let chatHistoryId: number;
 
     const handleOpenOverlay = () => {
         setIsOverlayOpen(true);
@@ -43,13 +45,40 @@ const Chat: React.FC = () => {
     const [messages, setMessages] = useState<{ user: boolean; text: string }[]>([]);
 
     const handlePrompts = async () => {
+        if (!messages) {
+            try {
+                const response = await axios.post("http://localhost:5000/api/chatHistory/user/1");
+                const chatHistoryId = response.data.id;
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
         const inputUser = (document.getElementById("inputUser") as HTMLInputElement).value;
         (document.getElementById("inputUser") as HTMLInputElement).value = "";
         setMessages([...messages, { user: true, text: inputUser }]);
         messages.push({ user: true, text: inputUser });
+
+        try {
+            await axios.post(`http://localhost:5000/api/messages/postMessage/${chatHistoryId}`, {
+                senderType: 'user',
+                messageContent: inputUser
+            });
+        } catch (error) {
+            console.error(error);
+        }
+
         const prompts = await generatePrompts(inputUser);
         setMessages([...messages, { user: false, text: prompts }]);
-        console.log(prompts);
+
+        try {
+            await axios.post(`http://localhost:5000/api/messages/postMessage/${chatHistoryId}`, {
+                senderType: 'nova',
+                messageContent: prompts
+            });
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     useEffect(() => {
