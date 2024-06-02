@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
-import NavbarComponent from "../components/NavBar";
+import NavbarComponent from "../../components/NavBar";
 
 interface Admin {
   firstName: string;

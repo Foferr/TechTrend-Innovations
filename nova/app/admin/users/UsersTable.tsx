@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./styles1.css";
-import NavbarComponent from "../components/NavBar";
+import NavbarComponent from "../../components/NavBar";
 
 
 type User = {
@@ -28,11 +28,11 @@ const UsersTable: React.FC = () => {
   }, []);
 
   const handleAddClick = () => {
-    navigate("/agregar-usuario");
+    navigate("/admin/users/agregar-usuario");
   };
 
   const handleEditClick = (userId: string) => {
-    navigate(`/editar-usuario/${userId}`);
+    navigate(`/admin/users/editar-usuario/${userId}`);
   };
 
   return (

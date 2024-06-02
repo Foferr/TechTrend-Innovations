@@ -34,7 +34,7 @@ const AgregarUsuario: React.FC = () => {
     axios.post('http://localhost:8080/users', user) 
       .then(response => {
         console.log('Usuario agregado:', response.data);
-        navigate("/"); // Navegar de vuelta a la tabla de usuarios
+        navigate("/admin/users"); // Navegar de vuelta a la tabla de usuarios
       })
       .catch(error => {
         console.error("Error al agregar usuario:", error);

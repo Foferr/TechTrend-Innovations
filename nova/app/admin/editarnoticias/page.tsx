@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
-import NavbarComponent from "../components/NavBar";
+import NavbarComponent from "../../components/NavBar";
 
 interface User {
   firstName: string;
@@ -134,7 +134,7 @@ const TablaDinamica = () => {
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan="7" className="py-6">
+                  <td colSpan={7} className="py-6">
                     <div className="flex justify-center">
                       <svg className="animate-spin h-8 w-8 text-blue-500" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>

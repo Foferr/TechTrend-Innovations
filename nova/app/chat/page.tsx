@@ -140,4 +140,5 @@ const Chat: React.FC = () => {
     );
 }
 
-export default withAuth(Chat);
+// export default withAuth(Chat);
+export default Chat;

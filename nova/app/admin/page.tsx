@@ -1,54 +1,13 @@
-import React, { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import UsersTable from "./UsersTable";
-import AgregarUsuario from "./AgregarUsuario";
-import EditUser from "./EditUser";
-import NavbarComponent from "../components/NavBar";
+"use client";
+import React from "react";
+import NavbarComponent from "../components/NavBar"; 
+import Chat from "../chat/page";
 
-
-type User = {
-  id: string;
-  username: string;
-  email: string;
-  language: string;
-  role: string;
-};
-
-const App: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
-
-  const getUserById = (id: string) => {
-    return users.find((user) => user.id === id);
-  };
-
-  const updateUser = (updatedUser: User) => {
-    const newUsers = users.map((user) =>
-      user.id === updatedUser.id ? updatedUser : user
+export default function chatAdmin(){
+    return (
+        <div>
+            <NavbarComponent/>
+            <Chat/>
+        </div>
     );
-    setUsers(newUsers);
-  };
-
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<UsersTable users={users} />} />
-        <Route
-          path="/agregar-usuario"
-          element={
-            <AgregarUsuario
-              onAddUser={(user: User) => setUsers([...users, user])}
-            />
-          }
-        />
-        <Route
-          path="/editar-usuario/:id"
-          element={
-            <EditUser getUserById={getUserById} updateUser={updateUser} />
-          }
-        />
-      </Routes>
-    </BrowserRouter>
-  );
-};
-
-export default App;
+}

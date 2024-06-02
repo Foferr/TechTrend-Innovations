@@ -72,7 +72,7 @@ sidebar-image {
   background-color: #0056b3;
 }
 .logo {
-  background-image: url("public/images/logo.png");
+  background-image: url("/images/novaLogo.png");
   background-size: contain; 
   background-repeat: no-repeat; 
   background-position: center; 

@@ -1,9 +1,11 @@
+"use client";
+
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UsersTable from "./UsersTable";
 import AgregarUsuario from "./AgregarUsuario";
 import EditUser from "./EditUser";
-import NavbarComponent from "../components/NavBar";
+import NavbarComponent from "../../components/NavBar";
 
 
 type User = {
@@ -31,9 +33,9 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<UsersTable users={users} />} />
+        <Route path="/admin/users" element={<UsersTable users={users} />} />
         <Route
-          path="/agregar-usuario"
+          path="/admin/users/agregar-usuario"
           element={
             <AgregarUsuario
               onAddUser={(user: User) => setUsers([...users, user])}
@@ -41,7 +43,7 @@ const App: React.FC = () => {
           }
         />
         <Route
-          path="/editar-usuario/:id"
+          path="/admin/users/editar-usuario/:id"
           element={
             <EditUser getUserById={getUserById} updateUser={updateUser} />
           }

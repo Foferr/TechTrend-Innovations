@@ -44,7 +44,7 @@ const EditUser: React.FC = () => {
     axios.put(`http://localhost:8080/users/${id}`, user) 
       .then(() => {
         alert("Datos guardados con éxito!");
-        navigate("/"); // Redirige a UsersTable después de confirmar
+        navigate("/admin/users"); // Redirige a UsersTable después de confirmar
       })
       .catch(error => {
         console.error("Error updating user:", error);
