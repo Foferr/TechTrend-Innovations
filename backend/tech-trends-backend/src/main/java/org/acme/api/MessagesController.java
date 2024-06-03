@@ -11,6 +11,7 @@ import jakarta.ws.rs.core.Response;
 import org.acme.DTO.FaqDTOs.FaqUpdateRequestDTO;
 import org.acme.DTO.MessageDTOs.MessagePostDTO;
 import org.acme.model.ChatHistory;
+import org.acme.model.Faq;
 import org.acme.model.Messages;
 import org.acme.service.ChatHistoryService;
 import org.acme.service.MessagesService;
@@ -42,12 +43,12 @@ public class MessagesController {
     @POST
     //@RolesAllowed({"admin", "base_user"})
     @PermitAll
-    @Path("/postMessage")
+    @Path("/postMessage/{chatHistoryId}")
     @RequestBody( content = @Content(
             mediaType = "application/json",
             schema = @Schema(implementation = MessagePostDTO.class)
     ))
-    public Response postMessage(@QueryParam("chatHistoryId") Long chatHistoryId, MessagePostDTO messagePostDTO) {
+    public Response postMessage(@PathParam("chatHistoryId") Long chatHistoryId, MessagePostDTO messagePostDTO) {
         try {
             Optional<ChatHistory> chatHistory = chatHistoryService.getChatHistoryById(chatHistoryId);
             if(chatHistory.isPresent()) {
