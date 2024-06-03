@@ -27,3 +27,15 @@ export async function generatePrompts(prompt) {
   
   return response.choices[0].message.content.trim();
 }
+
+export async function generateTitle(prompt) {
+  const response2 = await openai.chat.completions.create({
+    model: 'gpt-3.5-turbo',
+    messages: [{ role: 'system', content: "You are a helpful assitant that creates short, concise titles for chats with chatbots, based on the first prompt i give you" }, { role: 'user', content: prompt}],
+    max_tokens: 255,
+    temperature: 1,
+    stop: ['\n'],
+  });
+  
+  return response2.choices[0].message.content.trim();
+}
