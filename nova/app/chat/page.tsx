@@ -47,7 +47,7 @@ const Chat: React.FC = () => {
     const handlePrompts = async () => {
         if (!messages) {
             try {
-                const response = await axios.post("http://localhost:5000/api/chatHistory/user/1");
+                const response = await axios.post(`http://localhost:8080/api/chatHistory/user/1`);
                 const chatHistoryId = response.data.id;
             } catch (error) {
                 console.error(error);
@@ -60,7 +60,7 @@ const Chat: React.FC = () => {
         messages.push({ user: true, text: inputUser });
 
         try {
-            await axios.post(`http://localhost:5000/api/messages/postMessage/${chatHistoryId}`, {
+            await axios.post(`http://localhost:8080/api/messages/postMessage/${chatHistoryId}`, {
                 senderType: 'user',
                 messageContent: inputUser
             });
@@ -72,7 +72,7 @@ const Chat: React.FC = () => {
         setMessages([...messages, { user: false, text: prompts }]);
 
         try {
-            await axios.post(`http://localhost:5000/api/messages/postMessage/${chatHistoryId}`, {
+            await axios.post(`http://localhost:8080/api/messages/postMessage/${chatHistoryId}`, {
                 senderType: 'nova',
                 messageContent: prompts
             });
@@ -169,5 +169,5 @@ const Chat: React.FC = () => {
     );
 }
 
-// export default withAuth(Chat);
-export default Chat;
+export default withAuth(Chat);
+//export default Chat;
