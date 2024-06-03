@@ -26,3 +26,50 @@
     margin-right: 0;
     display: flex;
 }
+.container {
+    display: flex;
+    height: 100vh; /* Full height of the viewport */
+}
+
+.history {
+    flex: 1;
+    margin-right: 20px;
+    overflow-y: auto; /* Vertical scrollbar */
+    border-right: 1px solid #ccc; /* Optional: Add a border to separate sections */
+}
+
+.messages {
+    flex: 2;
+    overflow-y: auto; /* Vertical scrollbar */
+    padding-left: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: #e0e0e0;
+}
+
+.messages-cell {
+    padding: 16px;
+    background-color: #f9f9f9;
+}

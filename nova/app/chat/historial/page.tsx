@@ -32,8 +32,8 @@ const Historial: React.FC = () => {
     };
 
     return (
-        <body>
-            <div className="container">
+        <div className="container">
+            <div className="history">
                 <h1>Historial de chats</h1>
                 <table>
                     <thead>
@@ -45,34 +45,37 @@ const Historial: React.FC = () => {
                     </thead>
                     <tbody>
                         {data.map((chat: any) => (
-                            <React.Fragment key={chat.id}>
-                                <tr onClick={() => handleRowClick(chat.id)}>
-                                    <td>{chat.id}</td> 
-                                    <td>{chat.createdAt}</td>
-                                    <td>{chat.status}</td>
-                                </tr>
-                                {expandedChatId === chat.id && (
-                                    <tr>
-                                        <td colSpan={3} className="messages-cell">
-                                            <ul>
-                                                {messages.map((message: any) => (
-                                                    <li
-                                                        key={message.id}
-                                                        className={`message ${message.senderType === 'user' ? 'user' : 'nova'}`}
-                                                    >
-                                                        {message.messageContent}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                )}
-                            </React.Fragment>
+                            <tr 
+                                key={chat.id} 
+                                onClick={() => handleRowClick(chat.id)} 
+                                className={expandedChatId === chat.id ? 'selected' : ''}
+                            >
+                                <td>{chat.id}</td>
+                                <td>{chat.createdAt}</td>
+                                <td>{chat.status}</td>
+                            </tr>
                         )).reverse()}
                     </tbody>
                 </table>
             </div>
-        </body>
+            <div className="messages">
+                {expandedChatId && (
+                    <div>
+                        <h2>Messages</h2>
+                        <ul>
+                            {messages.map((message: any) => (
+                                <li
+                                    key={message.id}
+                                    className={`message ${message.senderType === 'user' ? 'user' : 'nova'}`}
+                                >
+                                    {message.messageContent}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+            </div>
+        </div>
     );
 }
 
