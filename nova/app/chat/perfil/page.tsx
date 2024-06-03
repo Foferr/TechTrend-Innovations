@@ -11,7 +11,6 @@ import withAuth from '../../components/HOC/withAuth';
 
 
 const Perfil: React.FC = () => {
-
     
     const [isOverlayOpen, setIsOverlayOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
@@ -29,7 +28,7 @@ const Perfil: React.FC = () => {
 
 
     useEffect(() => {
-        axios.get('http://localhost:8080/user/2')
+        axios.get(`http://localhost:8080/user/${localStorage.getItem('userId')}`)
             .then(response => {
                 setUser(response.data);
             })
@@ -61,7 +60,7 @@ const Perfil: React.FC = () => {
 
 
     const handleConfirmClick = () => {
-        axios.put('http://localhost:8080/user/editUser/2', user)
+        axios.put(`http://localhost:8080/user/editUser/${localStorage.getItem('userId')}`, user)
             .then(response => {
                 setStatusMessage('Usuario editado correctamente!');
                 setTimeout(() => {
@@ -75,7 +74,7 @@ const Perfil: React.FC = () => {
     };
 
     const handleConfirmDelete = () => {
-        axios.delete('http://localhost:8080/user/deleteUser/101')
+        axios.delete(`http://localhost:8080/user/deleteUser/${localStorage.getItem('userId')}`)
             .then(response => {
                 window.location.href = '/';
             })
