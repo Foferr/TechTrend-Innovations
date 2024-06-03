@@ -26,6 +26,9 @@ public class ChatHistory extends PanacheEntity {
     @Column(name = "status", nullable = false)
     public String status;
 
+    @Column(name = "title", nullable = false)
+    public String title;
+
     @PreUpdate
     private void onUpdate() {
         updatedAt = LocalDateTime.now();
@@ -45,6 +48,10 @@ public class ChatHistory extends PanacheEntity {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
 

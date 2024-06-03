@@ -13,4 +13,15 @@ public class ChatHistoryPostRequestDTO {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Schema(example = "Title of the chat")
+    private String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }
