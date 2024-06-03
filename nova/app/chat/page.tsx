@@ -11,10 +11,7 @@ import withAuth from '../components/HOC/withAuth';
 import axios from "axios";
 
 const deleteLocalStorage = () => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('userType');
-    localStorage.removeItem('userId');
+    localStorage.clear();
 };
 
 const Chat: React.FC = () => {
@@ -55,7 +52,7 @@ const Chat: React.FC = () => {
             
             await axios.post(`http://localhost:8080/chatHistory/user/${localStorage.getItem('userId')}`, {
                 status: 'active',
-                userId: 1,
+                userId: localStorage.getItem('userId'),
                 title: (await generateTitle(inputUser))
             });
         }
