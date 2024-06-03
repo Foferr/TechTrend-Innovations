@@ -38,9 +38,7 @@ const Historial: React.FC = () => {
                 <table>
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Fecha</th>
-                            <th>Estado</th>
+                            <th>Título</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -50,9 +48,7 @@ const Historial: React.FC = () => {
                                 onClick={() => handleRowClick(chat.id)} 
                                 className={expandedChatId === chat.id ? 'selected' : ''}
                             >
-                                <td>{chat.id}</td>
-                                <td>{chat.createdAt}</td>
-                                <td>{chat.status}</td>
+                                <td>{chat.title}</td>
                             </tr>
                         )).reverse()}
                     </tbody>
