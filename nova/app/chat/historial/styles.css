@@ -1,0 +1,28 @@
+.message {
+    max-width: 75%;
+    min-width: 70px;
+    width: fit-content;
+    padding: 10px;
+    border-radius: 10px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow-x: auto;
+    position: relative;
+    padding-bottom: 25px;
+}
+
+.message.nova {
+    background-color: rgb(161, 186, 220);
+    margin-bottom: 2%;
+    margin-left: 0;
+    margin-right: auto;
+    display: flex;
+}
+
+.message.user {
+    background-color: rgb(230, 230, 230);
+    margin-bottom: 2%;
+    margin-left: auto;
+    margin-right: 0;
+    display: flex;
+}
