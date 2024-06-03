@@ -15,8 +15,8 @@ const Chat: React.FC = () => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
+    const [chatHistoryId, setChatHistoryId] = useState<number | null>(null);
     const chatContentRef = useRef<HTMLDivElement>(null);
-    let chatHistoryId: number;
 
     const handleOpenOverlay = () => {
         setIsOverlayOpen(true);
@@ -43,41 +43,68 @@ const Chat: React.FC = () => {
     };
 
     const [messages, setMessages] = useState<{ user: boolean; text: string }[]>([]);
-
+    
     const handlePrompts = async () => {
-        if (!messages) {
-            try {
-                const response = await axios.post(`http://localhost:8080/api/chatHistory/user/1`);
-                const chatHistoryId = response.data.id;
-            } catch (error) {
-                console.error(error);
-            }
-        }
+        if (messages.length === 0) {
+            const response = await axios.post(`http://localhost:8080/chatHistory/user/1`, {
+                status: 'active',
+                userId: 1
+            });
+            const chatHistoryResponse = await axios.get(`http://localhost:8080/chatHistory/user/1`);
+            const latestChatHistoryId = chatHistoryResponse.data[chatHistoryResponse.data.length - 1].id;
+            setChatHistoryId(latestChatHistoryId);
+            const inputUser = (document.getElementById("inputUser") as HTMLInputElement).value;
+            (document.getElementById("inputUser") as HTMLInputElement).value = "";
+            setMessages([...messages, { user: true, text: inputUser }]);
+            messages.push({ user: true, text: inputUser });
 
-        const inputUser = (document.getElementById("inputUser") as HTMLInputElement).value;
-        (document.getElementById("inputUser") as HTMLInputElement).value = "";
-        setMessages([...messages, { user: true, text: inputUser }]);
-        messages.push({ user: true, text: inputUser });
-
-        try {
-            await axios.post(`http://localhost:8080/api/messages/postMessage/${chatHistoryId}`, {
+            await axios.post(`http://localhost:8080/messages/postMessage/${latestChatHistoryId}`, {
                 senderType: 'user',
                 messageContent: inputUser
-            });
-        } catch (error) {
-            console.error(error);
-        }
+            })
+            .catch (error => {
+                console.error(error);
+            }); 
 
-        const prompts = await generatePrompts(inputUser);
-        setMessages([...messages, { user: false, text: prompts }]);
+            const prompts = await generatePrompts(inputUser);
+            setMessages([...messages, { user: false, text: prompts }]);
 
-        try {
-            await axios.post(`http://localhost:8080/api/messages/postMessage/${chatHistoryId}`, {
+            await axios.post(`http://localhost:8080/messages/postMessage/${latestChatHistoryId}`, {
                 senderType: 'nova',
                 messageContent: prompts
+            })
+            .catch (error => {
+                console.error(error);
             });
-        } catch (error) {
-            console.error(error);
+
+        } else {
+
+            const inputUser = (document.getElementById("inputUser") as HTMLInputElement).value;
+            (document.getElementById("inputUser") as HTMLInputElement).value = "";
+            setMessages([...messages, { user: true, text: inputUser }]);
+            messages.push({ user: true, text: inputUser });
+
+            await axios.post(`http://localhost:8080/messages/postMessage/${chatHistoryId}`, {
+                senderType: 'user',
+                messageContent: inputUser
+            })
+            .then(response => {
+                console.log(response);
+            })
+            .catch (error => {
+                console.error(error);
+            }); 
+
+            const prompts = await generatePrompts(inputUser);
+            setMessages([...messages, { user: false, text: prompts }]);
+
+            await axios.post(`http://localhost:8080/messages/postMessage/${chatHistoryId}`, {
+                senderType: 'nova',
+                messageContent: prompts
+            })
+            .catch (error => {
+                console.error(error);
+            });
         }
     };
 

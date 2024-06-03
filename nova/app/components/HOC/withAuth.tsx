@@ -22,12 +22,7 @@ const withAuth = <P extends object>(WrappedComponent: ComponentType<P>): Compone
                     console.log('inside of withauth: refresh token: ' + refreshToken);
 
                     if (!accessToken) {
-                        console.log('00000000000000000000000000000000000000000000000000000000000000000')
-                        console.log('00000000000000000000000000000000000000000000000000000000000000000')
-                        console.log('00000000000000000000000000000000000000000000000000000000000000000')
-                        console.log('00000000000000000000000000000000000000000000000000000000000000000')
-                        console.log('00000000000000000000000000000000000000000000000000000000000000000')
-                        console.log('00000000000000000000000000000000000000000000000000000000000000000')
+                        console.log('Log in first!')
                         router.push('/login');
                         return;
                     }

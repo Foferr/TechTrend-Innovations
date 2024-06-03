@@ -10,7 +10,6 @@ import axios from 'axios';
 import withAuth from '../../components/HOC/withAuth';
 
 
-
 const Perfil: React.FC = () => {
 
     
