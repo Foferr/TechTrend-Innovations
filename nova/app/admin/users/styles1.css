@@ -1,0 +1,103 @@
+/* Estilos Generales */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw; 
+  height: 100vh;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  background: linear-gradient(rgb(218, 218, 150), #e4e4d9);
+}
+
+.container {
+  width: 250%; 
+  max-width: 1440px; 
+  height: 90vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  background-color: linear-gradient(rgb(218, 218, 150), #e4e4d9);
+  border-radius: 0px;
+}
+
+.sidebar-image {
+  position: absolute; 
+  top: 400px; 
+  left: 50px; 
+  width: 30%; 
+  height: auto; 
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0; 
+}
+
+.header h1 {
+  font-size: 1.5em;
+  color: #333;
+  flex-grow: 1;
+  margin-right: 20px;
+}
+
+.header button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  text-align: left;
+  padding: 12px;
+  font-size: 1em;
+}
+
+th {
+  background-color: #007bff;
+  color: white;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1em;
+}

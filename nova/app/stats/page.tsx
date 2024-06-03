@@ -4,6 +4,8 @@
 import React, { useState, useEffect } from 'react';
 import VisitPieChart from '@/app/components/VisitPieChart';
 import withAuth from '../components/HOC/withAuth';
+import NavbarComponent from '../components/NavBar';
+
 
 const StatsPage = () => {
     const [visitData, setVisitData] = useState({
@@ -29,6 +31,7 @@ const StatsPage = () => {
 
     return (
         <div>
+            <NavbarComponent/>
             <h1>Dashboard</h1>
             <VisitPieChart
             totalVisits={visitData.totalVisits}

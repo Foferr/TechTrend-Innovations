@@ -105,22 +105,27 @@ const Perfil: React.FC = () => {
                     />
             </div>
             <div className="formDiv">
-                <div className="forminnerDiv">
-                    <h1 className="text-nova-blue-500">First Name</h1>
-                    <input type="text" id="firstName" name="firstName" value={user.firstName} className="text-nova-blue-500" onChange={handleInputChange}/>
+                <div className="formflexDiv">
+                    <div className="forminnerDiv">
+                        <h1 className="text-nova-blue-500">First Name</h1>
+                        <input type="text" id="firstName" name="firstName" value={user.firstName} className="text-nova-blue-500" onChange={handleInputChange}/>
+                    </div>
+                    <div className="forminnerDiv">
+                        <h1 className="text-nova-blue-500">Last Name</h1>
+                        <input type="text" id="lastName" name="lastName" value={user.lastName} className="text-nova-blue-500" onChange={handleInputChange}/>
+                    </div>
                 </div>
-                <div className="forminnerDiv">
-                    <h1 className="text-nova-blue-500">Last Name</h1>
-                    <input type="text" id="lastName" name="lastName" value={user.lastName} className="text-nova-blue-500" onChange={handleInputChange}/>
+                <div className="formflexDiv">
+                    <div className="forminnerDiv">
+                        <h1 className="text-nova-blue-500">Contraseña</h1>
+                        <input type="password" id="userPassword" name="userPassword" value={user.userPassword} className="text-nova-blue-500" onChange={handleInputChange}/>
+                    </div>
+                    <div className="forminnerDiv">
+                        <h1 className="text-nova-blue-500">Correo</h1>
+                        <input type="text" id="email" name="email" className="text-nova-blue-500" value={user.email} onChange={handleInputChange}/>
+                    </div>
                 </div>
-                <div className="forminnerDiv">
-                    <h1 className="text-nova-blue-500">Contraseña</h1>
-                    <input type="password" id="userPassword" name="userPassword" value={user.userPassword} className="text-nova-blue-500" onChange={handleInputChange}/>
-                </div>
-                <div className="forminnerDiv">
-                    <h1 className="text-nova-blue-500">Correo</h1>
-                    <input type="text" id="email" name="email" className="text-nova-blue-500" value={user.email} onChange={handleInputChange}/>
-                </div>
+
                 <div className="forminnerDiv">
                     <h1 className="text-nova-blue-500">Lenguaje Preferido</h1>
                     <select name="language" id="language" className="text-nova-blue-500" value={user.language} onChange={handleInputChange}>
