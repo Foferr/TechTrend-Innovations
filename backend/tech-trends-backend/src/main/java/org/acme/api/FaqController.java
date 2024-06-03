@@ -33,6 +33,7 @@ public class FaqController {
 
 
     @GET
+    //@RolesAllowed({"admin", "base_user"})
     @PermitAll
     @Path("/getAll")
     public Response getAllFaqs() {
@@ -53,6 +54,8 @@ public class FaqController {
 
     // Endpoint para obtener una FAQ por su ID.
     @GET
+    //@RolesAllowed({"admin", "base_user"})
+    @PermitAll
     @Path("/{faqId}")
     public Response getFaqById(@PathParam("faqId") Long faqId) {
         Faq faq = faqService.getFaqById(faqId);
@@ -67,6 +70,8 @@ public class FaqController {
 
     // Endpoint para actualizar una FAQ dado su ID y un ID de admin válido.
     @PUT
+    //@RolesAllowed("admin")
+    @PermitAll
     @Path("/{adminId}/{faqId}")
     @Operation(summary = "Update FAQ", description = "Update an FAQ entry")
     @RequestBody( content = @Content(
@@ -99,6 +104,8 @@ public class FaqController {
 
     // Endpoint para borrar una FAQ dado su ID y un ID de admin válido.
     @DELETE
+    //@RolesAllowed("admin")
+    @PermitAll
     @Path("/{adminId}/{faqId}")
     public Response deleteFaq(@PathParam("adminId") Long adminId, @PathParam("faqId") Long faqId) {
         try {
@@ -127,6 +134,8 @@ public class FaqController {
     // Endpoint para obtener todas las FAQs creadas por un admin específico.
 
     @GET
+    //@RolesAllowed("admin")
+    @PermitAll
     @Path("/getByAdminId/{adminId}")
     public Response getFaqsByAdmin(@PathParam("adminId") Long adminId) {
         try {
@@ -146,6 +155,8 @@ public class FaqController {
 
     // Endpoint para crear una nueva FAQ dado un ID de admin válido.
     @POST
+    @PermitAll
+    //@RolesAllowed("admin")
     @Path("/{adminId}")
     @RequestBody( content = @Content(
             mediaType = "application/json",
@@ -176,6 +187,8 @@ public class FaqController {
 
 //    // Endpoint para obtener FAQs por su estado.
     @GET
+    @PermitAll
+    //@RolesAllowed({"admin", "base_user"})
     @Path("/status/{status}")
     public Response getFaqsByStatus(@PathParam("status") String status) {
         try {

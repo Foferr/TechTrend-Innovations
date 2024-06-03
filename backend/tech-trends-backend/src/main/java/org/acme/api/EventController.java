@@ -1,6 +1,7 @@
 package org.acme.api;
 
 import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -28,6 +29,7 @@ public class EventController {
     EventService eventService;
 
     @GET
+    //@RolesAllowed("admin")
     @PermitAll
     public Response getAllEvents() {
         try {
@@ -46,6 +48,8 @@ public class EventController {
     }
 
     @GET
+    //@RolesAllowed("admin")
+    @PermitAll
     @Path("byUserId/{userId}")
     public Response getEventsByUserId(@PathParam("userId") Long userId) {
         try {
@@ -64,6 +68,8 @@ public class EventController {
     }
 
     @GET
+    //@RolesAllowed("admin")
+    @PermitAll
     @Path("byTarget/{eventTarget}")
     public Response getEventsByEventTarget(@PathParam("eventTarget") String eventTarget) {
         try {
@@ -82,6 +88,8 @@ public class EventController {
     }
 
     @GET
+    //@RolesAllowed("admin")
+    @PermitAll
     @Path("byDate/{eventDate}")
     public Response getEventsByDate(@PathParam("eventDate") LocalDate eventDate) {
         try {
@@ -100,6 +108,8 @@ public class EventController {
     }
 
     @POST
+    //@RolesAllowed("admin")
+    @PermitAll
     @RequestBody( content = @Content(
             mediaType = "application/json",
             schema = @Schema(implementation = EventLogPostDTO.class)
@@ -120,6 +130,8 @@ public class EventController {
     }
 
     @DELETE
+    //@RolesAllowed("admin")
+    @PermitAll
     public Response deleteEvents() {
         try {
             eventService.deleteAllEvents();
@@ -135,6 +147,8 @@ public class EventController {
     }
 
     @PUT
+    //@RolesAllowed("admin")
+    @PermitAll
     @Path("/{eventLogId}")
     @RequestBody( content = @Content(
             mediaType = "application/json",
@@ -169,6 +183,8 @@ public class EventController {
     }
 
     @DELETE
+    //@RolesAllowed("admin")
+    @PermitAll
     @Path("/{eventLogId}")
     public Response deleteEventById(@PathParam("eventLogId") Long id) {
         try {

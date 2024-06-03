@@ -7,6 +7,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.acme.techtrends.auth.model.LoginRequest;
 import org.acme.techtrends.auth.model.Tokens;
+import org.acme.techtrends.auth.model.UserDataForToken;
 import org.acme.techtrends.auth.model.ValidationRequest;
 import org.acme.techtrends.auth.services.AuthService;
 import org.acme.techtrends.auth.services.TokenService;
@@ -20,6 +21,18 @@ public class AuthResource {
 
     @Inject
     TokenService tokenService;
+
+    @OPTIONS
+    @Path("{path : .*}")
+    public Response handlePreflight() {
+        return Response.ok()
+                .header("Access-Control-Allow-Origin", "http://localhost:3000")
+                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+                .header("Access-Control-Max-Age", "1209600")
+                .build();
+    }
+
 
     @POST
     @Path("/validate-token")
@@ -41,11 +54,11 @@ public class AuthResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/login")
     public Response login(LoginRequest loginRequest) {
-        String userType = authenticationService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
-        if( userType != null ) {
+        UserDataForToken userData = authenticationService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
+        if( userData != null ) {
 
-            String accessToken = tokenService.generateAccessToken(userType);
-            String refreshToken = tokenService.generateRefreshToken(userType);
+            String accessToken = tokenService.generateAccessToken(userData.getUserType(), userData.getUserId());
+            String refreshToken = tokenService.generateRefreshToken(userData.getUserType(), userData.getUserId());
 
             return Response.ok(new Tokens(accessToken, refreshToken)).build();
         } else {
@@ -81,7 +94,9 @@ public class AuthResource {
             String refreshToken = refreshTokenHeader.substring("Bearer ".length()).trim();
 
             if (tokenService.validateRefreshToken(refreshToken)) {
-                Tokens tokens = tokenService.refreshTokens(refreshToken);
+                Long userId = tokenService.extractIdFromToken(refreshToken);
+                String userType = tokenService.extractUserTypeFromToken(refreshToken);
+                Tokens tokens = tokenService.refreshTokens(userType, userId);
                 return Response.ok(tokens).build();
             }
         }

@@ -24,7 +24,7 @@ public class TokenService {
     private Set<String> invalidatedAccessTokens = new HashSet<>();
     private Set<String> invalidatedRefreshTokens = new HashSet<>();
 
-    public String generateAccessToken(String role) {
+    public String generateAccessToken(String role, Long userId) {
 //        Set<String> roles = new HashSet<>(
 //                Arrays.asList("admin", "base_user")
 //        );
@@ -36,21 +36,25 @@ public class TokenService {
                         System.currentTimeMillis() + (1000 * 60 * 60)
                 )
                 .claim("type", "access")
+                .claim("userId", userId)
+                .claim("userType", role)
                 .sign();
     }
 
-    public String generateRefreshToken(String role) {
+    public String generateRefreshToken(String role, Long userId) {
         return Jwt.issuer("nova-jwt")
                 .subject("refresh-token")
                 .groups(role)
                 .expiresAt(System.currentTimeMillis() + (30L * 24 * 60 * 60 * 1000))
                 .claim("type", "refresh")
+                .claim("userId", userId)
+                .claim("userType", role)
                 .sign();
     }
 
-    public Tokens refreshTokens(String role) {
-        String accessToken = generateAccessToken(role);
-        String refreshToken = generateRefreshToken(role);
+    public Tokens refreshTokens(String role, Long userId) {
+        String accessToken = generateAccessToken(role, userId);
+        String refreshToken = generateRefreshToken(role, userId);
         return new Tokens(accessToken, refreshToken);
     }
 
@@ -104,6 +108,32 @@ public class TokenService {
             return jsonPayload.getString(Claims.groups.name());
         } catch (Exception e) {
             // Handle any exceptions (e.g., parsing error, missing claim)
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Long extractIdFromToken(String token) {
+        String[] parts = token.split("\\.");
+        String payload = new String(Base64.getUrlDecoder().decode(parts[1]));
+
+        try (JsonReader reader = Json.createReader(new StringReader(payload))) {
+            JsonObject jsonPayload = reader.readObject();
+            return jsonPayload.getJsonNumber("userId").longValue();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String extractUserTypeFromToken(String token) {
+        String[] parts = token.split("\\.");
+        String payload = new String(Base64.getUrlDecoder().decode(parts[1]));
+
+        try (JsonReader reader = Json.createReader(new StringReader(payload))) {
+            JsonObject jsonPayload = reader.readObject();
+            return jsonPayload.getString("userType");
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

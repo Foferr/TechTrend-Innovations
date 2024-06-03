@@ -1,5 +1,7 @@
 package org.acme.api;
 
+import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -24,12 +26,15 @@ public class ChatHistoryController {
     ChatHistoryService chathistoryService;
 
     @GET
+    @RolesAllowed({"admin", "base_user"})
     public List<ChatHistory> getAllChatHistories() {
         return chathistoryService.getAllChatHistory();
     }
 
     @GET
     @Path("/user/{userId}")
+    //@RolesAllowed({"admin", "base_user"})
+    @PermitAll
     public Response getChatHistoryByUserId(@PathParam("userId") Long userId) {
         try {
             List<ChatHistory> chatHistories = chathistoryService.getChatHistoryByUserId(userId);
@@ -49,6 +54,8 @@ public class ChatHistoryController {
 
     @POST
     @Path("/user/{userId}")
+    //@RolesAllowed({"admin", "base_user"})
+    @PermitAll
     @RequestBody( content = @Content(
             mediaType = "application/json",
             schema = @Schema(implementation = ChatHistoryPostRequestDTO.class)
@@ -72,6 +79,8 @@ public class ChatHistoryController {
     }
 
     @GET
+    //@RolesAllowed({"admin", "base_user"})
+    @PermitAll
     @Path("/{chatHistoryId}")
     public Response getChatHistoryById(@PathParam("chatHistoryId") Long chatHistoryId) {
         Optional<ChatHistory> chatHistory = chathistoryService.getChatHistoryById(chatHistoryId);
@@ -85,6 +94,8 @@ public class ChatHistoryController {
     }
 
     @GET
+    @PermitAll
+    //@RolesAllowed({"admin", "base_user"})
     @Path("/status/{userId}/{status}")
     public Response getChatHistoryByUserIdAndStatus(@PathParam("userId") Long userId, @PathParam("status") String status) {
         try {
@@ -104,6 +115,8 @@ public class ChatHistoryController {
     }
 
     @PUT
+    //@RolesAllowed({"admin", "base_user"})
+    @PermitAll
     @Path("/{chatHistoryId}")
     public Response updateChatHistory(@PathParam("chatHistoryId") Long chatHistoryId, @QueryParam("status") String status) {
         try {
@@ -123,6 +136,8 @@ public class ChatHistoryController {
     }
 
     @DELETE
+    //@RolesAllowed({"admin", "base_user"})
+    @PermitAll
     @Path("/{chatHistoryId}")
     public Response deleteChatHistory(@PathParam("chatHistoryId") Long chatHistoryId) {
         try {
