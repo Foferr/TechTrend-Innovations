@@ -26,7 +26,7 @@ public class ChatHistoryController {
     ChatHistoryService chathistoryService;
 
     @GET
-    // @RolesAllowed({"admin", "base_user"})
+    //@RolesAllowed({"admin", "base_user"})
     @PermitAll
     public List<ChatHistory> getAllChatHistories() {
         return chathistoryService.getAllChatHistory();
