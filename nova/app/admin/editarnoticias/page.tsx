@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import NavbarComponent from "../../components/NavBar";
+import withAuth from '../../components/HOC/withAuth';
+
 
 interface User {
   firstName: string;
@@ -229,4 +231,4 @@ const TablaDinamica = () => {
   );
 };
 
-export default TablaDinamica;
+export default withAuth(TablaDinamica);

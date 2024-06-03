@@ -34,6 +34,7 @@ public class UserController {
     // }
 
     @GET
+//    @RolesAllowed({"admin", "base_user"})
     @PermitAll
     public List<User> getAllUsers() {
         return userService.getAllUsers();
@@ -66,6 +67,8 @@ public class UserController {
     }
 
     @GET
+    //@RolesAllowed({"admin", "base_user"})
+    @PermitAll
     @Path("/{id}")
     public Response getUserById(@PathParam("id") Long id) {
         User user = userService.getUserById(id);
@@ -79,6 +82,8 @@ public class UserController {
     }
 
     @PUT
+    //@RolesAllowed({"admin", "base_user"})
+    @PermitAll
     @Path("/editUser/{id}")
 //    @RolesAllowed({"admin", "base_user"})
     @RequestBody( content = @Content(
@@ -117,6 +122,8 @@ public class UserController {
     }
 
     @DELETE
+    //@RolesAllowed({"admin", "base_user"})
+    @PermitAll
     @Path("/deleteUser/{id}")
     public Response deleteUser(@PathParam("id") Long id) {
         try {

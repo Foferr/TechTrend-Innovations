@@ -7,10 +7,11 @@ import "../../globals.css";
 import {Button} from "@nextui-org/button";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import withAuth from '../../components/HOC/withAuth';
 
 
 
-export default function Perfil() {
+const Perfil: React.FC = () => {
 
     
     const [isOverlayOpen, setIsOverlayOpen] = useState(false);
@@ -169,3 +170,5 @@ export default function Perfil() {
         </body>
     );
 }
+
+export default withAuth(Perfil);

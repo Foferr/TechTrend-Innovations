@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import withAuth from '../components/HOC/withAuth';
 
-export default function Noticias() {
+const Noticias: React.FC = () => {
     const [news, setNews] = useState([
         {
             id: 0,
@@ -32,3 +33,5 @@ export default function Noticias() {
         </section>
     );
 }
+
+export default withAuth(Noticias);

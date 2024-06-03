@@ -1,5 +1,6 @@
 package org.acme.api;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -28,12 +29,16 @@ public class CompanyNewsController {
     CompanyNewsService companyNewsService;
     
     @GET
+    //@RolesAllowed({"admin", "base_user"})
+    @PermitAll
     @Path("/getAll")
     public List<CompanyNews> getAllCompanyNews() {
         return companyNewsService.getAllCompanyNews();
     }
      
     @GET
+    @PermitAll
+    //@RolesAllowed({"admin", "base_user"})
     @Path("/byId/{companyNewsId}")
     public Response getCompanyNewsByNewsId(@PathParam("companyNewsId") Long companyNewsId) {
         try {
@@ -53,6 +58,8 @@ public class CompanyNewsController {
     }
       
     @GET
+    @PermitAll
+    //@RolesAllowed("admin")
     @Path("/byAdminId/{adminId}")
     public Response getCompanyNewsByAdminId(@PathParam("adminId") Long userId) {
         try {
@@ -72,6 +79,8 @@ public class CompanyNewsController {
     }
     
     @GET
+    //@RolesAllowed({"admin", "base_user"})
+    @PermitAll
     @Path("/byStatus/{status}")
     public Response getCompanyNewsByStatus(@PathParam("status") String status) {
         try {
@@ -102,6 +111,8 @@ public class CompanyNewsController {
     }
     */
     @POST
+    //@RolesAllowed("admin")
+    @PermitAll
     @Path("/{adminId}")
     @RequestBody( content = @Content(
             mediaType = "application/json",
@@ -124,6 +135,8 @@ public class CompanyNewsController {
 
     //Implementar endpoint /companyNews/delete/{companyNewsId}
     @DELETE
+    //@RolesAllowed("admin")
+    @PermitAll
     @Path("/{companyNewsId}")
     public Response postDeleteCompanyNews(@PathParam("companyNewsId") Long companyNewsId) {
         try {
@@ -143,6 +156,8 @@ public class CompanyNewsController {
      //Implementar endpoint /companyNews/{adminId}/{companyNewsId} (PUT)
 
     @PUT
+    //@RolesAllowed("admin")
+    @PermitAll
     @Path("/{adminId}/{companyNewsId}")
     public Response updateCompanyNews(@PathParam("adminId") Long adminId,@PathParam("companyNewsId") Long companyNewsId, @QueryParam("status") String status) {
         try {

@@ -3,8 +3,9 @@ import "./styles.css";
 import "../globals.css";
 import React, { useState } from 'react';
 import {Navbar} from "@material-tailwind/react";
+import withAuth from '../components/HOC/withAuth';
 
-export default function NavbarComponent(){
+const NavbarComponent: React.FC = () => { 
     return (
             <Navbar placeholder="" onPointerEnterCapture={() => {}} onPointerLeaveCapture={() => {}}>
                 <div className = "flex justify-between items-center text-nova-blue-500 pl-[10%] pr-[10%] pt-[15px] pb-[15px] ">
@@ -18,3 +19,5 @@ export default function NavbarComponent(){
             </Navbar>
     );
 }
+
+export default withAuth(NavbarComponent);

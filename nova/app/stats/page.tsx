@@ -3,7 +3,9 @@
 
 import React, { useState, useEffect } from 'react';
 import VisitPieChart from '@/app/components/VisitPieChart';
+import withAuth from '../components/HOC/withAuth';
 import NavbarComponent from '../components/NavBar';
+
 
 const StatsPage = () => {
     const [visitData, setVisitData] = useState({
@@ -40,4 +42,4 @@ const StatsPage = () => {
     );
 };
 
-export default StatsPage;
+export default withAuth(StatsPage);

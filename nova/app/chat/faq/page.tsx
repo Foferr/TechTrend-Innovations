@@ -2,8 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import withAuth from '../../components/HOC/withAuth';
 import logo from './path-to-your-logo.png';
 import Link from 'next/link';
+
 
 interface User {
   firstName: string;
@@ -72,4 +74,4 @@ const FAQ: React.FC = () => {
   );
 }
 
-export default FAQ;
+export default withAuth(FAQ);

@@ -2,8 +2,10 @@
 import React from "react";
 import NavbarComponent from "../components/NavBar"; 
 import Chat from "../chat/page";
+import withAuth from '../components/HOC/withAuth';
 
-export default function chatAdmin(){
+
+const adminHome: React.FC = () => {
     return (
         <div>
             <NavbarComponent/>
@@ -11,3 +13,5 @@ export default function chatAdmin(){
         </div>
     );
 }
+
+export default withAuth(adminHome);
