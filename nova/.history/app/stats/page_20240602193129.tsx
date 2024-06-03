@@ -16,7 +16,7 @@ const StatsPage = () => {
 
     useEffect(() => {
         // Fetch data from your API endpoint
-        fetch('http://localhost:8080/eventLog/visit-metrics')
+        fetch('http://localhost:8075/eventLog/visit-metrics')
           .then((response) => response.json())
           .then((data) => {
             // Update state with the fetched data
