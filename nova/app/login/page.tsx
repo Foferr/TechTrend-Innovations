@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import { useState, FormEvent } from 'react';
+import getUser from '../components/HOC/getUser';
 
 export default function Home() {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+
 
     const handleLogin = async (e: FormEvent) => {
         e.preventDefault();
@@ -29,8 +31,17 @@ export default function Home() {
                 console.log('refresh token is: ');
                 console.log(data.refreshToken);
                 localStorage.setItem('accessToken', data.accessToken);
+                const user = getUser();
                 localStorage.setItem('refreshToken', data.refreshToken);
-                window.location.href = '/chat';
+                if (user && user.userType) {
+                    localStorage.setItem('userType', user?.userType);
+                    localStorage.setItem('userId', user?.userId.toString());
+                    if (user?.userType === 'admin') {
+                        window.location.href = '/admin';
+                    } else {
+                        window.location.href = '/chat';
+                    }
+                }
             } else {
                 console.error('Login failed');
             }
