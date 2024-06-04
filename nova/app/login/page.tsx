@@ -44,7 +44,7 @@ export default function Home() {
         //Agregar transiciones a los elementos de la pagina para que sean mas dinamicos y agradables a la vista
         <div className="relative flex flex-row bg-white justify-center min-h-screen overflow-hidden">
             <div className="landingTitle border w-full p-6 mb-auto mt-auto bg-white rounded-md shadow-2xl sm:max-w-xl">
-                <img className="w-20 min-w-px-70 ml-auto mr-auto" src="/images/VectorNovaLogoBlue.svg"
+                <img className="w-40 min-w-px-70 ml-auto mr-auto" src="/images/VectorNovaLogoJT.svg"
                      alt=""/>
                 <form className="mt-6" onSubmit={handleLogin}>
                     <div className="mb-4">
