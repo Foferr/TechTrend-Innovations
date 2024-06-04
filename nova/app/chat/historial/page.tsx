@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import withAuth from "@/app/components/HOC/withAuth";
 import "./styles.css";
+import Link from "next/link";
 
 const Historial: React.FC = () => {
     const [data, setData] = useState([]);
@@ -11,7 +12,7 @@ const Historial: React.FC = () => {
     const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/chatHistory/user/1')
+        axios.get(`http://localhost:8080/chatHistory/user/${localStorage.getItem('userId')}`)
             .then((response) => {
                 setData(response.data);
             });
@@ -24,7 +25,7 @@ const Historial: React.FC = () => {
         } else {
             axios.get(`http://localhost:8080/messages/byChatId/${chatId}`)
                 .then((response) => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     setExpandedChatId(chatId);
                     setMessages(response.data);
                 });
@@ -34,7 +35,12 @@ const Historial: React.FC = () => {
     return (
         <div className="container">
             <div className="history">
-                <h1>Historial de chats</h1>
+                <Link href="/chat">
+                    <img 
+                        src="/images/VectorNovaLogoBlue.svg"
+                        alt="back button"
+                        />
+                </Link>
                 <table>
                     <thead>
                         <tr>
@@ -57,7 +63,6 @@ const Historial: React.FC = () => {
             <div className="messages">
                 {expandedChatId && (
                     <div>
-                        <h2>Messages</h2>
                         <ul>
                             {messages.map((message: any) => (
                                 <li

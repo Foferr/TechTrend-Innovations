@@ -9,10 +9,12 @@ import Noticias from './noticias';
 import { generatePrompts, generateTitle } from './chat';
 import withAuth from '../components/HOC/withAuth';
 import axios from "axios";
-import { title } from "process";
+
+const deleteLocalStorage = () => {
+    localStorage.clear();
+};
 
 const Chat: React.FC = () => {
-
     const [isOverlayOpen, setIsOverlayOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -48,10 +50,10 @@ const Chat: React.FC = () => {
         if (messages.length === 0) {
             const inputUser = (document.getElementById("inputUser") as HTMLInputElement).value;
             
-            await axios.post(`http://localhost:8080/chatHistory/user/1`, {
+            await axios.post(`http://localhost:8080/chatHistory/user/${localStorage.getItem('userId')}`, {
                 status: 'active',
-                userId: 1,
-                title: await generateTitle(inputUser)
+                userId: localStorage.getItem('userId'),
+                title: (await generateTitle(inputUser))
             });
         }
 
@@ -64,7 +66,7 @@ const Chat: React.FC = () => {
         setMessages([...messages, { user: false, text: prompts }]);
         messages.push({ user: false, text: prompts });
 
-        const chatHistoryResponse = await axios.get(`http://localhost:8080/chatHistory/user/1`);
+        const chatHistoryResponse = await axios.get(`http://localhost:8080/chatHistory/user/${localStorage.getItem('userId')}`);
         const latestChatHistoryId = chatHistoryResponse.data[chatHistoryResponse.data.length - 1].id;
 
         await axios.post(`http://localhost:8080/messages/postMessage/${latestChatHistoryId}`, {
@@ -158,7 +160,7 @@ const Chat: React.FC = () => {
                                 <Link href="/chat/perfil" className="overlayLinksContent" style={{marginTop: '15%'}}>Perfil</Link>
                                 <Link href="/chat/historial" className="overlayLinksContent" >Historial</Link>
                                 <Link href="/chat/faq" className="overlayLinksContent"> FAQ </Link>
-                                <Link href="/" className="overlayLinksContent" >Sign Out</Link>
+                                <Link href="/" className="overlayLinksContent" onClick={deleteLocalStorage}>Sign Out</Link>
                             </div>
                             )}
                         </div>
