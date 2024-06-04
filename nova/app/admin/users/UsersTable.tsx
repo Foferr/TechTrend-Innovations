@@ -176,7 +176,7 @@ const UsersTable: React.FC = () => {
               ) : (
                 users.map((user) => (
                   <tr key={user.id}>
-                    <td className="border-b py-4">{user.username}</td>
+                    <td className="border-b py-4">{user.firstName} {user.lastName}</td>
                     <td className="border-b py-4">{user.email}</td>
                     <td className="border-b py-4">{user.language}</td>
                     <td className="border-b py-4 flex justify-center space-x-2">
