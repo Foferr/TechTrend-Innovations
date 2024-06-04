@@ -124,10 +124,7 @@ const Chat: React.FC = () => {
                         ))}
                     </div>
                     <div className="chatFooter">
-                        <img
-                            src="/images/mic.png"
-                            alt=""
-                        />
+                        
                         <input type="text" placeholder="Habla con Nova, nuestro acompañante de IA" id="inputUser" onKeyDown={handleKeyDown} />
                         <button onClick={handlePrompts}>
                             <img
