@@ -37,16 +37,17 @@ const UsersTable: React.FC = () => {
   });
   const [editUser, setEditUser] = useState<User | null>(null);
 
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/user');
+      setUsers(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
+
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/user');
-        setUsers(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
-    };
     fetchUsers();
   }, []);
 
@@ -118,6 +119,7 @@ const UsersTable: React.FC = () => {
           setUsers((prevUsers) => [...prevUsers, response.data]);
         }
       }
+      fetchUsers();
       setIsModalOpen(false);
       setNewUser({
         id: '',
