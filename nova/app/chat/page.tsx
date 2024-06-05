@@ -9,18 +9,12 @@ import Noticias from './noticias';
 import { generatePrompts, generateTitle } from './chat';
 import withAuth from '../components/HOC/withAuth';
 import axios from "axios";
-import getUser from '../components/HOC/getUser';
 
 const deleteLocalStorage = () => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('userType');
-    localStorage.removeItem('userId');
+    localStorage.clear();
 };
 
 const Chat: React.FC = () => {
-    const user = getUser();
-    const userId = user?.userId;
     const [isOverlayOpen, setIsOverlayOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -56,10 +50,10 @@ const Chat: React.FC = () => {
         if (messages.length === 0) {
             const inputUser = (document.getElementById("inputUser") as HTMLInputElement).value;
             
-            await axios.post(`http://localhost:8080/chatHistory/user/${userId}`, {
+            await axios.post(`http://localhost:8080/chatHistory/user/${localStorage.getItem('userId')}`, {
                 status: 'active',
-                userId: 1,
-                title: await generateTitle(inputUser)
+                userId: localStorage.getItem('userId'),
+                title: (await generateTitle(inputUser))
             });
         }
 
@@ -72,7 +66,7 @@ const Chat: React.FC = () => {
         setMessages([...messages, { user: false, text: prompts }]);
         messages.push({ user: false, text: prompts });
 
-        const chatHistoryResponse = await axios.get(`http://localhost:8080/chatHistory/user/${userId}`);
+        const chatHistoryResponse = await axios.get(`http://localhost:8080/chatHistory/user/${localStorage.getItem('userId')}`);
         const latestChatHistoryId = chatHistoryResponse.data[chatHistoryResponse.data.length - 1].id;
 
         await axios.post(`http://localhost:8080/messages/postMessage/${latestChatHistoryId}`, {
@@ -130,10 +124,7 @@ const Chat: React.FC = () => {
                         ))}
                     </div>
                     <div className="chatFooter">
-                        <img
-                            src="/images/mic.png"
-                            alt=""
-                        />
+                        
                         <input type="text" placeholder="Habla con Nova, nuestro acompañante de IA" id="inputUser" onKeyDown={handleKeyDown} />
                         <button onClick={handlePrompts}>
                             <img

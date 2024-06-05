@@ -77,6 +77,7 @@ const Perfil: React.FC = () => {
         axios.delete(`http://localhost:8080/user/deleteUser/${localStorage.getItem('userId')}`)
             .then(response => {
                 window.location.href = '/';
+                localStorage.clear();
             })
             .catch(error => {
                 console.error(error);

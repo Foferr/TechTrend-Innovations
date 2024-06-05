@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import localFont from "next/dist/compiled/@next/font/dist/local";
-import React, { useState } from 'react';
+import React from 'react';
+import { useEffect } from 'react';
 export default function Home() {
   const words:string[] = ['Tu asistente de confianza', 'Conoce los productos de Neoris', '' +
   'Información a un mensaje de distancia', 'Potenciado por AI']
@@ -10,6 +10,14 @@ export default function Home() {
   let j = 0;
   let currentWord = '';
   let isDeleting = false;
+
+  // Removes all local storage data when user logs out
+  useEffect(() => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('userType');
+    localStorage.removeItem('userId');
+  });
 
   function typing() {
     currentWord = words[i];
