@@ -2,14 +2,18 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import withAuth from "@/app/components/HOC/withAuth";
+import withAuth from '../../components/HOC/withAuth';
 import "./styles.css";
 import Link from "next/link";
+import { useRef } from 'react';
+import { convertToSpeech } from '../txt2sp';
 
 const Historial: React.FC = () => {
     const [data, setData] = useState([]);
     const [expandedChatId, setExpandedChatId] = useState<number | null>(null);
     const [messages, setMessages] = useState([]);
+    const messagesContentRef = useRef<HTMLDivElement>(null);
+
 
     useEffect(() => {
         axios.get(`http://localhost:8080/chatHistory/user/${localStorage.getItem('userId')}`)
@@ -24,21 +28,32 @@ const Historial: React.FC = () => {
             setMessages([]);
         } else {
             axios.get(`http://localhost:8080/messages/byChatId/${chatId}`)
-                .then((response) => {
-                    // console.log(response.data);
-                    setExpandedChatId(chatId);
-                    setMessages(response.data);
-                });
+            .then((response) => {
+                setExpandedChatId(chatId);
+                setMessages(response.data);
+                
+            });
         }
     };
 
+    useEffect(() => {
+        // Scroll to bottom of messages when messages state changes
+        if (messagesContentRef.current) {
+            messagesContentRef.current.scrollTo({
+                top: messagesContentRef.current.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+    }, [messages]);
+
     return (
-        <div className="container">
+        <div className="cont">
             <div className="history">
                 <Link href="/chat">
                     <img 
                         src="/images/VectorNovaLogoBlue.svg"
                         alt="back button"
+                        className="back-button"
                         />
                 </Link>
                 <table>
@@ -60,8 +75,8 @@ const Historial: React.FC = () => {
                     </tbody>
                 </table>
             </div>
-            <div className="messages">
-                {expandedChatId && (
+            <div className="messages" id="messages" ref={messagesContentRef}>
+                {expandedChatId ? (
                     <div>
                         <ul>
                             {messages.map((message: any) => (
@@ -70,9 +85,17 @@ const Historial: React.FC = () => {
                                     className={`message ${message.senderType === 'user' ? 'user' : 'nova'}`}
                                 >
                                     {message.messageContent}
+                                    <button onClick={() => convertToSpeech(message.messageContent)}>
+                                        <img src="/images/speaker.png" alt="" />
+                                    </button>
                                 </li>
                             ))}
                         </ul>
+                        
+                    </div>
+                ) : (
+                    <div className="no-chat-message">
+                        Selecciona un chat para ver tu historial de conversaciones.
                     </div>
                 )}
             </div>

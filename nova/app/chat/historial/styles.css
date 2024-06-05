@@ -26,9 +26,9 @@
     margin-right: 0;
     display: flex;
 }
-.container {
+.cont {
     display: flex;
-    height: 100vh; /* Full height of the viewport */
+    height: 100vh;
 }
 
 .history {
@@ -41,7 +41,7 @@
 .messages {
     flex: 2;
     overflow-y: auto; /* Vertical scrollbar */
-    padding-left: 20px;
+    padding:  10px 20px 0px 0px;
 }
 
 table {
@@ -72,4 +72,11 @@ tr:hover {
 .messages-cell {
     padding: 16px;
     background-color: #f9f9f9;
+}
+
+.back-button {
+    max-height: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px 0;
 }
