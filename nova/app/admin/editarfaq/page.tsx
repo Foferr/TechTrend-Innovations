@@ -153,7 +153,7 @@ const TablaDinamica = () => {
                     <td className="border-b py-4 overflow-hidden overflow-ellipsis whitespace-nowrap">{FAQ.admin.firstName}</td>
                     <td className="border-b py-4 overflow-hidden overflow-ellipsis whitespace-nowrap">{FAQ.status}</td>
                     <td className="border-b py-4 overflow-hidden overflow-ellipsis whitespace-nowrap">{new Date(FAQ.createdAt).toLocaleDateString()}</td>
-                    <td className="border-b py-4 flex justify-center space-x-2">
+                    <td className="border-b py-4 space-x-2">
                       <button onClick={() => handleEdit(FAQ)} className="text-blue-500 hover:text-blue-700">
                         <FaEdit />
                       </button>
