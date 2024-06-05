@@ -38,8 +38,6 @@ const TablaDinamica = () => {
     status: 'drafted',
   });
 
-  const adminId = 1;
-
   const fetchOrgsData = async () => {
     try {
       const response = await axios.get('http://localhost:8080/FAQ/getAll');
@@ -56,7 +54,7 @@ const TablaDinamica = () => {
   const handleEdit = async (FAQ: Faq) => {
     const newStatus = FAQ.status === 'published' ? 'drafted' : 'published';
     try {
-      const response = await axios.put(`http://localhost:8080/FAQ/2/${FAQ.id}`, FAQ, { headers: { 'Content-Type': 'application/json' } });
+      const response = await axios.put(`http://localhost:8080/FAQ/${localStorage.getItem('userId')}/${FAQ.id}`, FAQ, { headers: { 'Content-Type': 'application/json' } });
       if (response.status === 200) {
         setOrgsData((prevOrgsData) =>
           prevOrgsData.map((Faq) =>
@@ -71,7 +69,7 @@ const TablaDinamica = () => {
 
   const handleDelete = async (FAQid: number) => {
     try {
-      const response = await axios.delete(`http://localhost:8080/FAQ/2/${FAQid}`);
+      const response = await axios.delete(`http://localhost:8080/FAQ/${localStorage.getItem('userId')}/${FAQid}`);
       setLoading(true);
       fetchOrgsData();
       if (response.status === 200) {
@@ -98,7 +96,7 @@ const TablaDinamica = () => {
       createdAt: currentDate,
     };
     try {
-      const response = await axios.post(`http://localhost:8080/FAQ/2`, newFaqItem);
+      const response = await axios.post(`http://localhost:8080/FAQ/${localStorage.getItem('userId')}`, newFaqItem);
       setIsModalOpen(false);
       setLoading(true);
       fetchOrgsData();
