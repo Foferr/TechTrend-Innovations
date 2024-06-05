@@ -40,8 +40,6 @@ const TablaDinamica = () => {
     status: 'drafted',
   });
 
-  const adminId = 1;
-
   const fetchOrgsData = async () => {
     try {
       const response = await axios.get('http://localhost:8080/companyNews/getAll');
@@ -59,13 +57,14 @@ const TablaDinamica = () => {
   const handleEdit = async (companyNews: CompanyNews) => {
     const newStatus = companyNews.status === 'published' ? 'drafted' : 'published';
     try {
-      const response = await axios.put(`http://localhost:8080/companyNews/2/${companyNews.id}?status=${newStatus}`);
+      const response = await axios.put(`http://localhost:8080/companyNews/${localStorage.getItem('userId')}/${companyNews.id}?status=${newStatus}`);
+      setOrgsData((prevOrgsData) =>
+        prevOrgsData.map((news) =>
+          news.id === companyNews.id ? { ...news, status: newStatus } : news
+        )
+      );
       if (response.status === 200) {
-        setOrgsData((prevOrgsData) =>
-          prevOrgsData.map((news) =>
-            news.id === companyNews.id ? { ...news, status: newStatus } : news
-          )
-        );
+
       }
     } catch (error) {
       console.error('Error updating status:', error);
@@ -75,8 +74,9 @@ const TablaDinamica = () => {
   const handleDelete = async (companyNewsId: number) => {
     try {
       const response = await axios.delete(`http://localhost:8080/companyNews/${companyNewsId}`);
+      setOrgsData((prevOrgsData) => prevOrgsData.filter((news) => news.id !== companyNewsId));
       if (response.status === 200) {
-        setOrgsData((prevOrgsData) => prevOrgsData.filter((news) => news.id !== companyNewsId));
+
       }
     } catch (error) {
       console.error('Error deleting news:', error);
@@ -99,16 +99,18 @@ const TablaDinamica = () => {
       createdAt: currentDate,
     };
     try {
-      const response = await axios.post(`http://localhost:8080/companyNews/${adminId}`, newNewsItem);
+      const response = await axios.post(`http://localhost:8080/companyNews/${localStorage.getItem('userId')}`, newNewsItem);
+      //WsetOrgsData((prevOrgsData) => [...prevOrgsData, response.data]);
+      setIsModalOpen(false);
+      fetchOrgsData();
+      /*setNewCompanyNews({
+        title: '',
+        newsContent: '',
+        user: '',
+        status: 'drafted',
+      });*/
       if (response.status === 200) {
-        setOrgsData((prevOrgsData) => [...prevOrgsData, response.data]);
-        setIsModalOpen(false);
-        setNewCompanyNews({
-          title: '',
-          newsContent: '',
-          user: '',
-          status: 'drafted',
-        });
+
       }
     } catch (error) {
       console.error('Error creating news:', error);
