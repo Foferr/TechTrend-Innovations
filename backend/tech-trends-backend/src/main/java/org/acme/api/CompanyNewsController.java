@@ -1,24 +1,27 @@
 package org.acme.api;
 
-import jakarta.annotation.security.PermitAll;
-import jakarta.annotation.security.RolesAllowed;
-import jakarta.inject.Inject;
-import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
+import java.util.List;
+import java.util.Optional;
 
 import org.acme.DTO.CompanyNewsDTOs.CompanyNewsPostDTO;
-import org.acme.DTO.FaqDTOs.FaqUpdateRequestDTO;
-import org.acme.model.ChatHistory;
 import org.acme.model.CompanyNews;
-import org.acme.service.ChatHistoryService;
 import org.acme.service.CompanyNewsService;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 
-import java.util.List;
-import java.util.Optional;
+import jakarta.annotation.security.PermitAll;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 @Path("/companyNews")
 @Produces(MediaType.APPLICATION_JSON)
@@ -122,9 +125,11 @@ public class CompanyNewsController {
         try {
             companyNewsService.postInsertCompanyNews(adminId, createNews);
 
-            return Response.status(Response.Status.CREATED)
-                    .entity("{\"message\": \"News created\"}")
-                    .build();
+            return Response.ok(createNews).build();
+            //return Response.status(Response.Status.OK)
+            //        .entity("{\"message\": \"News created\"}")
+            //        .build();
+
         }  catch (Exception e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity("{\"error\": \"" + e.getMessage() + "\"}")
@@ -142,7 +147,7 @@ public class CompanyNewsController {
         try {
             boolean deleted = companyNewsService.postDeleteCompanyNews(companyNewsId);
             if (deleted) {
-                return Response.noContent().build(); // Return 204 No Content on successful deletion
+                return Response.ok().build(); // Return 204 No Content on successful deletion
             }
             // Return 404 Not Found if there is no entity to delete
             return Response.status(Response.Status.NOT_FOUND).entity("{\"message\":\"No Company News found with ID " + companyNewsId + "\"}").build();
@@ -159,9 +164,13 @@ public class CompanyNewsController {
     //@RolesAllowed("admin")
     @PermitAll
     @Path("/{adminId}/{companyNewsId}")
-    public Response updateCompanyNews(@PathParam("adminId") Long adminId,@PathParam("companyNewsId") Long companyNewsId, @QueryParam("status") String status) {
+    @RequestBody( content = @Content(
+        mediaType = "application/json",
+        schema = @Schema(implementation = CompanyNewsPostDTO.class)
+    ))
+    public Response updateCompanyNews(@PathParam("adminId") Long adminId,@PathParam("companyNewsId") Long companyNewsId,CompanyNews updateNews ) {
         try {
-            Optional<CompanyNews> updateCompanyNews = companyNewsService.updateCompanyNews(adminId,companyNewsId, status);
+            Optional<CompanyNews> updateCompanyNews = companyNewsService.updateCompanyNews(adminId,companyNewsId, updateNews);
             if (updateCompanyNews.isPresent()) {
                 return Response.ok(updateCompanyNews.get()).build();
             } else {

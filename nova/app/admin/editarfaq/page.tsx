@@ -31,12 +31,13 @@ const TablaDinamica = () => {
   const [orgsData, setOrgsData] = useState<Faq[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newFaq, setNewFaq] = useState({
+  const [faqData, setFaqData] = useState({
     question: '',
     answer: '',
     admin: '',
     status: 'drafted',
   });
+  const [editFaq, setEditFaq] = useState<Faq | null>(null);
 
   const fetchOrgsData = async () => {
     try {
@@ -47,23 +48,44 @@ const TablaDinamica = () => {
       console.error('Error fetching data:', error);
     }
   };
+
   useEffect(() => {
     fetchOrgsData();
   }, []);
 
-  const handleEdit = async (FAQ: Faq) => {
-    const newStatus = FAQ.status === 'published' ? 'drafted' : 'published';
-    try {
-      const response = await axios.put(`http://localhost:8080/FAQ/${localStorage.getItem('userId')}/${FAQ.id}`, FAQ, { headers: { 'Content-Type': 'application/json' } });
-      if (response.status === 200) {
-        setOrgsData((prevOrgsData) =>
-          prevOrgsData.map((Faq) =>
-            Faq.id === FAQ.id ? { ...Faq, status: newStatus } : Faq
-          )
-        );
+  const handleEdit = (FAQ: Faq) => {
+    setFaqData({
+      question: FAQ.question,
+      answer: FAQ.answer,
+      admin: FAQ.admin.firstName, // Assuming a simple user structure
+      status: FAQ.status,
+    });
+    setEditFaq(FAQ);
+    setIsModalOpen(true);
+  };
+
+  const handleUpdate = async () => {
+    if (editFaq) {
+      try {
+        const updatedFaq = {
+          ...editFaq,
+          question: faqData.question,
+          answer: faqData.answer,
+          status: faqData.status,
+        };
+        const response = await axios.put(`http://localhost:8080/FAQ/${localStorage.getItem('userId')}/${editFaq.id}`, updatedFaq, { headers: { 'Content-Type': 'application/json' } });
+        if (response.status === 200) {
+          setOrgsData((prevOrgsData) =>
+            prevOrgsData.map((faq) =>
+              faq.id === editFaq.id ? updatedFaq : faq
+            )
+          );
+          setIsModalOpen(false);
+          setEditFaq(null);
+        }
+      } catch (error) {
+        console.error('Error updating FAQ:', error);
       }
-    } catch (error) {
-      console.error('Error updating status:', error);
     }
   };
 
@@ -72,17 +94,14 @@ const TablaDinamica = () => {
       const response = await axios.delete(`http://localhost:8080/FAQ/${localStorage.getItem('userId')}/${FAQid}`);
       setLoading(true);
       fetchOrgsData();
-      if (response.status === 200) {
-        //  setOrgsData((prevOrgsData) => prevOrgsData.filter((news) => news.id !== companyNewsId));
-      }
     } catch (error) {
-      console.error('Error deleting news:', error);
+      console.error('Error deleting FAQ:', error);
     }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setNewFaq((prevFaq) => ({
+    setFaqData((prevFaq) => ({
       ...prevFaq,
       [name]: value,
     }));
@@ -91,8 +110,8 @@ const TablaDinamica = () => {
   const handleSubmit = async () => {
     const currentDate = new Date().toISOString();
     const newFaqItem = {
-      ...newFaq,
-      admin: { firstName: newFaq.admin }, // Assuming a simple user structure
+      ...faqData,
+      admin: { firstName: faqData.admin }, // Assuming a simple user structure
       createdAt: currentDate,
     };
     try {
@@ -102,7 +121,7 @@ const TablaDinamica = () => {
       fetchOrgsData();
       if (response.status === 200) {
         setOrgsData((prevOrgsData) => [...prevOrgsData, response.data]);
-        setNewFaq({
+        setFaqData({
           question: '',
           answer: '',
           admin: '',
@@ -166,7 +185,7 @@ const TablaDinamica = () => {
               )}
             </tbody>
           </table>
-          <button onClick={() => setIsModalOpen(true)} className="fixed bottom-10 right-10 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-700 flex items-center">
+          <button onClick={() => { setIsModalOpen(true); setEditFaq(null); }} className="fixed bottom-10 right-10 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-700 flex items-center">
             <FaPlus className="mr-2" /> Agregar FAQ
           </button>
         </div>
@@ -174,11 +193,11 @@ const TablaDinamica = () => {
         {isModalOpen && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-8 rounded-lg shadow-md w-1/3">
-              <h2 className="text-xl font-semibold mb-4">Crear Nuevo FAQ</h2>
+              <h2 className="text-xl font-semibold mb-4">{editFaq ? "Editar FAQ" : "Crear Nuevo FAQ"}</h2>
               <input
                 type="text"
                 name="question"
-                value={newFaq.question}
+                value={faqData.question}
                 onChange={handleInputChange}
                 placeholder="Pregunta"
                 className="w-full mb-4 p-2 border border-gray-300 rounded"
@@ -186,22 +205,15 @@ const TablaDinamica = () => {
               <input
                 type="text"
                 name="answer"
-                value={newFaq.answer}
+                value={faqData.answer}
                 onChange={handleInputChange}
                 placeholder="Respuesta"
                 className="w-full mb-4 p-2 border border-gray-300 rounded"
               />
-              <input
-                type="text"
-                name="admin"
-                value={newFaq.admin}
-                onChange={handleInputChange}
-                placeholder="Admin"
-                className="w-full mb-4 p-2 border border-gray-300 rounded"
-              />
+
               <select
                 name="status"
-                value={newFaq.status}
+                value={faqData.status}
                 onChange={handleInputChange}
                 className="w-full mb-4 p-2 border border-gray-300 rounded"
               >
@@ -210,13 +222,13 @@ const TablaDinamica = () => {
               </select>
               <div className="flex justify-end">
                 <button
-                  onClick={() => setIsModalOpen(false)}
+                  onClick={() => { setIsModalOpen(false); setEditFaq(null); }}
                   className="bg-gray-500 text-white px-4 py-2 rounded mr-2 hover:bg-gray-700"
                 >
                   Cancelar
                 </button>
                 <button
-                  onClick={handleSubmit}
+                  onClick={editFaq ? handleUpdate : handleSubmit}
                   className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
                 >
                   Enviar
