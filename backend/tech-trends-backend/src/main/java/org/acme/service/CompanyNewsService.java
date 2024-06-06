@@ -1,20 +1,17 @@
 package org.acme.service;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
-import org.acme.model.ChatHistory;
-import org.acme.model.User;
-import org.acme.repository.ChatHistoryRepository;
-import org.acme.repository.UserRepository;
-import org.acme.service.ChatHistoryService.UserNotFoundException;
-
 import java.util.List;
 import java.util.Optional;
 
-
 import org.acme.model.CompanyNews;
+import org.acme.model.User;
 import org.acme.repository.CompanyNewsRepository;
+import org.acme.repository.UserRepository;
+import org.acme.service.ChatHistoryService.UserNotFoundException;
+
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 
 @ApplicationScoped
@@ -76,11 +73,13 @@ public class CompanyNewsService {
     }
 
     @Transactional
-    public Optional<CompanyNews> updateCompanyNews(Long adminId,Long companyNewsId, String status) {
+    public Optional<CompanyNews> updateCompanyNews(Long adminId,Long companyNewsId, CompanyNews updateNews) {
         
         CompanyNews companyNews = companyNewsRepository.findById(companyNewsId);
         if(companyNews != null) {
-            companyNews.setStatus(status);
+            companyNews.setStatus(updateNews.status);
+            companyNews.setTitle(updateNews.title);
+            companyNews.setContent(updateNews.newsContent);
             companyNewsRepository.persist(companyNews); //Persist will trigger @PreUpdate
             return Optional.of(companyNews);
         }

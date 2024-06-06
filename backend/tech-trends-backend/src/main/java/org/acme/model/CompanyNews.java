@@ -1,11 +1,15 @@
 package org.acme.model;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
 import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "CompanyNews")
@@ -33,5 +37,11 @@ public class CompanyNews extends PanacheEntity {
     }
     public void setStatus(String status) {
         this.status = status;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public void setContent(String newsContent) {
+        this.newsContent=newsContent;
     }
 }
