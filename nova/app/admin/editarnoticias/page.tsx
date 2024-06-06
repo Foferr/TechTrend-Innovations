@@ -6,7 +6,6 @@ import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import NavbarComponent from "../../components/NavBar";
 import withAuth from '../../components/HOC/withAuth';
 
-
 interface User {
   firstName: string;
   lastName: string;
@@ -33,12 +32,13 @@ const TablaDinamica = () => {
   const [orgsData, setOrgsData] = useState<CompanyNews[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newCompanyNews, setNewCompanyNews] = useState({
+  const [newsData, setNewsData] = useState({
     title: '',
     newsContent: '',
     user: '',
     status: 'drafted',
   });
+  const [editNews, setEditNews] = useState<CompanyNews | null>(null);
 
   const fetchOrgsData = async () => {
     try {
@@ -49,34 +49,55 @@ const TablaDinamica = () => {
       console.error('Error fetching data:', error);
     }
   };
-  
+
   useEffect(() => {
     fetchOrgsData();
   }, []);
 
-  const handleEdit = async (companyNews: CompanyNews) => {
-    const newStatus = companyNews.status === 'published' ? 'drafted' : 'published';
-    try {
-      const response = await axios.put(`http://localhost:8080/companyNews/${localStorage.getItem('userId')}/${companyNews.id}?status=${newStatus}`);
-      setOrgsData((prevOrgsData) =>
-        prevOrgsData.map((news) =>
-          news.id === companyNews.id ? { ...news, status: newStatus } : news
-        )
-      );
-      if (response.status === 200) {
+  const handleEdit = (companyNews: CompanyNews) => {
+    setNewsData({
+      title: companyNews.title,
+      newsContent: companyNews.newsContent,
+      user: companyNews.user.firstName,
+      status: companyNews.status,
+    });
+    setEditNews(companyNews);
+    setIsModalOpen(true);
+  };
 
+  const handleUpdate = async () => {
+    if (editNews) {
+      try {
+        const updatedNews = {
+          ...editNews,
+          title: newsData.title,
+          newsContent: newsData.newsContent,
+          status: newsData.status,
+          user: { ...editNews.user, firstName: newsData.user },
+        };
+        const response = await axios.put(`http://localhost:8080/companyNews/${localStorage.getItem('userId')}/${editNews.id}`, updatedNews, {
+          headers: { 'Content-Type': 'application/json' }
+        });
+        if (response.status === 200) {
+          setOrgsData((prevOrgsData) =>
+            prevOrgsData.map((news) =>
+              news.id === editNews.id ? updatedNews : news
+            )
+          );
+          setIsModalOpen(false);
+          setEditNews(null);
+        }
+      } catch (error) {
+        console.error('Error updating news:', error);
       }
-    } catch (error) {
-      console.error('Error updating status:', error);
     }
   };
 
   const handleDelete = async (companyNewsId: number) => {
     try {
       const response = await axios.delete(`http://localhost:8080/companyNews/${companyNewsId}`);
-      setOrgsData((prevOrgsData) => prevOrgsData.filter((news) => news.id !== companyNewsId));
       if (response.status === 200) {
-
+        setOrgsData((prevOrgsData) => prevOrgsData.filter((news) => news.id !== companyNewsId));
       }
     } catch (error) {
       console.error('Error deleting news:', error);
@@ -85,7 +106,7 @@ const TablaDinamica = () => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setNewCompanyNews((prevNews) => ({
+    setNewsData((prevNews) => ({
       ...prevNews,
       [name]: value,
     }));
@@ -94,23 +115,21 @@ const TablaDinamica = () => {
   const handleSubmit = async () => {
     const currentDate = new Date().toISOString();
     const newNewsItem = {
-      ...newCompanyNews,
-      user: { firstName: newCompanyNews.user }, // Assuming a simple user structure
+      ...newsData,
+      user: { firstName: newsData.user },
       createdAt: currentDate,
     };
     try {
       const response = await axios.post(`http://localhost:8080/companyNews/${localStorage.getItem('userId')}`, newNewsItem);
-      //WsetOrgsData((prevOrgsData) => [...prevOrgsData, response.data]);
-      setIsModalOpen(false);
-      fetchOrgsData();
-      /*setNewCompanyNews({
-        title: '',
-        newsContent: '',
-        user: '',
-        status: 'drafted',
-      });*/
       if (response.status === 200) {
-
+        setOrgsData((prevOrgsData) => [...prevOrgsData, response.data]);
+        setIsModalOpen(false);
+        setNewsData({
+          title: '',
+          newsContent: '',
+          user: '',
+          status: 'drafted',
+        });
       }
     } catch (error) {
       console.error('Error creating news:', error);
@@ -169,7 +188,7 @@ const TablaDinamica = () => {
               )}
             </tbody>
           </table>
-          <button onClick={() => setIsModalOpen(true)} className="fixed bottom-10 right-10 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-700 flex items-center">
+          <button onClick={() => { setIsModalOpen(true); setEditNews(null); setNewsData({ title: '', newsContent: '', user: '', status: 'drafted' }); }} className="fixed bottom-10 right-10 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-700 flex items-center">
             <FaPlus className="mr-2" /> Add News
           </button>
         </div>
@@ -177,52 +196,45 @@ const TablaDinamica = () => {
         {isModalOpen && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-8 rounded-lg shadow-md w-1/3">
-              <h2 className="text-xl font-semibold mb-4">Create New Company News</h2>
+              <h2 className="text-xl font-semibold mb-4">{editNews ? "Editar Noticias" : "Crear Noticias"}</h2>
               <input
                 type="text"
                 name="title"
-                value={newCompanyNews.title}
+                value={newsData.title}
                 onChange={handleInputChange}
-                placeholder="Title"
+                placeholder="Título"
                 className="w-full mb-4 p-2 border border-gray-300 rounded"
               />
               <input
                 type="text"
                 name="newsContent"
-                value={newCompanyNews.newsContent}
+                value={newsData.newsContent}
                 onChange={handleInputChange}
-                placeholder="Content"
+                placeholder="Contenido"
                 className="w-full mb-4 p-2 border border-gray-300 rounded"
               />
-              <input
-                type="text"
-                name="user"
-                value={newCompanyNews.user}
-                onChange={handleInputChange}
-                placeholder="User"
-                className="w-full mb-4 p-2 border border-gray-300 rounded"
-              />
+
               <select
                 name="status"
-                value={newCompanyNews.status}
+                value={newsData.status}
                 onChange={handleInputChange}
                 className="w-full mb-4 p-2 border border-gray-300 rounded"
               >
-                <option value="drafted">Drafted</option>
-                <option value="published">Published</option>
+                <option value="drafted">Borrador</option>
+                <option value="published">Publicado</option>
               </select>
               <div className="flex justify-end">
                 <button
-                  onClick={() => setIsModalOpen(false)}
+                  onClick={() => { setIsModalOpen(false); setEditNews(null); }}
                   className="bg-gray-500 text-white px-4 py-2 rounded mr-2 hover:bg-gray-700"
                 >
-                  Cancel
+                  Cancelar
                 </button>
                 <button
-                  onClick={handleSubmit}
+                  onClick={editNews ? handleUpdate : handleSubmit}
                   className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
                 >
-                  Submit
+                  {editNews ? "Actualizar" : "Enviar"}
                 </button>
               </div>
             </div>
