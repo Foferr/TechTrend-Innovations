@@ -14,7 +14,7 @@ const NavbarComponent: React.FC = () => {
                     <a href="/admin/editarfaq" className="link"><img src = "/images/qalogo.svg" className="logo2" />Q & A</a>
                     <a href="/admin/users" className="link"><img src = "/images/account.svg" className="logo2" />Users</a>
                     <a href="/admin/editarnoticias" className="link"><img src = "/images/news.svg" className="logo2" />Noticias</a>
-                    <a href="/stats" className="link"><img src = "/images/stats.svg" className="logo2" />Estadísticas</a>
+                    <a href="/embedtest" className="link"><img src = "/images/stats.svg" className="logo2" />Estadísticas</a>
                 </div>
             </Navbar>
     );
