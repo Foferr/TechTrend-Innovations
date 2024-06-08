@@ -2,6 +2,7 @@ package org.acme.apiTest;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import jakarta.transaction.Transactional;
 import org.acme.DTO.EventLogDTOs.EventLogPutDTO;
@@ -28,7 +29,7 @@ public class FaqControllerTests {
         response.body("id", hasItems(1,2,3));
         response.body("question", hasItems("What is neoris?", "How to contact neoris", "Who created this web app?"));
         response.body("answer", hasItems("neoris is a digital...", "Go the about page and...", "TechTrends is..."));
-        response.body("admin.id", hasItems(1,3));
+        response.body("adminId", hasItems(1,3));
         response.body("status", hasItems("published", "drafted"));
         response.body("createdAt", hasItems("2024-04-30T14:00:00"));
     }
@@ -43,7 +44,7 @@ public class FaqControllerTests {
                 .body("[0].id", equalTo(1))
                 .body("[0].question", equalTo("What is neoris?"))
                 .body("[0].answer", equalTo("neoris is a digital..."))
-                .body("[0].admin.id", equalTo(1))
+                .body("[0].adminId", equalTo(1))
                 .body("[0].status", equalTo("published"))
                 .body("[0].createdAt", equalTo("2024-04-30T14:00:00"))
                 .statusCode(200);
@@ -59,7 +60,7 @@ public class FaqControllerTests {
                 .body("[0].id", equalTo(2))
                 .body("[0].question", equalTo("How to contact neoris"))
                 .body("[0].answer", equalTo("Go the about page and..."))
-                .body("[0].admin.id", equalTo(3))
+                .body("[0].adminId", equalTo(3))
                 .body("[0].status", equalTo("drafted"))
                 .body("[0].createdAt", equalTo("2024-04-30T14:00:00"))
                 .statusCode(200);
@@ -75,7 +76,7 @@ public class FaqControllerTests {
                 .body("id", equalTo(1))
                 .body("question", equalTo("What is neoris?"))
                 .body("answer", equalTo("neoris is a digital..."))
-                .body("admin.id", equalTo(1))
+                .body("adminId", equalTo(1))
                 .body("status", equalTo("published"))
                 .body("createdAt", equalTo("2024-04-30T14:00:00"))
                 .statusCode(200);
@@ -106,7 +107,7 @@ public class FaqControllerTests {
                 .body("id", equalTo(1))
                 .body("question", equalTo("test"))
                 .body("answer", equalTo("test"))
-                .body("admin.id", equalTo(1))
+                .body("adminId", equalTo(1))
                 .body("status", equalTo("test"))
                 .body("createdAt", equalTo("2024-04-30T14:00:00"))
                 .statusCode(200);

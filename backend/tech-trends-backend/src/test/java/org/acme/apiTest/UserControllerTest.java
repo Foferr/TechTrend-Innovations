@@ -2,6 +2,7 @@ package org.acme.apiTest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -12,8 +13,11 @@ import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
 import org.acme.DTO.UserDTOs.UserPostDTO;
 import org.acme.model.User;
+import org.acme.utils.EncryptionUtil;
 import org.junit.jupiter.api.*;
 import io.restassured.http.ContentType;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -27,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Tag("integration")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UserControllerTest {
-
 
     @Test
     @Order(1)
@@ -53,15 +56,15 @@ public class UserControllerTest {
     @Test
     @Order(1)
     public void testGetAllUsersEndpoint() {
-           ValidatableResponse response = given()
+        ValidatableResponse response = given()
                 .when().get("/user")
                 .then()
                 .statusCode(200);
 
-           response.body("size()", equalTo(4));
-           response.body("email", hasItems("john.doe@example.com", "alex@gmail.com", "stalin@example.com"));
-           response.body("firstName", hasItems("John", "Alex", "Joseph"));
-           response.body("lastName", hasItems("Doe", "Rodriguez", "Stalin"));
+        response.body("size()", equalTo(4));
+        response.body("email", hasItems("john.doe@example.com", "alex@gmail.com", "stalin@example.com"));
+        response.body("firstName", hasItems("John", "Alex", "Joseph"));
+        response.body("lastName", hasItems("Doe", "Rodriguez", "Stalin"));
     }
 
     @Test
@@ -78,7 +81,7 @@ public class UserControllerTest {
         updatedUserDTO.setPhone("987654321");
         updatedUserDTO.setUserType("user");
 
-         given()
+        given()
                 .contentType(ContentType.JSON)
                 .body(updatedUserDTO)
                 .when()

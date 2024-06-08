@@ -54,5 +54,21 @@ public class ChatHistory extends PanacheEntity {
         this.title = title;
     }
 
+    public User getUser() {
+        return this.user;
+    }
+    public LocalDateTime getCreatedAt() {
+        return this.createdAt;
+    }
+    public LocalDateTime getUpdatedAt() {
+        return this.updatedAt;
+    }
+    public String getStatus() {
+        return this.status;
+    }
+    public String getTitle() {
+        return this.title;
+    }
+
 
 }

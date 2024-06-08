@@ -9,6 +9,7 @@ import jakarta.ws.rs.core.Response;
 import org.acme.DTO.EventLogDTOs.EventLogPostDTO;
 import org.acme.DTO.EventLogDTOs.EventLogPutDTO;
 import org.acme.DTO.FaqDTOs.FaqUpdateRequestDTO;
+import org.acme.DTO.decryptionDTOs.DecryptedEventDTO;
 import org.acme.model.Event;
 import org.acme.model.User;
 import org.acme.service.EventService;
@@ -19,6 +20,7 @@ import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Path("/eventLog")
 @Produces(MediaType.APPLICATION_JSON)
@@ -33,7 +35,7 @@ public class EventController {
     @PermitAll
     public Response getAllEvents() {
         try {
-            List<Event> events = eventService.getAllEvents();
+            List<DecryptedEventDTO> events = eventService.getAllEvents();
             if (events.isEmpty()) {
                 return Response.status(Response.Status.NOT_FOUND)
                         .entity("{\"message\": \"No events found\"}")
@@ -53,7 +55,7 @@ public class EventController {
     @Path("byUserId/{userId}")
     public Response getEventsByUserId(@PathParam("userId") Long userId) {
         try {
-            List<Event> events = eventService.getEventsByUserId(userId);
+            List<DecryptedEventDTO> events = eventService.getEventsByUserId(userId);
             if (events.isEmpty()) {
                 return Response.status(Response.Status.NOT_FOUND)
                         .entity("{\"message\": \"No events found with provided user id\"}")
@@ -73,7 +75,7 @@ public class EventController {
     @Path("byTarget/{eventTarget}")
     public Response getEventsByEventTarget(@PathParam("eventTarget") String eventTarget) {
         try {
-            List<Event> events = eventService.getEventsByEventTarget(eventTarget);
+            List<DecryptedEventDTO> events = eventService.getEventsByEventTarget(eventTarget);
             if (events.isEmpty()) {
                 return Response.status(Response.Status.NOT_FOUND)
                         .entity("{\"message\": \"No events found with provided target\"}")
@@ -93,7 +95,7 @@ public class EventController {
     @Path("byDate/{eventDate}")
     public Response getEventsByDate(@PathParam("eventDate") LocalDate eventDate) {
         try {
-            List<Event> events = eventService.getEventsByEventDate(eventDate);
+            List<DecryptedEventDTO> events = eventService.getEventsByEventDate(eventDate);
             if (events.isEmpty()) {
                 return Response.status(Response.Status.NOT_FOUND)
                         .entity("{\"message\": \"No events found with provided date\"}")
@@ -116,7 +118,6 @@ public class EventController {
     ))
     public Response createEvent(Event event) {
         try {
-            // Assuming userService.createUser fetches the user from the database first
             eventService.createEvent(event);
 
             return Response.status(Response.Status.CREATED)
@@ -156,21 +157,14 @@ public class EventController {
     ))
     public Response updateUser(@PathParam("eventLogId") Long eventLogId, Event event) {
         try {
-            Event existingEvent = eventService.getEventById(eventLogId);
-            if (existingEvent == null) {
+            Optional<DecryptedEventDTO> existingEventOptional = eventService.getEventById(eventLogId);
+            if (existingEventOptional.isEmpty()) {
                 return Response.status(Response.Status.NOT_FOUND)
                         .entity("{\"error\": \"Event not found\"}")
                         .build();
             }
 
-            // Update the existing user with the new user data
-            existingEvent.setUserId(event.getUserId());
-            existingEvent.setEventTarget(event.getEventTarget());
-            existingEvent.setCreatedAt(event.getCreatedAt());
-            existingEvent.setMetadata(event.getMetadata());
-
-
-            eventService.updateEvent(existingEvent);
+            eventService.updateEvent(eventLogId, event);
 
             return Response.status(Response.Status.OK)
                     .entity("{\"message\": \"Event updated successfully\"}")
