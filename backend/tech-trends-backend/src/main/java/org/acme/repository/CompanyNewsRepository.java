@@ -12,18 +12,18 @@ public class CompanyNewsRepository implements PanacheRepository<CompanyNews> {
     //Panache repository implements the basic functionality
     // Custom database queries go here
 
-    
-      
+
+
     public List<CompanyNews> findbyNewsId(Long newsId) {
         return list("companynews_id", newsId);
     }
-    
+
     public List<CompanyNews> findbyUserId(Long userId) {
         return list("user.id", userId);
-    }    
+    }
 
     public List<CompanyNews> findbyStatus(String status) {
         return list("status", status);
 
-    }   
+    }
 }

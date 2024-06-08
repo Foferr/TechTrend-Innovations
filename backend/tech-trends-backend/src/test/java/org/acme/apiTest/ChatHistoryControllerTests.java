@@ -45,27 +45,8 @@ public class ChatHistoryControllerTests {
         response.body("createdAt", hasItems("2024-04-30T14:00:00", "2024-04-30T15:00:00", "2024-04-30T16:00:00"));
         response.body("updatedAt", hasItems("2024-05-02T14:00:00", "2024-05-30T14:00:00", "2024-06-30T14:00:00"));
         response.body("status", hasItems("active", "inactive"));
+        response.body("title", hasItems("Title1", "Title2", "Title3", "Title4"));
 
-//        ValidatableResponse response =  given()
-//                .when()
-//                 .get("/chatHistory")
-//                .then()
-//                .statusCode(200);
-//
-//        // To test posting a new user, you might serialize a User object and POST it
-//        // This requires setting up the database or mocking the service layer
-//        String responseBody = response.extract().asString();
-//
-//        JsonPath jsonPath = new JsonPath(responseBody);
-//
-//        System.out.println("Raw response: ");
-//        System.out.println(response.extract());
-//
-//        System.out.println("Response body:");
-//        System.out.println(responseBody);
-//
-//        System.out.println("Response body:");
-//        System.out.println(jsonPath.prettify());
     }
 
     @Test
@@ -81,6 +62,7 @@ public class ChatHistoryControllerTests {
         response.body("createdAt", hasItems("2024-04-30T14:00:00", "2024-04-30T15:00:00", "2024-04-30T16:00:00"));
         response.body("updatedAt", hasItems("2024-05-02T14:00:00", "2024-05-30T14:00:00", "2024-06-30T14:00:00"));
         response.body("status", hasItems("active", "inactive"));
+        response.body("title", hasItems("Title1", "Title2", "Title3", "Title4"));
     }
 
     @Test
@@ -94,6 +76,7 @@ public class ChatHistoryControllerTests {
                 .body("[0].createdAt", equalTo("2024-04-30T16:00:00"))
                 .body("[0].updatedAt", equalTo("2024-05-30T14:00:00"))
                 .body("[0].status", equalTo("inactive"))
+                .body("[0].title", equalTo("Title2"))
                 .statusCode(200);
 
     }
@@ -106,10 +89,11 @@ public class ChatHistoryControllerTests {
                 .get("/chatHistory/1")
                 .then()
                 .body("id", equalTo(1))
-                .body("user.id", equalTo(1))
+                .body("userId", equalTo(1))
                 .body("createdAt", equalTo("2024-04-30T14:00:00"))
                 .body("updatedAt", equalTo("2024-05-02T14:00:00"))
                 .body("status", equalTo("active"))
+                .body("title", equalTo("Title1"))
                 .statusCode(200);
 
     }
@@ -118,18 +102,28 @@ public class ChatHistoryControllerTests {
     @Order(2)
     @Transactional
     public void testUpdateChatHistoryEndpoint() {
-        String status = "frozen";
+        String jsonInput = "{"
+                + "\"title\": \"Updated title\","
+                + "\"status\": \"updated\""
+                + "}";
 
-        given()
-                .queryParam("status", status)
+        given().contentType("application/json")
+                .body(jsonInput)
                 .when()
                 .put("/chatHistory/1")
                 .then()
-                .statusCode(200)
-                .body("id", is(1))
-                .body("user.id", is(1))
-                .body("createdAt", is("2024-04-30T14:00:00"))
-                .body("status", is("frozen"));
+                .statusCode(201);
+
+        given()
+                .when()
+                .get("/chatHistory/1")
+                .then()
+                .body("id", equalTo(1))
+                .body("userId", equalTo(1))
+                .body("createdAt", equalTo("2024-04-30T14:00:00"))
+                .body("status", equalTo("updated"))
+                .body("title", equalTo("Updated title"))
+                .statusCode(200);
     }
 
     @Test
