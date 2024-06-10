@@ -14,7 +14,11 @@ const deleteLocalStorage = () => {
     localStorage.clear();
 };
 
-const Chat: React.FC = () => {
+interface ChatProps {
+    height: string;
+}
+
+const Chat: React.FC<ChatProps> = ({height}) => {
     const [isOverlayOpen, setIsOverlayOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -112,7 +116,7 @@ const Chat: React.FC = () => {
                         />
                     </button>
                 </div>
-                <div className="chatSection2">
+                <div className="chatSection2" style={{ height: height }}>
                     <div className="chatContent" ref={chatContentRef}>
                         {messages.map((message, index) => (
                             <div key={index} className={`message ${message.user ? 'user' : 'nova'}`}>
