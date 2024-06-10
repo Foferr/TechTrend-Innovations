@@ -25,12 +25,12 @@ const UsersTable: React.FC = () => {
 
   const { language } = useLanguage();
 
-  const listUserTitleText = language === 'es' ? 'Lista de usuarios' : 'User list';
+  const listUserTitleText = language === 'es' ? 'Lista de Usuarios' : 'User List';
   const userTitleText = language === 'es' ? 'Usuario' : 'User';
   const emailTitleText = language === 'es' ? 'Correo' : 'Email';
   const languageTitleText = language === 'es' ? 'Lenguaje' : 'Language';
   const actionsTitleText = language === 'es' ? 'Acciones' : 'Actions';
-  const addUserText = language === 'es' ? 'Agregar usuario' : 'Add user';
+  const addUserText = language === 'es' ? 'Agregar Usuario' : 'Add User';
   const editUserOptionsText: { [key: string]: string[]} = {
     es: [
       'Editar usuario',
@@ -66,8 +66,8 @@ const UsersTable: React.FC = () => {
       'User'
     ]
   }
-  const cancelText = language === 'es' ? 'Cancelar:' : 'Cancel';
-  const sendText = language === 'es' ? 'Enviar:' : 'Send';
+  const cancelText = language === 'es' ? 'Cancelar' : 'Cancel';
+  const sendText = language === 'es' ? 'Enviar' : 'Send';
 
 
   const [users, setUsers] = useState<User[]>([]);
@@ -231,7 +231,7 @@ const UsersTable: React.FC = () => {
                     <td className="border-b py-4">{user.firstName} {user.lastName}</td>
                     <td className="border-b py-4">{user.email}</td>
                     <td className="border-b py-4">{user.language}</td>
-                    <td className="border-b py-4 flex justify-center space-x-2">
+                    <td className="border-b py-4 space-x-2">
                       <button onClick={() => handleEditClick(user.id)} className="text-blue-500 hover:text-blue-700">
                         <FaEdit />
                       </button>
