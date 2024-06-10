@@ -6,8 +6,10 @@ import { useState } from 'react';
 import { LocalDate, DateTimeFormatter } from 'js-joda';
 import { useLanguage } from '../contexts/LanguageContext';
 import LanguageToggleButton from "../components/LanguageToggleButton";
+import { redirect } from 'next/navigation'
 
 export default function Register() {
+
     const { language } = useLanguage();
 
     const nombresTitleText = language === 'es' ? 'Nombre/s' : 'First Name/s';
@@ -37,10 +39,12 @@ export default function Register() {
     const hasAccountText = language === 'es' ? '¿Ya tienes cuenta?' : 'Already have an account?';
     const loginLinkText = language === 'es' ? 'Inicia Sesión' : 'Sign In';
     const oAuthOptionsText = language === 'es' ? 'O registrate con' : 'Or sign up with';
+    const paswordErrorMessage = language === 'es' ? 'La contraseña debe tener al menos 8 caracteres y contener al menos 1 letra minúscula, 1 letra mayúscula, 1 símbolo y 1 número.' : 'Password must be 8 characters long and contain at least 1 lowercase letter, 1 uppercase letter, 1 symbol, and 1 number.';
 
-
-    
-    
+    const validatePassword = (password : any) => {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        return passwordRegex.test(password);
+    };
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -55,6 +59,11 @@ export default function Register() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        if (!validatePassword(userPassword)) {
+            alert(paswordErrorMessage);
+            return;
+        }
+
         try {
             const response = await axios.post('http://localhost:8080/user/registerUser', {
                 firstName: firstName,
@@ -67,6 +76,7 @@ export default function Register() {
                 country: country,
                 userType: userType
             });
+            redirect('/login');
             console.log(response.data); // Handle successful registration
             console.log(firstName);
         } catch (error) {
@@ -92,8 +102,8 @@ export default function Register() {
                 <form className="mt-6"
                       onSubmit={handleSubmit}
                 >
-                    <div className="mb-2 flex space-x-10">
-                        <div>
+                    <div className="mb-2 flex space-x-5">
+                        <div className="mb-2 flex-grow">
                             <label
                                 htmlFor="firstName"
                                 className="block text-sm font-semibold text-nova-blue-500"
@@ -108,7 +118,7 @@ export default function Register() {
                                 className="block  w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                             />
                         </div>
-                        <div>
+                        <div className="mb-2 flex-grow">
                             <label
                                 htmlFor="lastName"
                                 className="block text-sm font-semibold text-nova-blue-500"
@@ -125,7 +135,7 @@ export default function Register() {
                         </div>
 
                     </div>
-                    <div className="mb-2">
+                    <div className="mb-2 flex-grow">
                         <label
                             htmlFor="birthD"
                             className="block text-sm font-semibold text-nova-blue-500"
@@ -143,7 +153,9 @@ export default function Register() {
                             className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
-                    <div className="mb-2">
+                    <div className="mb-2 flex space-x-5 flex-grow">
+
+                    <div className="mb-2 flex-grow">
                         <label
                             htmlFor="email"
                             className="block text-sm font-semibold text-nova-blue-500"
@@ -158,7 +170,7 @@ export default function Register() {
                             className="block  w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
-                    <div className="mb-2">
+                    <div className="mb-2 flex-grow">
                         <label
                             htmlFor="phone"
                             className="block text-sm font-semibold text-nova-blue-500"
@@ -173,7 +185,9 @@ export default function Register() {
                             className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
-                    <div className="mb-2">
+                    </div>
+                    <div className="mb-2 flex space-x-5 flex-grow">
+                    <div className="mb-2 flex-grow">
                         <label
                             htmlFor="password"
                             className="block text-sm font-semibold text-nova-blue-500"
@@ -188,7 +202,7 @@ export default function Register() {
                             className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
-                    <div className="mb-2">
+                    <div className="mb-2 flex-grow">
                         <label
                             htmlFor="country"
                             className="block text-sm font-semibold text-nova-blue-500"
@@ -202,7 +216,8 @@ export default function Register() {
                             className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-gray-400 focus:ring-gray-300 focus:outline-none focus:ring focus:ring-opacity-40"
                         />
                     </div>
-                    <div className="mb-2">
+                    </div>
+                    <div className="mb-2 flex-grow">
                         <label
                             htmlFor="birthD"
                             className="block text-sm font-semibold text-nova-blue-500"
@@ -221,13 +236,12 @@ export default function Register() {
                             </option>
                         </select>
                     </div>
+                    
                     <div className="mt-10">
-                        <Link href="/chat">
                             <button
                                 className="w-full px-4 py-2 tracking-wide bg-nova-blue-500 text-white rounded-md hover:bg-nova-blue-100 active:bg-nova-blue-500">
                                 <div>{registerButtonText}</div>
                             </button>
-                        </Link>
                     </div>
                 </form>
 
