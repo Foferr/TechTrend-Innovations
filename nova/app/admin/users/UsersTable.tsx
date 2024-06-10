@@ -5,6 +5,8 @@ import axios from 'axios';
 import { FaEdit, FaTrash, FaPlus } from 'react-icons/fa';
 import NavbarComponent from '../../components/NavBar';
 import withAuth from '../../components/HOC/withAuth';
+import {useLanguage} from "@/app/contexts/LanguageContext";
+import LanguageToggleButton from "@/app/components/LanguageToggleButton";
 
 interface User {
   id: string;
@@ -20,6 +22,54 @@ interface User {
 }
 
 const UsersTable: React.FC = () => {
+
+  const { language } = useLanguage();
+
+  const listUserTitleText = language === 'es' ? 'Lista de usuarios' : 'User list';
+  const userTitleText = language === 'es' ? 'Usuario' : 'User';
+  const emailTitleText = language === 'es' ? 'Correo' : 'Email';
+  const languageTitleText = language === 'es' ? 'Lenguaje' : 'Language';
+  const actionsTitleText = language === 'es' ? 'Acciones' : 'Actions';
+  const addUserText = language === 'es' ? 'Agregar usuario' : 'Add user';
+  const editUserOptionsText: { [key: string]: string[]} = {
+    es: [
+      'Editar usuario',
+      'Crear nuevo usuario'
+    ],
+    en: [
+      'Edit user',
+      'Create new user'
+    ]
+  }
+  const namesText = language === 'es' ? 'Nombre/s' : 'Name/s';
+  const lastNamesText = language === 'es' ? 'Apellido/s' : 'Last name/s';
+  const emailLabelText = language === 'es' ? 'Correo::' : 'Email:';
+  const passwordLabelText = language === 'es' ? 'Contraseña:' : 'Password:';
+  const phoneText = language === 'es' ? 'Teléfono:' : 'Phone number:';
+  const langOptionsText: { [key: string]: string[]} = {
+    es: [
+      'Español',
+      'Inglés'
+    ],
+    en: [
+      'Spanish',
+      'English'
+    ]
+  }
+  const roleOptionsText: { [key: string]: string[]} = {
+    es: [
+      'Admin',
+      'Usuario'
+    ],
+    en: [
+      'Admin',
+      'User'
+    ]
+  }
+  const cancelText = language === 'es' ? 'Cancelar:' : 'Cancel';
+  const sendText = language === 'es' ? 'Enviar:' : 'Send';
+
+
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -153,14 +203,14 @@ const UsersTable: React.FC = () => {
       <NavbarComponent />
       <div className='relative min-h-screen flex flex-col items-center bg-gray-100 py-8'>
         <div className={`relative w-11/12 bg-white p-8 rounded-lg shadow-md border-solid border border-gray-300 ${isModalOpen ? 'opacity-50' : ''}`}>
-          <h1 className="text-2xl font-semibold mb-6 text-center">Lista de Usuarios</h1>
+          <h1 className="text-2xl font-semibold mb-6 text-center">{listUserTitleText}</h1>
           <table className="w-full text-center border-collapse">
             <thead>
               <tr>
-                <th className="border-b py-4">Usuario</th>
-                <th className="border-b py-4">Correo</th>
-                <th className="border-b py-4">Lenguaje</th>
-                <th className="border-b py-4">Acciones</th>
+                <th className="border-b py-4">{userTitleText}</th>
+                <th className="border-b py-4">{emailTitleText}</th>
+                <th className="border-b py-4">{languageTitleText}</th>
+                <th className="border-b py-4">{actionsTitleText}</th>
               </tr>
             </thead>
             <tbody>
@@ -195,21 +245,21 @@ const UsersTable: React.FC = () => {
             </tbody>
           </table>
           <button onClick={handleAddClick} className="fixed bottom-10 right-10 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-700 flex items-center">
-            <FaPlus className="mr-2" /> Agregar Usuario
+            <FaPlus className="mr-2" /> {addUserText}
           </button>
         </div>
 
         {isModalOpen && (
           <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
             <div className="bg-white p-8 rounded-lg shadow-md w-1/3">
-              <h2 className="text-xl font-semibold mb-4">{editUser ? 'Editar Usuario' : 'Crear Nuevo Usuario'}</h2>
+              <h2 className="text-xl font-semibold mb-4">{editUser ? editUserOptionsText[language][0] : editUserOptionsText[language][1]}</h2>
               <form onSubmit={handleSubmit}>
                 <input
                   type="text"
                   name="firstName"
                   value={editUser ? editUser.firstName : newUser.firstName}
                   onChange={handleInputChange}
-                  placeholder="Nombres"
+                  placeholder={namesText}
                   className="w-full mb-4 p-2 border border-gray-300 rounded"
                 />
                 <input
@@ -217,7 +267,7 @@ const UsersTable: React.FC = () => {
                   name="lastName"
                   value={editUser ? editUser.lastName : newUser.lastName}
                   onChange={handleInputChange}
-                  placeholder="Apellidos"
+                  placeholder={lastNamesText}
                   className="w-full mb-4 p-2 border border-gray-300 rounded"
                 />
                 <input
@@ -225,7 +275,7 @@ const UsersTable: React.FC = () => {
                   name="email"
                   value={editUser ? editUser.email : newUser.email}
                   onChange={handleInputChange}
-                  placeholder="Correo electrónico"
+                  placeholder={emailLabelText}
                   className="w-full mb-4 p-2 border border-gray-300 rounded"
                 />
                 <input
@@ -233,7 +283,7 @@ const UsersTable: React.FC = () => {
                   name="userPassword"
                   value={editUser ? editUser.userPassword : newUser.userPassword}
                   onChange={handleInputChange}
-                  placeholder="Contraseña"
+                  placeholder={passwordLabelText}
                   className="w-full mb-4 p-2 border border-gray-300 rounded"
                 />
                 <input
@@ -248,7 +298,7 @@ const UsersTable: React.FC = () => {
                   name="phone"
                   value={editUser ? editUser.phone : newUser.phone}
                   onChange={handleInputChange}
-                  placeholder="Teléfono"
+                  placeholder={phoneText}
                   className="w-full mb-4 p-2 border border-gray-300 rounded"
                 />
                 <select
@@ -257,8 +307,8 @@ const UsersTable: React.FC = () => {
                   onChange={handleInputChange}
                   className="w-full mb-4 p-2 border border-gray-300 rounded"
                 >
-                  <option value="Español">Español</option>
-                  <option value="Inglés">Inglés</option>
+                  <option value="Español">{langOptionsText[language][0]}</option>
+                  <option value="Inglés">{langOptionsText[language][1]}</option>
                 </select>
                 <select
                   name="role"
@@ -266,8 +316,8 @@ const UsersTable: React.FC = () => {
                   onChange={handleInputChange}
                   className="w-full mb-4 p-2 border border-gray-300 rounded"
                 >
-                  <option value="Admin">Admin</option>
-                  <option value="Usuario">Usuario</option>
+                  <option value="Admin">{roleOptionsText[language][0]}</option>
+                  <option value="Usuario">{roleOptionsText[language][1]}</option>
                 </select>
                 <div className="flex justify-end">
                   <button
@@ -275,13 +325,13 @@ const UsersTable: React.FC = () => {
                     onClick={handleCloseModal}
                     className="bg-gray-500 text-white px-4 py-2 rounded mr-2 hover:bg-gray-700"
                   >
-                    Cancelar
+                    {cancelText}
                   </button>
                   <button
                     type="submit"
                     className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
                   >
-                    Enviar
+                    {sendText}
                   </button>
                 </div>
               </form>
@@ -289,6 +339,7 @@ const UsersTable: React.FC = () => {
           </div>
         )}
       </div>
+      <LanguageToggleButton/>
     </div>
   );
 };

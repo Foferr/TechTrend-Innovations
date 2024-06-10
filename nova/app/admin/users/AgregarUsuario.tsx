@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-
+import LanguageToggleButton from '@/app/components/LanguageToggleButton';
+import { useLanguage } from '@/app/contexts/LanguageContext';
 
 type User = {
   username: string;
@@ -13,6 +14,38 @@ type User = {
 };
 
 const AgregarUsuario: React.FC = () => {
+  const { language } = useLanguage();
+
+  const addUserTitleText = language === 'es' ? 'Agregar usuario' : 'Add user';
+  const userLabelText = language === 'es' ? 'Usuario:' : 'User:';
+  const emailLabelText = language === 'es' ? 'Correo::' : 'Email:';
+  const passwordLabelText = language === 'es' ? 'Contraseña:' : 'Password:';
+  const birthdayLabelText = language === 'es' ? 'Fecha de nacimiento:' : 'Birthday:';
+  const languageLabelText = language === 'es' ? 'Lenguaje:' : 'Language:';
+  const roleLabelText = language === 'es' ? 'Rol:' : 'Role:';
+  const saveButtonText = language === 'es' ? 'Guardar usuario' : 'Save user';
+  const langOptionsText: { [key: string]: string[]} = {
+    es: [
+      'Español',
+      'Inglés'
+    ],
+    en: [
+      'Spanish',
+      'English'
+    ]
+  }
+
+  const roleOptionsText: { [key: string]: string[]} = {
+    es: [
+      'Admin',
+      'Usuario'
+    ],
+    en: [
+      'Admin',
+      'User'
+    ]
+  }
+
   const [user, setUser] = useState<User>({
     username: "",
     email: "",
@@ -43,10 +76,10 @@ const AgregarUsuario: React.FC = () => {
 
   return (
     <div className="form-container">
-      <h1>Agregar Usuario</h1>
+      <h1>{addUserTitleText}</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          Usuario:
+          {userLabelText}
           <input
             type="text"
             name="username"
@@ -55,7 +88,7 @@ const AgregarUsuario: React.FC = () => {
           />
         </label>
         <label>
-          Correo:
+          {emailLabelText}
           <input
             type="email"
             name="email"
@@ -64,7 +97,7 @@ const AgregarUsuario: React.FC = () => {
           />
         </label>
         <label>
-          Contraseña:
+          {passwordLabelText}
           <input
             type="password"
             name="password"
@@ -73,7 +106,7 @@ const AgregarUsuario: React.FC = () => {
           />
         </label>
         <label>
-          Fecha de nacimiento:
+          {birthdayLabelText}
           <input
             type="date"
             name="birthdate"
@@ -82,21 +115,22 @@ const AgregarUsuario: React.FC = () => {
           />
         </label>
         <label>
-          Lenguaje:
+          {languageLabelText}
           <select name="language" value={user.language} onChange={handleChange}>
-            <option value="Español">Español</option>
-            <option value="Inglés">Inglés</option>
+            <option value="Español">{langOptionsText[language][0]}</option>
+            <option value="Inglés">{langOptionsText[language][1]}</option>
           </select>
         </label>
         <label>
-          Rol:
+          {roleLabelText}
           <select name="role" value={user.role} onChange={handleChange}>
-            <option value="Admin">Admin</option>
-            <option value="Usuario">Usuario</option>
+            <option value="Admin">{roleOptionsText[language][0]}</option>
+            <option value="Usuario">{roleOptionsText[language][1]}</option>
           </select>
         </label>
-        <button type="submit">Guardar Usuario</button>
+        <button type="submit">{saveButtonText}</button>
       </form>
+      <LanguageToggleButton/>
     </div>
   );
 };

@@ -4,6 +4,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.response.ValidatableResponse;
 import org.junit.jupiter.api.*;
 
+import java.time.LocalDateTime;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItems;
@@ -23,7 +25,7 @@ public class MessagesControllerTests {
 
         response.body("size()", equalTo(3));
         response.body("id", hasItems(1,2,3));
-        response.body("chatHistory.id", hasItems(1));
+        response.body("chatHistoryId", hasItems(1));
         response.body("senderType", hasItems("user", "bot"));
         response.body("messageContent", hasItems("hola como estas", "soy una inteligencia artificial", "como puedo contactar a neoris?"));
         response.body("createdAt", hasItems("2024-04-30T14:00:00", "2024-04-30T15:00:00", "2024-04-30T16:00:00"));
@@ -39,7 +41,7 @@ public class MessagesControllerTests {
 
         response.body("size()", equalTo(3));
         response.body("id", hasItems(1,2,3));
-        response.body("chatHistory.id", hasItems(1));
+        response.body("chatHistoryId", hasItems(1));
         response.body("senderType", hasItems("user", "bot"));
         response.body("messageContent", hasItems("hola como estas", "soy una inteligencia artificial", "como puedo contactar a neoris?"));
         response.body("createdAt", hasItems("2024-04-30T14:00:00", "2024-04-30T15:00:00", "2024-04-30T16:00:00"));
@@ -53,7 +55,7 @@ public class MessagesControllerTests {
                 .get("/messages/bySenderType/bot")
                 .then()
                 .body("[0].id", equalTo(2))
-                .body("[0].chatHistory.id", equalTo(1))
+                .body("[0].chatHistoryId", equalTo(1))
                 .body("[0].senderType", equalTo("bot"))
                 .body("[0].messageContent", equalTo("soy una inteligencia artificial"))
                 .body("[0].createdAt", equalTo("2024-04-30T15:00:00"))
@@ -70,7 +72,7 @@ public class MessagesControllerTests {
 
         response.body("size()", equalTo(3));
         response.body("id", hasItems(1,2,3));
-        response.body("chatHistory.id", hasItems(1));
+        response.body("chatHistoryId", hasItems(1));
         response.body("senderType", hasItems("user", "bot"));
         response.body("messageContent", hasItems("hola como estas", "soy una inteligencia artificial", "como puedo contactar a neoris?"));
         response.body("createdAt", hasItems("2024-04-30T14:00:00", "2024-04-30T15:00:00", "2024-04-30T16:00:00"));
@@ -86,7 +88,7 @@ public class MessagesControllerTests {
 
         response.body("size()", equalTo(3));
         response.body("id", hasItems(1,2,3));
-        response.body("chatHistory.id", hasItems(1));
+        response.body("chatHistoryId", hasItems(1));
         response.body("senderType", hasItems("user", "bot"));
         response.body("messageContent", hasItems("hola como estas", "soy una inteligencia artificial", "como puedo contactar a neoris?"));
         response.body("createdAt", hasItems("2024-04-30T14:00:00", "2024-04-30T15:00:00", "2024-04-30T16:00:00"));

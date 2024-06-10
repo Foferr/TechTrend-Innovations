@@ -10,6 +10,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.acme.DTO.MessageDTOs.MessagePostDTO;
 import org.acme.DTO.UserDTOs.UserPostDTO;
+import org.acme.DTO.decryptionDTOs.DecryptedUserDTO;
 import org.acme.model.User;
 import org.acme.service.UserService;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -17,6 +18,7 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 
 import java.util.List;
+import java.util.Optional;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
@@ -36,11 +38,11 @@ public class UserController {
     @GET
 //    @RolesAllowed({"admin", "base_user"})
     @PermitAll
-    public List<User> getAllUsers() {
+    public List<DecryptedUserDTO> getAllUsers() {
         return userService.getAllUsers();
 
     }
-    
+
 
     @POST
     @Path("/registerUser")
@@ -52,6 +54,11 @@ public class UserController {
     @Transactional
     public Response registerUser(User user) {
         try {
+            if(userService.emailExists(user.getEmail())) {
+                return Response.status(Response.Status.CONFLICT)
+                        .entity("{\"error\": \"Email already in use\"}")
+                        .build();
+            }
             // Assuming userService.createUser fetches the user from the database first
             userService.createUser(user);
 
@@ -71,9 +78,9 @@ public class UserController {
     @PermitAll
     @Path("/{id}")
     public Response getUserById(@PathParam("id") Long id) {
-        User user = userService.getUserById(id);
-        if (user != null) {
-            return Response.ok(user).build();
+        Optional<DecryptedUserDTO> userDTOOptional = userService.getUserById(id);
+        if (userDTOOptional.isPresent()) {
+            return Response.ok(userDTOOptional.get()).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity("{\"error\": \"User not found\"}")
@@ -92,24 +99,14 @@ public class UserController {
     ))
     public Response updateUser(@PathParam("id") Long id, User user) {
         try {
-            User existingUser = userService.getUserById(id);
-            if (existingUser == null) {
+            Optional<DecryptedUserDTO> existingUserOptional = userService.getUserById(id);
+            if (existingUserOptional.isEmpty()) {
                 return Response.status(Response.Status.NOT_FOUND)
                         .entity("{\"error\": \"User not found\"}")
                         .build();
             }
 
-            // Update the existing user with the new user data
-            existingUser.setFirstName(user.getFirstName());
-            existingUser.setLastName(user.getLastName());
-            existingUser.setEmail(user.getEmail());
-            existingUser.setLanguage(user.getLanguage());
-            existingUser.setPhone(user.getPhone());
-            existingUser.setUserPassword(user.getUserPassword());
-            existingUser.setUserType(user.getUserType());
-            existingUser.setBirthday(user.getBirthday());
-
-            userService.updateUser(existingUser);
+            userService.updateUser(id, user);
 
             return Response.status(Response.Status.OK)
                     .entity("{\"message\": \"User updated successfully\"}")

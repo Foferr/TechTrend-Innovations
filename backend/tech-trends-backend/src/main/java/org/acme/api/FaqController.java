@@ -5,10 +5,13 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.acme.DTO.FaqDTOs.FaqUpdateRequestDTO;
+import org.acme.DTO.decryptionDTOs.DecryptedFAQDTO;
+import org.acme.exceptions.UserNotFoundException;
 import org.acme.model.Event;
 import org.acme.model.Faq;
 import org.acme.model.User;
 import org.acme.service.FaqService;
+import org.acme.utils.EncryptionUtil;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.enums.SchemaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -19,6 +22,7 @@ import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Path("/FAQ")
@@ -38,7 +42,7 @@ public class FaqController {
     @Path("/getAll")
     public Response getAllFaqs() {
         try {
-            List<Faq> faqs = faqService.getAllFaqs();
+            List<DecryptedFAQDTO> faqs = faqService.getAllFaqs();
             if (faqs.isEmpty()) {
                 return Response.status(Response.Status.NOT_FOUND)
                         .entity("{\"message\": \"No events found\"}")
@@ -58,12 +62,12 @@ public class FaqController {
     @PermitAll
     @Path("/{faqId}")
     public Response getFaqById(@PathParam("faqId") Long faqId) {
-        Faq faq = faqService.getFaqById(faqId);
-        if (faq != null) {
-            return Response.ok(faq).build();
+        Optional<DecryptedFAQDTO> faqDTO = faqService.getFaqById(faqId);
+        if (faqDTO.isPresent()) {
+            return Response.ok(faqDTO.get()).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND)
-                    .entity("{\"error\": \"Faq not found\"}")
+                    .entity("{\"error\": \"FAQ not found\"}")
                     .build();
         }
     }
@@ -139,7 +143,7 @@ public class FaqController {
     @Path("/getByAdminId/{adminId}")
     public Response getFaqsByAdmin(@PathParam("adminId") Long adminId) {
         try {
-            List<Faq> faqs = faqService.getFaqsByAdminId(adminId);
+            List<DecryptedFAQDTO> faqs = faqService.getFaqsByAdminId(adminId);
             if (faqs.isEmpty()) {
                 return Response.status(Response.Status.NOT_FOUND)
                         .entity("{\"message\": \"No faqs found with provided admin id\"}")
@@ -174,7 +178,7 @@ public class FaqController {
             return Response.status(Response.Status.CREATED)
                     .entity("{\"message\": \"FAQ created successfully\"}")
                     .build();
-        } catch (FaqService.UserNotFoundException e) {
+        } catch (UserNotFoundException e) {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity("{\"error\": \"User not found\"}")
                     .build();
@@ -185,14 +189,15 @@ public class FaqController {
         }
     }
 
-//    // Endpoint para obtener FAQs por su estado.
+    //    // Endpoint para obtener FAQs por su estado.
     @GET
     @PermitAll
     //@RolesAllowed({"admin", "base_user"})
     @Path("/status/{status}")
     public Response getFaqsByStatus(@PathParam("status") String status) {
         try {
-            List<Faq> faqs = faqService.getFaqsByStatus(status);
+            String encryptedStatus = EncryptionUtil.encrypt(status);
+            List<DecryptedFAQDTO> faqs = faqService.getFaqsByStatus(encryptedStatus);
             if (faqs.isEmpty()) {
                 return Response.status(Response.Status.NOT_FOUND)
                         .entity("{\"message\": \"No faqs found with provided status\"}")

@@ -8,4 +8,7 @@ import org.acme.model.User;
 public class UserRepository implements PanacheRepository<User> {
     //Panache repository implements the basic functionality
     // Custom database queries go here
+    public boolean existsByEmail(String email) {
+        return find("email", email).firstResultOptional().isPresent();
+    }
 }

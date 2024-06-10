@@ -11,6 +11,7 @@ import org.acme.techtrends.auth.model.UserDataForToken;
 import org.acme.techtrends.auth.model.ValidationRequest;
 import org.acme.techtrends.auth.services.AuthService;
 import org.acme.techtrends.auth.services.TokenService;
+import org.acme.techtrends.auth.utils.EncryptionUtil;
 
 
 @Path("/auth")
@@ -54,15 +55,19 @@ public class AuthResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/login")
     public Response login(LoginRequest loginRequest) {
-        UserDataForToken userData = authenticationService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
-        if( userData != null ) {
+        try {
+            UserDataForToken userData = authenticationService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
+            if( userData != null ) {
 
-            String accessToken = tokenService.generateAccessToken(userData.getUserType(), userData.getUserId());
-            String refreshToken = tokenService.generateRefreshToken(userData.getUserType(), userData.getUserId());
+                String accessToken = tokenService.generateAccessToken(EncryptionUtil.decrypt(userData.getUserType()), userData.getUserId());
+                String refreshToken = tokenService.generateRefreshToken(EncryptionUtil.decrypt(userData.getUserType()), userData.getUserId());
 
-            return Response.ok(new Tokens(accessToken, refreshToken)).build();
-        } else {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
+                return Response.ok(new Tokens(accessToken, refreshToken)).build();
+            } else {
+                return Response.status(Response.Status.UNAUTHORIZED).build();
+            }
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
     }
 
@@ -103,3 +108,4 @@ public class AuthResource {
         return Response.status(Response.Status.UNAUTHORIZED).build();
     }
 }
+

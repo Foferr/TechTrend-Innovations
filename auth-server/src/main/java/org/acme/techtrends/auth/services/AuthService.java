@@ -5,6 +5,7 @@ import jakarta.inject.Inject;
 import org.acme.techtrends.auth.model.User;
 import org.acme.techtrends.auth.model.UserDataForToken;
 import org.acme.techtrends.auth.repository.UserRepository;
+import org.acme.techtrends.auth.utils.EncryptionUtil;
 
 @ApplicationScoped
 public class AuthService {
@@ -13,15 +14,22 @@ public class AuthService {
     UserRepository userRepository;
 
     public UserDataForToken authenticate(String email, String password) {
-        User user = userRepository.findbyCredentials(email, password);
-        if (user != null) {
-            if(!user.getUserType().isEmpty()) {
-                return new UserDataForToken(user.id, user.getUserType());
+        try {
+            String encryptedEmail = EncryptionUtil.encrypt(email);
+            String encryptedPassword = EncryptionUtil.encrypt(password);
+            User user = userRepository.findbyCredentials(encryptedEmail, encryptedPassword);
+            if (user != null) {
+                if(!user.getUserType().isEmpty()) {
+                    return new UserDataForToken(user.id, user.getUserType());
+                } else {
+                    return null;
+                }
             } else {
                 return null;
             }
-        } else {
-            return null;
+        } catch (Exception e) {
+            throw new RuntimeException("Something when wrong when authenticating credentials");
         }
+
     }
 }
