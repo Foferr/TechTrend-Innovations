@@ -9,6 +9,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import withAuth from '../../components/HOC/withAuth';
 
+const userType = localStorage.getItem('userType');
 
 const Perfil: React.FC = () => {
     
@@ -89,7 +90,7 @@ const Perfil: React.FC = () => {
         <body>
             <div className="allDiv" onClick={handleCloseOverlay}>
             <div className="upperDiv">
-                <Link href="/chat">
+                <Link href={userType === 'admin' ? '/admin' : '/chat '}>
                     <img 
                         src="/images/VectorNovaLogoBlue.svg"
                         alt=""

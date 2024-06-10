@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import withAuth from '../../components/HOC/withAuth';
-import logo from './path-to-your-logo.png';
 import Link from 'next/link';
 
 
@@ -29,6 +28,8 @@ interface FAQ {
   createdAt: string;
 }
 
+const userType = localStorage.getItem('userType');
+
 const FAQ: React.FC = () => {
   const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -49,7 +50,9 @@ const FAQ: React.FC = () => {
 
   return (
     <div>
-      <Link href="/chat"><img src="/images/VectorNovaLogoJT.svg" alt="Logo" className="h-16 w-auto mx-auto my-4" /></Link>
+      <Link href={userType === 'admin' ? '/admin' : '/chat '}>
+      <img src="/images/VectorNovaLogoJT.svg" alt="Logo" className="h-16 w-auto mx-auto my-4" />
+      </Link>
       <div className="bg-white p-8 rounded-lg w-3/4 mx-auto shadow-lg">
         <h1 className="text-center text-orange-500 text-2xl mb-6">FAQ</h1>
         {faqs.map((faq, index) => (

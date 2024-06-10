@@ -8,6 +8,8 @@ import Link from "next/link";
 import { useRef } from 'react';
 import { convertToSpeech } from '../txt2sp';
 
+const userType = localStorage.getItem('userType');
+
 const Historial: React.FC = () => {
     const [data, setData] = useState([]);
     const [expandedChatId, setExpandedChatId] = useState<number | null>(null);
@@ -50,8 +52,8 @@ const Historial: React.FC = () => {
     return (
         <div className="cont">
             <div className="history">
-                <Link href="/chat">
-                    <img 
+                <Link href={userType === 'admin' ? '/admin' : '/chat '}>
+                    <img
                         src="/images/VectorNovaLogoBlue.svg"
                         alt="back button"
                         className="back-button"
