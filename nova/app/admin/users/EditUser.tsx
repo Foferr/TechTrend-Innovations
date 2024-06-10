@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from 'axios';
-
-
+import {useLanguage} from "@/app/contexts/LanguageContext";
+import LanguageToggleButton from "@/app/components/LanguageToggleButton";
 
 type User = {
   id: string;
@@ -13,6 +13,37 @@ type User = {
 };
 
 const EditUser: React.FC = () => {
+
+  const { language } = useLanguage();
+
+  const editUserTitleText = language === 'es' ? 'Editar usuario' : 'Edit user';
+  const userLabelText = language === 'es' ? 'Usuario:' : 'User:';
+  const emailLabelText = language === 'es' ? 'Correo::' : 'Email:';
+  const languageLabelText = language === 'es' ? 'Lenguaje:' : 'Language:';
+  const roleLabelText = language === 'es' ? 'Rol:' : 'Role:';
+  const saveButtonText = language === 'es' ? 'Confirmar' : 'Confirm';
+  const langOptionsText: { [key: string]: string[]} = {
+    es: [
+      'Español',
+      'Inglés'
+    ],
+    en: [
+      'Spanish',
+      'English'
+    ]
+  }
+
+  const roleOptionsText: { [key: string]: string[]} = {
+    es: [
+      'Admin',
+      'Usuario'
+    ],
+    en: [
+      'Admin',
+      'User'
+    ]
+  }
+
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [user, setUser] = useState<User>({
@@ -58,10 +89,10 @@ const EditUser: React.FC = () => {
         src="public\images\VectorNovaLogoBlueNT.svg"
         className="sidebar-image"
       />
-      <h1>EDITAR USUARIO</h1>
+      <h1>{editUserTitleText}</h1>
       <form onSubmit={handleSubmit}>
         <label>
-          Usuario:
+          {userLabelText}
           <input
             type="text"
             name="username"
@@ -70,7 +101,7 @@ const EditUser: React.FC = () => {
           />
         </label>
         <label>
-          Correo:
+          {emailLabelText}
           <input
             type="email"
             name="email"
@@ -79,21 +110,22 @@ const EditUser: React.FC = () => {
           />
         </label>
         <label>
-          Lenguaje:
+          {languageLabelText}
           <select name="language" value={user.language} onChange={handleChange}>
-            <option value="Español">Español</option>
-            <option value="Inglés">Inglés</option>
+            <option value="Español">{langOptionsText[language][0]}</option>
+            <option value="Inglés">{langOptionsText[language][1]}</option>
           </select>
         </label>
         <label>
-          Rol:
+          {roleLabelText}
           <select name="role" value={user.role} onChange={handleChange}>
-            <option value="Usuario">Usuario</option>
-            <option value="Administrador">Administrador</option>
+            <option value="Usuario">{roleOptionsText[language][0]}</option>
+            <option value="Administrador">{roleOptionsText[language][1]}</option>
           </select>
         </label>
-        <button type="submit">Confirmar</button>
+        <button type="submit">{saveButtonText}</button>
       </form>
+      <LanguageToggleButton/>
     </div>
   );
 };
