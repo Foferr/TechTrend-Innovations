@@ -16,7 +16,7 @@ const Historial: React.FC = () => {
     const { language } = useLanguage();
 
     const noMessageText = language === 'es' ? 'Selecciona un chat para ver tu historial de conversaciones.' : 'Select a chat to see your conversation history';
-    const titleText = language === 'es' ? 'Título' : 'Title';
+    const titleText = language === 'es' ? 'Título' : 
 
     const [data, setData] = useState([]);
     const [expandedChatId, setExpandedChatId] = useState<number | null>(null);
@@ -69,7 +69,7 @@ const Historial: React.FC = () => {
                 <table>
                     <thead>
                         <tr>
-                            <th>{titleText}</th>
+                            <th>Título</th>
                         </tr>
                     </thead>
                     <tbody>

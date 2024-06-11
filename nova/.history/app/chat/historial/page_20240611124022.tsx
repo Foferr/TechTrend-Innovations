@@ -69,7 +69,7 @@ const Historial: React.FC = () => {
                 <table>
                     <thead>
                         <tr>
-                            <th>{titleText}</th>
+                            <th>Título</th>
                         </tr>
                     </thead>
                     <tbody>
