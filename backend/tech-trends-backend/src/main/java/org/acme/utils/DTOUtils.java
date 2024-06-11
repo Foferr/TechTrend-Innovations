@@ -18,7 +18,7 @@ public class DTOUtils {
             dto.setUserPassword(EncryptionUtil.decrypt(user.getUserPassword()));
             dto.setPhone(EncryptionUtil.decrypt(user.getPhone()));
             dto.setUserType(EncryptionUtil.decrypt(user.getUserType()));
-            dto.setCountry(user.getCountry());
+            dto.setCountry(EncryptionUtil.decrypt(user.getCountry()));
             dto.setCreatedAt(user.getCreatedAt());
             return dto;
         } catch (Exception e) {
