@@ -12,7 +12,7 @@ public class DTOUtils {
             dto.setId(user.id);
             dto.setFirstName(EncryptionUtil.decrypt(user.getFirstName()));
             dto.setLastName(EncryptionUtil.decrypt(user.getLastName()));
-            dto.setLanguage(user.getLanguage());
+            dto.setLanguage(EncryptionUtil.decrypt(user.getLanguage()));
             dto.setBirthday(user.getBirthday());
             dto.setEmail(EncryptionUtil.decrypt(user.getEmail()));
             dto.setUserPassword(EncryptionUtil.decrypt(user.getUserPassword()));
