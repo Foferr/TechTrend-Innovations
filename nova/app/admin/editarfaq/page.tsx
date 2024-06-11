@@ -230,7 +230,7 @@ const TablaDinamica = () => {
               )}
             </tbody>
           </table>
-          <button onClick={() => setIsModalOpen(true)} className="fixed bottom-10 right-10 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-700 flex items-center">
+          <button onClick={() => setIsModalOpen(true)} className="fixed bottom-10 right-10 bg-nova-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-[#3586F8] flex items-center">
             <FaPlus className="mr-2" /> {createFaqText}
           </button>
         </div>
@@ -281,7 +281,7 @@ const TablaDinamica = () => {
                 </button>
                 <button
                   onClick={handleSubmit}
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+                  className="bg-nova-blue-500 text-white px-4 py-2 rounded hover:bg-[#3586F8]"
                 >
                   {sendFAQButtonText}
                 </button>

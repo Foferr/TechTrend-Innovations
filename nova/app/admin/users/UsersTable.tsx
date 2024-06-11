@@ -244,7 +244,7 @@ const UsersTable: React.FC = () => {
               )}
             </tbody>
           </table>
-          <button onClick={handleAddClick} className="fixed bottom-10 right-10 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-700 flex items-center">
+          <button onClick={handleAddClick} className="fixed bottom-10 right-10 bg-nova-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-[#3586F8] flex items-center">
             <FaPlus className="mr-2" /> {addUserText}
           </button>
         </div>
@@ -329,7 +329,7 @@ const UsersTable: React.FC = () => {
                   </button>
                   <button
                     type="submit"
-                    className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+                    className="bg-nova-blue-500 text-white px-4 py-2 rounded hover:bg-[#3586F8]"
                   >
                     {sendText}
                   </button>

@@ -100,18 +100,15 @@ const Chat: React.FC<ChatProps> = ({height}) => {
         <div className="mainContent">
             <div className="chatSection">
                 <div className="upperDiv">
-                    <Link href="/">
-                        <img
-                            src="/images/VectorNovaLogoBlueNT.svg"
-                            alt=""
-                        />
-                    </Link>
-                    <button>
-                        <h1>NOVA</h1>
-                    </button>
+                    <img
+                        className="w-[20vh] m-auto"
+                        src="/images/VectorNovaLogoJT.svg"
+                        alt=""
+                    />
+
                     <button onClick={isOverlayOpen ? handleCloseOverlay : handleOpenOverlay}>
                         <img
-                            src="/images/threelines.png"
+                            src="/images/menu.svg"
                             alt=""
                         />
                     </button>
@@ -122,7 +119,9 @@ const Chat: React.FC<ChatProps> = ({height}) => {
                             <div key={index} className={`message ${message.user ? 'user' : 'nova'}`}>
                                 <p>{message.text}</p>
                                 <button onClick={() => convertToSpeech(message.text)}>
-                                    <img src="/images/speaker.png" alt="" />
+                                    <img
+                                        className="pt-2"
+                                        src="/images/tts.svg" alt="" />
                                 </button>
                             </div>
                         ))}
@@ -132,7 +131,7 @@ const Chat: React.FC<ChatProps> = ({height}) => {
                         <input type="text" placeholder="Habla con Nova, nuestro acompañante de IA" id="inputUser" onKeyDown={handleKeyDown} />
                         <button onClick={handlePrompts}>
                             <img
-                                src="/images/send.png"
+                                src="/images/sendMI.svg"
                                 alt=""
                             />
                         </button>
@@ -145,7 +144,7 @@ const Chat: React.FC<ChatProps> = ({height}) => {
                     <div className="upperDivOverlay">
                         <button onClick={isOverlayOpen ? handleCloseOverlay : handleOpenOverlay}>
                             <img
-                                src="/images/threelines.png"
+                                src="/images/menu.svg"
                                 alt=""
                             />
                         </button>

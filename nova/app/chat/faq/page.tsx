@@ -53,12 +53,12 @@ const FAQ: React.FC = () => {
       <Link href={userType === 'admin' ? '/admin' : '/chat '}>
       <img src="/images/VectorNovaLogoJT.svg" alt="Logo" className="h-16 w-auto mx-auto my-4" />
       </Link>
-      <div className="bg-white p-8 rounded-lg w-3/4 mx-auto shadow-lg">
-        <h1 className="text-center text-orange-500 text-2xl mb-6">FAQ</h1>
+      <div className="bg-white p-8 border rounded-lg w-3/4 mx-auto shadow-lg">
+        <h1 className="text-center font-bold text-nova-yellow-500 text-2xl mb-6">FAQ</h1>
         {faqs.map((faq, index) => (
           <div key={index} className="border-b border-gray-300 py-4">
             <div
-              className="text-blue-500 font-bold cursor-pointer flex justify-between items-center"
+              className="text-nova-blue-500 font-bold cursor-pointer flex justify-between items-center"
               onClick={() => toggleAnswer(index)}
             >
               {faq.question}

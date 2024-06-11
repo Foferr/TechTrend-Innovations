@@ -54,9 +54,9 @@ const Historial: React.FC = () => {
             <div className="history">
                 <Link href={userType === 'admin' ? '/admin' : '/chat '}>
                     <img
-                        src="/images/VectorNovaLogoBlue.svg"
+                        src="/images/VectorNovaLogoJT.svg"
                         alt="back button"
-                        className="back-button"
+                        className="back-button w-[20vh]"
                         />
                 </Link>
                 <table>
@@ -89,7 +89,8 @@ const Historial: React.FC = () => {
                                 >
                                     {message.messageContent}
                                     <button onClick={() => convertToSpeech(message.messageContent)}>
-                                        <img src="/images/speaker.png" alt="" />
+                                        <img className="pt-2"
+                                             src="/images/tts.svg" alt="" />
                                     </button>
                                 </li>
                             ))}

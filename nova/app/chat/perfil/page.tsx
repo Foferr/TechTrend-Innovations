@@ -91,8 +91,9 @@ const Perfil: React.FC = () => {
             <div className="allDiv" onClick={handleCloseOverlay}>
             <div className="upperDiv">
                 <Link href={userType === 'admin' ? '/admin' : '/chat '}>
-                    <img 
-                        src="/images/VectorNovaLogoBlue.svg"
+                    <img
+                        className="w-[15vh]"
+                        src="/images/VectorNovaLogoJT.svg"
                         alt=""
                         />
                 </Link>
