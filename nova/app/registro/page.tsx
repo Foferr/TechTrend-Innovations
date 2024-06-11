@@ -100,7 +100,7 @@ export default function Register() {
                 email: email,
                 userPassword: userPassword,
                 phone: phone,
-                // country: country,
+                country: country,
                 userType: userType
             });
             alert(confirmedMessage);

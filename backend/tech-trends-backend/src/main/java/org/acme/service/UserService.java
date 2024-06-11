@@ -46,6 +46,7 @@ public class UserService {
             user.setLanguage(EncryptionUtil.encrypt(user.getLanguage()));
             user.setPhone(EncryptionUtil.encrypt(user.getPhone()));
             user.setUserType(EncryptionUtil.encrypt(user.getUserType()));
+            user.setCountry(EncryptionUtil.encrypt(user.getCountry()));
 
             userRepository.persist(user);
         } catch (Exception e) {
@@ -126,6 +127,7 @@ public class UserService {
             existingUser.setUserPassword(user.getUserPassword() != null ? EncryptionUtil.encrypt(user.getUserPassword()) : existingUser.getUserPassword());
             existingUser.setPhone(user.getPhone() != null ? EncryptionUtil.encrypt(user.getPhone()) : existingUser.getPhone());
             existingUser.setUserType(user.getUserType() != null ? EncryptionUtil.encrypt(user.getUserType()) : existingUser.getUserType());
+            existingUser.setCountry(user.getCountry() != null ? EncryptionUtil.encrypt(user.getCountry()) : existingUser.getCountry());
             userRepository.persist(existingUser);
         } catch (Exception e) {
             throw new RuntimeException("Error encrypting user data", e);

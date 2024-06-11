@@ -36,6 +36,9 @@ public class User extends PanacheEntity {
     @Column(name = "user_type", nullable = false)
     public String userType;
 
+    @Column(name = "country", nullable = false)
+    public String country;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     public LocalDateTime createdAt;
@@ -102,6 +105,14 @@ public class User extends PanacheEntity {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public String getCountry() {
+            return country;
+        }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public LocalDateTime getCreatedAt() {
