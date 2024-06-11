@@ -39,6 +39,7 @@ export default function Register() {
     const hasAccountText = language === 'es' ? '¿Ya tienes cuenta?' : 'Already have an account?';
     const loginLinkText = language === 'es' ? 'Inicia Sesión' : 'Sign In';
     const oAuthOptionsText = language === 'es' ? 'O registrate con' : 'Or sign up with';
+    const confirmedMessage = language === 'es' ? 'Usuario registrado correctamente' : 'User registered successfully';
 
     const validatePassword = (password: any) => {
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -101,6 +102,7 @@ export default function Register() {
                 // country: country,
                 userType: userType
             });
+            alert(confirmedMessage);
             redirect('/login');
             console.log(response.data); // Handle successful registration
             console.log(firstName);
