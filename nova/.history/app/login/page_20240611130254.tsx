@@ -59,7 +59,6 @@ export default function Home() {
                     if (userResponse.ok) {
                         const userData = await userResponse.json();
                         setLanguage(userData.language);
-                        localStorage.setItem('userLang', userData.language);
                     }
                     if (user?.userType === 'admin') {
                         window.location.href = '/admin';
