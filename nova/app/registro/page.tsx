@@ -104,18 +104,18 @@ export default function Register() {
             });
             alert(confirmedMessage);
             redirect('/login');
-            console.log(response.data); // Handle successful registration
-            console.log(firstName);
+            // console.log(response.data); // Handle successful registration
+            // console.log(firstName);
         } catch (error) {
             console.error(error); // Handle registration error
-            console.log(firstName);
-            console.log(lastName);
-            console.log(email);
-            console.log(userPassword);
-            console.log(lang);
-            console.log(phone);
-            console.log(birthday);
-            console.log(userType);
+            // console.log(firstName);
+            // console.log(lastName);
+            // console.log(email);
+            // console.log(userPassword);
+            // console.log(lang);
+            // console.log(phone);
+            // console.log(birthday);
+            // console.log(userType);
         }
     };
 
