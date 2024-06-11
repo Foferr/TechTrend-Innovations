@@ -17,6 +17,7 @@ interface User {
   firstName: string;
   lastName: string;
   phone: string;
+  country: string;
   birthdate: string;
   userPassword: string;
 }
@@ -46,6 +47,7 @@ const UsersTable: React.FC = () => {
   const emailLabelText = language === 'es' ? 'Correo::' : 'Email:';
   const passwordLabelText = language === 'es' ? 'Contraseña:' : 'Password:';
   const phoneText = language === 'es' ? 'Teléfono:' : 'Phone number:';
+  const countryText = language === 'es' ? 'País:' : 'Country:';
   const langOptionsText: { [key: string]: string[]} = {
     es: [
       'Español',
@@ -77,12 +79,13 @@ const UsersTable: React.FC = () => {
     id: '',
     username: '',
     email: '',
-    language: 'Español',
-    role: 'Usuario',
+    language: 'es',
+    role: 'user',
     firstName: '',
     lastName: '',
     phone: '',
     birthdate: '',
+    country : '',
     userPassword: ''
   });
   const [editUser, setEditUser] = useState<User | null>(null);
@@ -106,12 +109,13 @@ const UsersTable: React.FC = () => {
       id: '',
       username: '',
       email: '',
-      language: 'Español',
-      role: 'Usuario',
+      language: 'es',
+      role: 'admin',
       firstName: '',
       lastName: '',
       phone: '',
       birthdate: '',
+      country : '',
       userPassword: ''
     });
     setEditUser(null);
@@ -157,6 +161,7 @@ const UsersTable: React.FC = () => {
       userPassword: editUser ? editUser.userPassword : newUser.userPassword,
       phone: editUser ? editUser.phone : newUser.phone,
       userType: editUser ? editUser.role : newUser.role,
+      country: editUser ? editUser.country : newUser.country
     };
 
     try {
@@ -175,12 +180,13 @@ const UsersTable: React.FC = () => {
         id: '',
         username: '',
         email: '',
-        language: 'Español',
-        role: 'Usuario',
+        language: 'es',
+        role: 'admin',
         firstName: '',
         lastName: '',
         phone: '',
         birthdate: '',
+        country : '',
         userPassword: ''
       });
       setEditUser(null);
@@ -301,14 +307,22 @@ const UsersTable: React.FC = () => {
                   placeholder={phoneText}
                   className="w-full mb-4 p-2 border border-gray-300 rounded"
                 />
+                <input
+                  type="text"
+                  name="country"
+                  value={editUser ? editUser.country : newUser.country}
+                  onChange={handleInputChange}
+                  placeholder={countryText}
+                  className="w-full mb-4 p-2 border border-gray-300 rounded"
+                />
                 <select
                   name="language"
                   value={editUser ? editUser.language : newUser.language}
                   onChange={handleInputChange}
                   className="w-full mb-4 p-2 border border-gray-300 rounded"
                 >
-                  <option value="Español">{langOptionsText[language][0]}</option>
-                  <option value="Inglés">{langOptionsText[language][1]}</option>
+                  <option value="es">{langOptionsText[language][0]}</option>
+                  <option value="en">{langOptionsText[language][1]}</option>
                 </select>
                 <select
                   name="role"
@@ -316,8 +330,8 @@ const UsersTable: React.FC = () => {
                   onChange={handleInputChange}
                   className="w-full mb-4 p-2 border border-gray-300 rounded"
                 >
-                  <option value="Admin">{roleOptionsText[language][0]}</option>
-                  <option value="Usuario">{roleOptionsText[language][1]}</option>
+                  <option value="admin">{roleOptionsText[language][0]}</option>
+                  <option value="user">{roleOptionsText[language][1]}</option>
                 </select>
                 <div className="flex justify-end">
                   <button

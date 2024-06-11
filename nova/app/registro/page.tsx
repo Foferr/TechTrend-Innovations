@@ -77,7 +77,7 @@ export default function Register() {
     const [email, setEmail] = useState('');
     const [userPassword, setuserPassword] = useState('');
     const [country, setCountry] = useState('');
-    const [lang, setLang] = useState('sp');
+    const [lang, setLang] = useState('es');
     const [phone, setPhone] = useState('');
     const [birthday, setBirthday] = useState(LocalDate.now());
     const [userType, setUserType] = useState('user');

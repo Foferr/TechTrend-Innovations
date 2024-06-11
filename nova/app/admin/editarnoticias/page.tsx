@@ -171,7 +171,6 @@ const TablaDinamica = () => {
           <table className="w-full table-auto text-center border-collapse">
             <thead>
               <tr>
-                <th className="border-b py-4">{columnNames[language].id}</th>
                 <th className="border-b py-4">{columnNames[language].titulo}</th>
                 <th className="border-b py-4">{columnNames[language].contenido}</th>
                 <th className="border-b py-4">{columnNames[language].usuario}</th>
@@ -195,7 +194,6 @@ const TablaDinamica = () => {
               ) : (
                 orgsData.map((companyNews) => (
                   <tr key={companyNews.id}>
-                    <td className="border-b py-4 max-w-xs overflow-hidden">{companyNews.id}</td>
                     <td className="border-b py-4 max-w-xs overflow-hidden">{companyNews.title}</td>
                     <td className="border-b py-4 max-w-xs overflow-hidden">{companyNews.newsContent}</td>
                     <td className="border-b py-4 max-w-xs overflow-hidden">

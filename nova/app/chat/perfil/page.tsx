@@ -46,7 +46,7 @@ const Perfil: React.FC = () => {
         language:'',
         phone:'',
         userPassword:'',
-        userType:'',
+        userType: userType,
         birthday:''
     });
     const [statusMessage, setStatusMessage] = useState('');
