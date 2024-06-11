@@ -13,6 +13,7 @@ public class DecryptedUserDTO {
     private String userPassword;
     private String phone;
     private String userType;
+    private String country;
     private LocalDateTime createdAt;
 
     public Long getId() {
@@ -77,6 +78,12 @@ public class DecryptedUserDTO {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getCountry() { return country; }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getUserType() {
