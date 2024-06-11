@@ -42,6 +42,7 @@ public class UserService {
             user.setUserPassword(EncryptionUtil.encrypt(user.getUserPassword()));
             user.setEmail(EncryptionUtil.encrypt(user.getEmail()));
             user.setFirstName(EncryptionUtil.encrypt(user.getFirstName()));
+            user.setLanguage(EncryptionUtil.encrypt(user.getLanguage()));
             user.setLastName(EncryptionUtil.encrypt(user.getLastName()));
             user.setPhone(EncryptionUtil.encrypt(user.getPhone()));
             user.setUserType(EncryptionUtil.encrypt(user.getUserType()));
@@ -117,6 +118,7 @@ public class UserService {
             throw new RuntimeException("User not found with id: " + id);
         }
         try {
+            existingUser.setLanguage(user.getLanguage() != null ? EncryptionUtil.encrypt(user.getLanguage()) : existingUser.getLanguage());
             existingUser.setFirstName(user.getFirstName() != null ? EncryptionUtil.encrypt(user.getFirstName()) : existingUser.getFirstName());
             existingUser.setLastName(user.getLastName() != null ? EncryptionUtil.encrypt(user.getLastName()) : existingUser.getLastName());
             existingUser.setLanguage(user.getLanguage() != null ? user.getLanguage() : existingUser.getLanguage());
