@@ -7,10 +7,16 @@ import "./styles.css";
 import Link from "next/link";
 import { useRef } from 'react';
 import { convertToSpeech } from '../txt2sp';
+import LanguageToggleButton from '@/app/components/LanguageToggleButton';
+import { useLanguage } from '@/app/contexts/LanguageContext';
 
 const userType = localStorage.getItem('userType');
 
 const Historial: React.FC = () => {
+    const { language } = useLanguage();
+
+    const noMessageText = language === 'es' ? 'Selecciona un chat para ver tu historial de conversaciones.' : 'Select a chat to see your conversation history';
+
     const [data, setData] = useState([]);
     const [expandedChatId, setExpandedChatId] = useState<number | null>(null);
     const [messages, setMessages] = useState([]);
@@ -99,10 +105,11 @@ const Historial: React.FC = () => {
                     </div>
                 ) : (
                     <div className="no-chat-message">
-                        Selecciona un chat para ver tu historial de conversaciones.
+                        {noMessageText}
                     </div>
                 )}
             </div>
+            <LanguageToggleButton/>
         </div>
     );
 }

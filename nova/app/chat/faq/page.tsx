@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import withAuth from '../../components/HOC/withAuth';
 import Link from 'next/link';
-
+import LanguageToggleButton from '@/app/components/LanguageToggleButton';
+import { useLanguage } from '@/app/contexts/LanguageContext';
 
 interface User {
   firstName: string;
@@ -31,6 +32,10 @@ interface FAQ {
 const userType = localStorage.getItem('userType');
 
 const FAQ: React.FC = () => {
+  const { language } = useLanguage();
+
+
+
   const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
