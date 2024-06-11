@@ -283,35 +283,6 @@ export default function Register() {
                     </Link>
                 </p>
 
-                <div className="relative flex pt-10 pb-5 items-center">
-                    <div className="flex-grow border-t border-nova-blue-500"></div>
-                    <span className="flex-shrink mx-4 text-neoris-grey-100">{oAuthOptionsText}</span>
-                    <div className="flex-grow border-t border-nova-blue-500"></div>
-                </div>
-
-                <div className="mt-1 grid grid-cols-3 gap-3">
-                    <div>
-                        <a href="#"
-                           className="w-full flex items-center justify-center px-8 py-3 rounded-md shadow-sm text-sm font-medium bg-nova-blue-500 hover:bg-nova-blue-100 active:bg-nova-blue-500">
-                            <img className="h-5 w-5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/512px-2021_Facebook_icon.svg.png?20220821121039"
-                                 alt=""/>
-                        </a>
-                    </div>
-                    <div>
-                        <a href="#"
-                           className="w-full flex items-center justify-center px-8 py-3 rounded-md shadow-sm text-sm font-medium bg-nova-blue-500 hover:bg-nova-blue-100 active:bg-nova-blue-500">
-                            <img className="h-5 w-5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/120px-Google_%22G%22_logo.svg.png?20230822192911"
-                                 alt=""/>
-                        </a>
-                    </div>
-                    <div>
-                        <a href="#"
-                           className="w-full flex items-center justify-center px-8 py-3 rounded-md shadow-sm text-sm font-medium bg-nova-blue-500 hover:bg-nova-blue-100 active:bg-nova-blue-500">
-                            <img className="h-5 w-5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/X_logo_2023.svg/300px-X_logo_2023.svg.png?20230819000805"
-                                 alt=""/>
-                        </a>
-                    </div>
-                </div>
             </div>
             <LanguageToggleButton/>
         </div>
