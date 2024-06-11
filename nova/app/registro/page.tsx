@@ -39,28 +39,53 @@ export default function Register() {
     const hasAccountText = language === 'es' ? '¿Ya tienes cuenta?' : 'Already have an account?';
     const loginLinkText = language === 'es' ? 'Inicia Sesión' : 'Sign In';
     const oAuthOptionsText = language === 'es' ? 'O registrate con' : 'Or sign up with';
-    const paswordErrorMessage = language === 'es' ? 'La contraseña debe tener al menos 8 caracteres y contener al menos 1 letra minúscula, 1 letra mayúscula, 1 símbolo y 1 número.' : 'Password must be 8 characters long and contain at least 1 lowercase letter, 1 uppercase letter, 1 symbol, and 1 number.';
 
-    const validatePassword = (password : any) => {
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-        return passwordRegex.test(password);
+    const validatePassword = (password: any) => {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if (password === undefined) {
+            return language === 'es' ? 'La contraseña está vacía' : 'The password is empty';
+        }
+        if (password.length < 8) {
+            return language === 'es' ? 'La contraseña debe tener al menos 8 caracteres' : 'The password must be at least 8 characters long';
+        }
+        const numberRegex = /\d/;
+        if (!numberRegex.test(password)) {
+            return language === 'es' ? 'La contraseña debe tener al menos un número' : 'The password must have at least one number';
+        }
+        const upperCaseRegex = /[A-Z]/;
+        if (!upperCaseRegex.test(password)) {
+            return language === 'es' ? 'La contraseña debe tener al menos una mayúscula' : 'The password must have at least one uppercase letter';
+        }
+        const lowerCaseRegex = /[a-z]/;
+        if (!lowerCaseRegex.test(password)) {
+            return language === 'es' ? 'La contraseña debe tener al menos una minúscula' : 'The password must have at least one lowercase letter';
+        }
+        const specialCharRegex = /[#@$!%*?&]/;
+        if (!specialCharRegex.test(password)) {
+            return language === 'es' ? 'La contraseña debe tener al menos un caracter especial' : 'The password must have at least one special character';
+        }
+        passwordRegex.test(password);
+
+        return null;
     };
+    
 
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [userPassword, setuserPassword] = useState('');
     const [country, setCountry] = useState('');
-    const [lang, setLang] = useState('spanish');
+    const [lang, setLang] = useState('sp');
     const [phone, setPhone] = useState('');
     const [birthday, setBirthday] = useState(LocalDate.now());
-    const [userType, setUserType] = useState('base_user');
+    const [userType, setUserType] = useState('user');
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!validatePassword(userPassword)) {
-            alert(paswordErrorMessage);
+        const passwordError = validatePassword(userPassword);
+        if (passwordError) {
+            alert(passwordError);
             return;
         }
 
@@ -68,12 +93,12 @@ export default function Register() {
             const response = await axios.post('http://localhost:8080/user/registerUser', {
                 firstName: firstName,
                 lastName: lastName,
+                language: lang,
+                birthday: birthday,
                 email: email,
                 userPassword: userPassword,
-                lang: lang,
                 phone: phone,
-                birthday: birthday,
-                country: country,
+                // country: country,
                 userType: userType
             });
             redirect('/login');
