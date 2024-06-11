@@ -6,9 +6,10 @@ import { useState } from 'react';
 import { LocalDate, DateTimeFormatter } from 'js-joda';
 import { useLanguage } from '../contexts/LanguageContext';
 import LanguageToggleButton from "../components/LanguageToggleButton";
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
 export default function Register() {
+    const router = useRouter();
 
     const { language } = useLanguage();
 
@@ -103,7 +104,7 @@ export default function Register() {
                 userType: userType
             });
             alert(confirmedMessage);
-            redirect('/login');
+            router.push('/login');
             // console.log(response.data); // Handle successful registration
             // console.log(firstName);
         } catch (error) {
