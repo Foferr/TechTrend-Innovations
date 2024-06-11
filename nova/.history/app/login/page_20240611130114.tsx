@@ -7,7 +7,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import LanguageToggleButton from "../components/LanguageToggleButton";
 
 export default function Home() {
-    const { language, setLanguage } = useLanguage();
+    const { language } = useLanguage();
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -57,9 +57,7 @@ export default function Home() {
                         }
                     });
                     if (userResponse.ok) {
-                        const userData = await userResponse.json();
-                        setLanguage(userData.language);
-                        localStorage.setItem('userLang', userData.language);
+                        const userData = await 
                     }
                     if (user?.userType === 'admin') {
                         window.location.href = '/admin';
