@@ -12,13 +12,13 @@ public class DTOUtils {
             dto.setId(user.id);
             dto.setFirstName(EncryptionUtil.decrypt(user.getFirstName()));
             dto.setLastName(EncryptionUtil.decrypt(user.getLastName()));
-            dto.setLanguage(user.getLanguage());
+            dto.setLanguage(EncryptionUtil.decrypt(user.getLanguage()));
             dto.setBirthday(user.getBirthday());
             dto.setEmail(EncryptionUtil.decrypt(user.getEmail()));
             dto.setUserPassword(EncryptionUtil.decrypt(user.getUserPassword()));
             dto.setPhone(EncryptionUtil.decrypt(user.getPhone()));
             dto.setUserType(EncryptionUtil.decrypt(user.getUserType()));
-            dto.setCountry(user.getCountry());
+            dto.setCountry(EncryptionUtil.decrypt(user.getCountry()));
             dto.setCreatedAt(user.getCreatedAt());
             return dto;
         } catch (Exception e) {
