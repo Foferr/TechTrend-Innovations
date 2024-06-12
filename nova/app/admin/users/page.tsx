@@ -12,6 +12,7 @@ type User = {
   id: string;
   username: string;
   email: string;
+  country: string;
   language: string;
   role: string;
 };

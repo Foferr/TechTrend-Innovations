@@ -15,10 +15,7 @@ export default function Home() {
 
   // Removes all local storage data when user logs out
   useEffect(() => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('userType');
-    localStorage.removeItem('userId');
+    localStorage.clear();
   });
 
   useEffect(() => {
@@ -103,7 +100,7 @@ export default function Home() {
             </div>
           </div>
           <div className="landingTitle" >
-            <img src="/images/VectorNovaLogoBlueNT.svg" className="h-[60vh] rotate mt-[30vh] mr-[30vh]"
+            <img src="/images/VectorNovaLogoBlueNT.svg" className="h-[60vh] rotate mt-[30vh] mr-[30vh] max-sm:hidden"
                  alt="Nova Logo"/>
           </div>
         </div>

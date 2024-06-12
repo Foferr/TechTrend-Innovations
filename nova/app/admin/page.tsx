@@ -10,7 +10,7 @@ const adminHome: React.FC = () => {
     return (
         <div>
             <NavbarComponent/>
-            <Chat/>
+            <Chat height = '60vh'/>
             <LanguageToggleButton/>
         </div>
     );

@@ -171,7 +171,6 @@ const TablaDinamica = () => {
           <table className="w-full table-auto text-center border-collapse">
             <thead>
               <tr>
-                <th className="border-b py-4">{columnNames[language].id}</th>
                 <th className="border-b py-4">{columnNames[language].titulo}</th>
                 <th className="border-b py-4">{columnNames[language].contenido}</th>
                 <th className="border-b py-4">{columnNames[language].usuario}</th>
@@ -195,7 +194,6 @@ const TablaDinamica = () => {
               ) : (
                 orgsData.map((companyNews) => (
                   <tr key={companyNews.id}>
-                    <td className="border-b py-4 max-w-xs overflow-hidden">{companyNews.id}</td>
                     <td className="border-b py-4 max-w-xs overflow-hidden">{companyNews.title}</td>
                     <td className="border-b py-4 max-w-xs overflow-hidden">{companyNews.newsContent}</td>
                     <td className="border-b py-4 max-w-xs overflow-hidden">
@@ -203,7 +201,7 @@ const TablaDinamica = () => {
                       </td>
                     <td className="border-b py-4 max-w-xs overflow-hidden">{companyNews.status}</td>
                     <td className="border-b py-4 max-w-xs overflow-hidden">{new Date(companyNews.createdAt).toLocaleDateString()}</td>
-                    <td className="border-b py-4 max-w-xs overflow-hidden">
+                    <td className="border-b py-4 max-w-xs overflow-hidden space-x-2">
                       <button onClick={() => handleEdit(companyNews)} className="text-blue-500 hover:text-blue-700">
                         <FaEdit />
                       </button>
@@ -216,7 +214,7 @@ const TablaDinamica = () => {
               )}
             </tbody>
           </table>
-          <button onClick={() => setIsModalOpen(true)} className="fixed bottom-10 right-10 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-700 flex items-center">
+          <button onClick={() => setIsModalOpen(true)} className="fixed bottom-10 right-10 bg-nova-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-[#3586F8] flex items-center">
             <FaPlus className="mr-2" /> Add News
           </button>
         </div>
@@ -267,7 +265,7 @@ const TablaDinamica = () => {
                 </button>
                 <button
                   onClick={handleSubmit}
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+                  className="bg-nova-blue-500 text-white px-4 py-2 rounded hover:bg-[#3586F8]"
                 >
                   Submit
                 </button>

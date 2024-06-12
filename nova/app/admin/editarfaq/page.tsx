@@ -185,7 +185,6 @@ const TablaDinamica = () => {
           <table className="w-full text-center border-collapse">
             <thead>
               <tr>
-                <th className="border-b py-4">{columnNames[language].id}</th>
                 <th className="border-b py-4">{columnNames[language].question}</th>
                 <th className="border-b py-4">{columnNames[language].answer}</th>
                 <th className="border-b py-4">{columnNames[language].username}</th>
@@ -209,14 +208,13 @@ const TablaDinamica = () => {
               ) : (
                 orgsData.map((FAQ) => (
                   <tr key={FAQ.id}>
-                    <td className="border-b py-4">{FAQ.id}</td>
                     <td className="border-b py-4 overflow-hidden overflow-ellipsis whitespace-nowrap">{FAQ.question}</td>
-                    <td className="border-b py-4 overflow-hidden overflow-ellipsis whitespace-nowrap">{FAQ.answer}</td>
+                    <td className="border-b py-4 pl-5 text-left break-words">{FAQ.answer}</td>
                     <td className="border-b py-4 overflow-hidden overflow-ellipsis whitespace-nowrap">
                       {FAQ.admin ? `${FAQ.admin.firstName} ${FAQ.admin.lastName}` : 'Loading...'}
                     </td>
-                    <td className="border-b py-4 overflow-hidden overflow-ellipsis whitespace-nowrap">{FAQ.status}</td>
                     <td className="border-b py-4 overflow-hidden overflow-ellipsis whitespace-nowrap">{new Date(FAQ.createdAt).toLocaleDateString()}</td>
+                    <td className="border-b py-4 overflow-hidden overflow-ellipsis whitespace-nowrap">{FAQ.status}</td>
                     <td className="border-b py-4 space-x-2">
                       <button onClick={() => handleEdit(FAQ)} className="text-blue-500 hover:text-blue-700">
                         <FaEdit />
@@ -230,7 +228,7 @@ const TablaDinamica = () => {
               )}
             </tbody>
           </table>
-          <button onClick={() => setIsModalOpen(true)} className="fixed bottom-10 right-10 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-700 flex items-center">
+          <button onClick={() => setIsModalOpen(true)} className="fixed bottom-10 right-10 bg-nova-blue-500 text-white p-4 rounded-full shadow-lg hover:bg-[#3586F8] flex items-center">
             <FaPlus className="mr-2" /> {createFaqText}
           </button>
         </div>
@@ -281,7 +279,7 @@ const TablaDinamica = () => {
                 </button>
                 <button
                   onClick={handleSubmit}
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+                  className="bg-nova-blue-500 text-white px-4 py-2 rounded hover:bg-[#3586F8]"
                 >
                   {sendFAQButtonText}
                 </button>

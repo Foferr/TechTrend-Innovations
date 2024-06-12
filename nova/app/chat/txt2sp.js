@@ -1,4 +1,10 @@
+import { useLanguage } from '../contexts/LanguageContext';
+
+
 export function convertToSpeech(userTextElement) {
+  
+    const { language, setLanguage } = useLanguage();
+    const languageUtter = language === 'es' ? 'es-ES' : 'en-US';
     // const userText = userTextElement.innerText;
     const utterance = new SpeechSynthesisUtterance(userTextElement);
 
@@ -9,7 +15,7 @@ export function convertToSpeech(userTextElement) {
     // Optional: Customize voice and other properties
     utterance.voice = window.speechSynthesis
       .getVoices()
-      .find((voice) => voice.lang === "es-ES"); // Set a specific voice
+      .find((voice) => voice.lang === languageUtter); // Set a specific voice
     // utterance.rate = 1.0; // Adjust speech rate (default is 1.0)
   
     // Speak the text

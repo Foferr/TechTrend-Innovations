@@ -27,6 +27,9 @@ public class UserPostDTO {
     @Schema(example = "987654321")
     private String phone;
 
+    @Schema(example = "México")
+    private String country;
+
     @Schema(example = "admin")
     private String userType;
 
@@ -84,6 +87,14 @@ public class UserPostDTO {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getUserType() {
